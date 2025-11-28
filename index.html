@@ -104,9 +104,9 @@
       padding: 14px 16px 28px;
       background: radial-gradient(
         circle at top,
-        #f9fbff 0,
+        #fafcff 0,
         #eef3ff 45%,
-        #e2ebff 100%
+        #dde7ff 100%
       );
       border-radius: 32px;
       box-shadow: 0 22px 48px rgba(15, 23, 42, 0.3);
@@ -273,7 +273,7 @@
 
     .group-title {
       margin: 0;
-      font-size: 1.05rem;
+      font-size: 1.12rem;
       font-weight: 800;
       letter-spacing: 0.02em;
       color: var(--text-main);
@@ -281,11 +281,23 @@
 
     .group-count {
       margin: 0;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.13em;
       color: var(--text-soft);
+    }
+
+    .group-toggle-icon {
+      margin-top: 2px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      transition: transform var(--t-fast), color var(--t-fast);
+    }
+
+    .topic-group.expanded .group-toggle-icon {
+      transform: rotate(180deg);
+      color: var(--accent-strong);
     }
 
     .topic-list {
@@ -304,7 +316,7 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-soft);
       background: var(--card-soft);
-      padding: 10px 11px;
+      padding: 11px 12px;
       display: flex;
       flex-direction: column;
       text-align: left;
@@ -347,15 +359,15 @@
 
     .topic-title {
       margin: 0;
-      font-size: 0.86rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--text-main);
       line-height: 1.25;
     }
 
     .topic-page {
-      margin: 2px 0 0;
-      font-size: 0.74rem;
+      margin: 3px 0 0;
+      font-size: 0.76rem;
       font-weight: 500;
       color: var(--text-soft);
     }
@@ -854,6 +866,7 @@
           <p class="group-count">${group.topics.length} ${
           group.topics.length === 1 ? "tema" : "temas"
         }</p>
+          <span class="group-toggle-icon" aria-hidden="true">⌄</span>
         `;
 
         // Clicar no cabeçalho abre/fecha os temas do bloco
