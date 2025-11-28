@@ -16,10 +16,8 @@
       --hugol-blue: #0079c8;
       --hugol-blue-dark: #004785;
       --hugol-blue-light: #e6f4ff;
-      --hugol-accent: #ff4b6a;
       --bg-gradient-start: #0b8ae5;
       --bg-gradient-end: #12c2f4;
-
       --text-main: #112143;
       --text-muted: #66719a;
       --border-radius-lg: 18px;
@@ -36,57 +34,29 @@
 
     body {
       font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #f1f7ff 0, #f8fbff 40%, #ffffff 100%);
+      background: #f4f7fb;
       color: var(--text-main);
       min-height: 100vh;
     }
 
-    .app-shell {
-      display: grid;
-      grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+    .app {
       min-height: 100vh;
-    }
-
-    /* SIDEBAR */
-
-    .sidebar {
-      padding: 24px 20px;
-      background: linear-gradient(160deg, var(--bg-gradient-start), var(--bg-gradient-end));
-      color: #ffffff;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      position: relative;
-      overflow: hidden;
     }
 
-    .sidebar::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.16) 0, transparent 50%),
-        radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.12) 0, transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
+    .hero {
+      background: linear-gradient(140deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: #fff;
+      padding: 24px 18px 80px;
     }
 
-    .sidebar-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      height: 100%;
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
     }
 
-    .app-header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .app-tag {
+    .hero-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -97,604 +67,568 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       font-weight: 600;
+      margin-bottom: 8px;
     }
 
-    .app-tag-dot {
+    .hero-tag-dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
       background: #ffffff;
     }
 
-    .app-title {
-      font-size: 22px;
-      line-height: 1.2;
+    .hero-title {
+      font-size: 24px;
+      line-height: 1.3;
       font-weight: 700;
-    }
-
-    .app-subtitle {
-      font-size: 12px;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.85);
-      max-width: 260px;
-    }
-
-    .sidebar-search {
-      margin-top: 8px;
-    }
-
-    .sidebar-search-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-weight: 600;
-      opacity: 0.9;
       margin-bottom: 6px;
-      display: block;
     }
 
-    .sidebar-search input {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: none;
+    .hero-subtitle {
       font-size: 13px;
-      outline: none;
-      background: rgba(255, 255, 255, 0.92);
-      color: var(--text-main);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .sidebar-search input::placeholder {
-      color: rgba(17, 33, 67, 0.5);
-    }
-
-    .topic-nav-wrapper {
-      flex: 1;
-      min-height: 0;
-      margin-top: 4px;
-    }
-
-    .topic-nav {
-      list-style: none;
-      max-height: 100%;
-      overflow-y: auto;
-      padding-right: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .topic-group-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin: 10px 0 4px;
-      opacity: 0.85;
-    }
-
-    .topic-group-label:first-child {
-      margin-top: 0;
-    }
-
-    .topic-item button {
-      width: 100%;
-      text-align: left;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      padding: 8px 11px;
-      border-radius: 10px;
-      font-size: 13px;
-      line-height: 1.4;
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      transition: background 0.16s ease, transform 0.08s ease, box-shadow 0.12s ease;
-    }
-
-    .topic-item button span.topic-badge {
-      min-width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.18);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .topic-item button span.topic-label {
-      flex: 1;
-      white-space: normal;
-      word-break: break-word;
-    }
-
-    .topic-item button:hover {
-      background: rgba(255, 255, 255, 0.18);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .topic-item button.is-active {
-      background: #ffffff;
-      color: var(--hugol-blue-dark);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .topic-item button.is-active span.topic-badge {
-      background: var(--hugol-blue);
-      color: #ffffff;
-    }
-
-    .sidebar-footer {
-      margin-top: 10px;
-      font-size: 11px;
-      line-height: 1.5;
+      line-height: 1.7;
+      max-width: 520px;
       color: rgba(255, 255, 255, 0.9);
     }
 
-    .sidebar-footer a {
-      color: #ffffff;
-      font-weight: 600;
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 2px;
+    .page {
+      flex: 1;
+      margin-top: -56px;
+      padding: 0 12px 24px;
     }
 
-    /* MAIN CONTENT */
-
-    .main-content {
-      padding: 22px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .page-inner {
+      max-width: 1040px;
+      margin: 0 auto;
     }
 
-    .instructions-card {
+    .card {
       background: #ffffff;
       border-radius: var(--border-radius-lg);
-      padding: 16px 18px;
       box-shadow: var(--shadow-soft);
+      padding: 16px 18px 20px;
+      margin-bottom: 16px;
+    }
+
+    .card-header {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       justify-content: space-between;
-      gap: 10px 16px;
+      gap: 8px 16px;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
-    .instructions-main {
-      max-width: 560px;
-    }
-
-    .instructions-title {
+    .card-title {
       font-size: 17px;
       font-weight: 700;
-      margin-bottom: 4px;
       color: var(--hugol-blue-dark);
     }
 
-    .instructions-text {
+    .card-text {
       font-size: 13px;
       color: var(--text-muted);
       line-height: 1.6;
     }
 
-    .instructions-highlight {
-      font-size: 12px;
-      margin-top: 6px;
-      color: var(--hugol-blue-dark);
-      font-weight: 600;
-    }
-
-    .instructions-badge {
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 6px 10px;
       border-radius: 999px;
-      background: var(--hugol-blue-light);
-      color: var(--hugol-blue-dark);
       font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
+      background: var(--hugol-blue-light);
+      color: var(--hugol-blue-dark);
+      white-space: nowrap;
     }
 
-    .viewer-wrapper {
-      flex: 1;
-      min-height: 0;
-      background: #ffffff;
-      border-radius: var(--border-radius-lg);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
+    .search-wrapper {
+      margin: 10px 0 8px;
+    }
+
+    .search-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 380px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #dde4f4;
+      font-size: 13px;
+      outline: none;
+      background: #f9fbff;
+    }
+
+    .search-input::placeholder {
+      color: #9ba4c7;
+    }
+
+    .topics {
       display: flex;
       flex-direction: column;
+      gap: 14px;
+      margin-top: 4px;
     }
 
-    .viewer-header {
-      padding: 10px 14px;
-      border-bottom: 1px solid #edf2ff;
+    .topic-group {
+      background: #f9fbff;
+      border-radius: var(--border-radius-md);
+      padding: 10px 12px 6px;
+      border: 1px solid #e1e7fa;
+    }
+
+    .topic-group-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      background: linear-gradient(90deg, var(--hugol-blue-light), #f7fbff);
+      gap: 8px;
+      margin-bottom: 4px;
     }
 
-    .viewer-title {
-      font-size: 13px;
-      font-weight: 600;
+    .topic-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
       color: var(--hugol-blue-dark);
     }
 
-    .viewer-subtitle {
+    .topic-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .topic-item {
+      font-size: 13px;
+    }
+
+    .topic-link {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+      padding: 8px 9px;
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--text-main);
+      text-decoration: none;
+      box-shadow: var(--shadow-subtle);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .topic-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(10, 37, 64, 0.18);
+      background: #ffffff;
+    }
+
+    .topic-badge {
+      min-width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--hugol-blue-light);
+      color: var(--hugol-blue-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .topic-label {
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .topic-page {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .card-footer {
+      margin-top: 10px;
       font-size: 11px;
       color: var(--text-muted);
     }
 
-    .viewer-actions a {
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #ffffff;
+    .card-footer a {
       color: var(--hugol-blue-dark);
-      border: 1px solid #dde6ff;
       font-weight: 600;
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    .viewer-actions a:hover {
-      background: var(--hugol-blue-light);
+    .card-footer a:hover {
+      text-decoration: underline;
     }
 
-    .pdf-frame {
-      flex: 1;
-      min-height: 0;
-      border: none;
-      width: 100%;
-    }
-
-    /* RESPONSIVO */
-
-    @media (max-width: 900px) {
-      .app-shell {
-        grid-template-columns: 1fr;
+    @media (max-width: 720px) {
+      .hero {
+        padding: 20px 14px 76px;
       }
 
-      .sidebar {
-        padding: 16px 16px 14px;
+      .hero-title {
+        font-size: 20px;
       }
 
-      .main-content {
+      .page {
+        margin-top: -52px;
+        padding: 0 10px 20px;
+      }
+
+      .card {
         padding: 14px 14px 18px;
       }
 
-      .viewer-wrapper {
-        min-height: 60vh;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .instructions-card {
-        padding: 12px 12px 14px;
-      }
-
-      .instructions-title {
-        font-size: 15px;
-      }
-
-      .viewer-header {
-        flex-direction: column;
-        align-items: flex-start;
+      .topic-list {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="app-shell">
-    <!-- LATERAL ESQUERDA: MENU DE TÓPICOS -->
-    <aside class="sidebar">
-      <div class="sidebar-inner">
-        <header class="app-header">
-          <div class="app-tag">
-            <span class="app-tag-dot"></span>
-            <span>Programa Cuidar+</span>
-          </div>
-          <h1 class="app-title">Os próximos passos<br />para os cuidados em casa</h1>
-          <p class="app-subtitle">
-            Cartilha interativa baseada no material oficial do Programa Cuidar+ do HUGOL.
-          </p>
-        </header>
-
-        <div class="sidebar-search">
-          <label class="sidebar-search-label" for="topicSearch">Buscar assunto</label>
-          <input id="topicSearch" type="search" placeholder="Ex.: sonda, dieta, oxigênio, feridas..." />
+  <div class="app">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag">
+          <span class="hero-tag-dot"></span>
+          <span>Programa Cuidar+</span>
         </div>
-
-        <div class="topic-nav-wrapper">
-          <ul class="topic-nav" id="topicList" aria-label="Seções da cartilha">
-            <!-- Grupo: visão geral -->
-            <li class="topic-group-label">Visão geral</li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn is-active" data-page="2">
-                <span class="topic-badge">1</span>
-                <span class="topic-label">Introdução — Programa Cuidar+</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="3">
-                <span class="topic-badge">2</span>
-                <span class="topic-label">Higienização das mãos</span>
-              </button>
-            </li>
-
-            <!-- Grupo: Nutrição domiciliar -->
-            <li class="topic-group-label">Nutrição domiciliar</li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="4">
-                <span class="topic-badge">3</span>
-                <span class="topic-label">Nutrição domiciliar — tipos de sonda e orientações gerais</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="7">
-                <span class="topic-badge">4</span>
-                <span class="topic-label">Tipos de dieta (industrializada, artesanal e mista)</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="8">
-                <span class="topic-badge">5</span>
-                <span class="topic-label">Preparo da dieta: higiene do cuidador, local e utensílios</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="10">
-                <span class="topic-badge">6</span>
-                <span class="topic-label">Preparando, guardando e administrando a dieta e a água</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="13">
-                <span class="topic-badge">7</span>
-                <span class="topic-label">Limpeza da sonda, frascos e equipos</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="14">
-                <span class="topic-badge">8</span>
-                <span class="topic-label">Problemas comuns na nutrição e sinais de alerta</span>
-              </button>
-            </li>
-
-            <!-- Grupo: Dispositivos -->
-            <li class="topic-group-label">Cuidados com dispositivos</li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="16">
-                <span class="topic-badge">9</span>
-                <span class="topic-label">Sonda vesical — cuidados no dia a dia</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="17">
-                <span class="topic-badge">10</span>
-                <span class="topic-label">Colostomia — estoma, bolsa coletora e pele ao redor</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="20">
-                <span class="topic-badge">11</span>
-                <span class="topic-label">Traqueostomia — cuidados com estoma e cânula</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="23">
-                <span class="topic-badge">12</span>
-                <span class="topic-label">Aspiração traqueal — quando e como fazer</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="26">
-                <span class="topic-badge">13</span>
-                <span class="topic-label">Oxigenoterapia domiciliar e uso do oxímetro de pulso</span>
-              </button>
-            </li>
-
-            <!-- Grupo: Prevenção de feridas -->
-            <li class="topic-group-label">Prevenção de feridas</li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="29">
-                <span class="topic-badge">14</span>
-                <span class="topic-label">Lesão por pressão — o que é e como prevenir</span>
-              </button>
-            </li>
-
-            <!-- Grupo: Saúde mental -->
-            <li class="topic-group-label">Saúde mental e cuidador</li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="35">
-                <span class="topic-badge">15</span>
-                <span class="topic-label">Saúde mental do paciente e da família após a alta</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="34">
-                <span class="topic-badge">16</span>
-                <span class="topic-label">Cuidando de quem cuida — cuidados com o cuidador</span>
-              </button>
-            </li>
-
-            <!-- Grupo: Serviço social e rede de apoio -->
-            <li class="topic-group-label">Serviço social e rede de apoio</li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="36">
-                <span class="topic-badge">17</span>
-                <span class="topic-label">Solicitação de insumos — Goiânia (Paço Municipal)</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="38">
-                <span class="topic-badge">18</span>
-                <span class="topic-label">Solicitação de insumos — OVG</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="40">
-                <span class="topic-badge">19</span>
-                <span class="topic-label">Solicitação de insumos — demais municípios</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="41">
-                <span class="topic-badge">20</span>
-                <span class="topic-label">Ventilação mecânica (TRILOGY/BIPAP) e Home Care</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="43">
-                <span class="topic-badge">21</span>
-                <span class="topic-label">Serviço de apoio ao ostomizado (SAO)</span>
-              </button>
-            </li>
-
-            <li class="topic-item">
-              <button type="button" class="topic-btn" data-page="46">
-                <span class="topic-badge">22</span>
-                <span class="topic-label">Serviço de Atenção Domiciliar (SAD)</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <footer class="sidebar-footer">
-          <p>
-            Dica: você pode gerar um QR Code apontando para este endereço e incluí-lo na alta, na cartela de medicamentos ou nos materiais do Programa Cuidar+.
-          </p>
-        </footer>
+        <h1 class="hero-title">Os próximos passos para os cuidados em casa</h1>
+        <p class="hero-subtitle">
+          Esta página organiza a cartilha oficial do Programa Cuidar+ por temas. Ao clicar em um assunto, a cartilha será aberta diretamente na página correspondente.
+        </p>
       </div>
-    </aside>
+    </header>
 
-    <!-- ÁREA PRINCIPAL: VISOR DO PDF -->
-    <main class="main-content">
-      <section class="instructions-card" aria-label="Instruções de uso do aplicativo">
-        <div class="instructions-main">
-          <h2 class="instructions-title">Como usar esta cartilha digital</h2>
-          <p class="instructions-text">
-            Escolha um assunto no menu à esquerda (por exemplo: sonda, dieta, feridas, oxigênio).
-            O visor abaixo abre a cartilha exatamente na página correspondente àquele tema.
-          </p>
-          <p class="instructions-highlight">
-            Todo o conteúdo, layout e ilustrações são os mesmos da cartilha oficial impressa. Aqui, só ficou mais fácil de acessar por tema.
-          </p>
-        </div>
-        <div class="instructions-side">
-          <span class="instructions-badge">Acesso rápido por tópicos</span>
-        </div>
-      </section>
-
-      <section class="viewer-wrapper" aria-label="Visualização da cartilha em PDF">
-        <div class="viewer-header">
-          <div>
-            <div class="viewer-title">Cartilha Programa Cuidar+</div>
-            <div class="viewer-subtitle">Visualização do PDF com navegação por temas</div>
+    <main class="page">
+      <div class="page-inner">
+        <section class="card">
+          <div class="card-header">
+            <h2 class="card-title">Como usar esta cartilha digital</h2>
+            <span class="badge">Acesso rápido por tópicos</span>
           </div>
-          <div class="viewer-actions">
-            <a href="DocumentoCartilhaCuidarmais-combinado.pdf" target="_blank" rel="noopener">
-              Abrir cartilha completa em outra aba
-            </a>
-          </div>
-        </div>
+          <p class="card-text">
+            Use a busca para localizar um assunto específico (por exemplo: sonda, dieta, oxigênio, feridas). Em seguida, clique no tema desejado. A cartilha oficial em PDF será aberta na página exata daquele conteúdo, mantendo todo o layout, as imagens e as cores do material original.
+          </p>
+          <p class="card-text" style="margin-top:6px;">
+            Em celulares, a visualização será em tela cheia no próprio leitor de PDF do aparelho. Em computadores, a cartilha abrirá em uma nova aba do navegador.
+          </p>
 
-        <!-- IMPORTANTE: o nome do arquivo abaixo precisa ser exatamente igual ao PDF salvo na pasta -->
-        <iframe
-          id="pdfViewer"
-          class="pdf-frame"
-          title="Cartilha Programa Cuidar+ em PDF"
-          src=""
-          loading="lazy">
-        </iframe>
-      </section>
+          <div class="search-wrapper">
+            <label class="search-label" for="topicSearch">Buscar assunto</label>
+            <input
+              id="topicSearch"
+              class="search-input"
+              type="search"
+              placeholder="Ex.: sonda, dieta, oxigênio, feridas, traqueostomia..." />
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h2 class="card-title">Temas da cartilha</h2>
+            <span class="badge">Clique para abrir a página</span>
+          </div>
+
+          <div class="topics" id="topicsRoot">
+            <!-- VISÃO GERAL -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">Visão geral</h3>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="Introdução Programa Cuidar+">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=2&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">1</span>
+                    <span class="topic-label">
+                      Introdução — Programa Cuidar+
+                      <span class="topic-page">Página 2</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Higienização das mãos">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=3&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">2</span>
+                    <span class="topic-label">
+                      Higienização das mãos
+                      <span class="topic-page">Página 3</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- NUTRIÇÃO DOMICILIAR -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">Nutrição domiciliar</h3>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="Nutrição domiciliar tipos de sonda orientações gerais">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=4&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">3</span>
+                    <span class="topic-label">
+                      Nutrição domiciliar — tipos de sonda e orientações gerais
+                      <span class="topic-page">Páginas 4–6</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Tipos de dieta industrializada artesanal mista">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=7&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">4</span>
+                    <span class="topic-label">
+                      Tipos de dieta (industrializada, artesanal e mista)
+                      <span class="topic-page">Página 7</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Preparo da dieta higiene do cuidador local utensílios">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=8&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">5</span>
+                    <span class="topic-label">
+                      Preparo da dieta: higiene do cuidador, local e utensílios
+                      <span class="topic-page">Páginas 8–9</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Preparando guardando administrando a dieta e a água">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=10&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">6</span>
+                    <span class="topic-label">
+                      Preparando, guardando e administrando a dieta e a água
+                      <span class="topic-page">Páginas 10–12</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Limpeza da sonda frascos equipos">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=13&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">7</span>
+                    <span class="topic-label">
+                      Limpeza da sonda, frascos e equipos
+                      <span class="topic-page">Página 13</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Problemas comuns na nutrição sinais de alerta">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=14&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">8</span>
+                    <span class="topic-label">
+                      Problemas comuns na nutrição e sinais de alerta
+                      <span class="topic-page">Páginas 14–15</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- CUIDADOS COM DISPOSITIVOS -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">Cuidados com dispositivos</h3>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="Sonda vesical cuidados no dia a dia">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=16&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">9</span>
+                    <span class="topic-label">
+                      Sonda vesical — cuidados no dia a dia
+                      <span class="topic-page">Página 16</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Colostomia estoma bolsa coletora pele ao redor">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=17&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">10</span>
+                    <span class="topic-label">
+                      Colostomia — estoma, bolsa coletora e pele ao redor
+                      <span class="topic-page">Páginas 17–19</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Traqueostomia cuidados com estoma e cânula">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=20&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">11</span>
+                    <span class="topic-label">
+                      Traqueostomia — cuidados com estoma e cânula
+                      <span class="topic-page">Páginas 20–22</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Aspiração traqueal quando e como fazer">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=23&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">12</span>
+                    <span class="topic-label">
+                      Aspiração traqueal — quando e como fazer
+                      <span class="topic-page">Páginas 23–25</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Oxigenoterapia domiciliar uso do oxímetro de pulso">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=26&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">13</span>
+                    <span class="topic-label">
+                      Oxigenoterapia domiciliar e uso do oxímetro de pulso
+                      <span class="topic-page">Páginas 26–28</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- PREVENÇÃO DE FERIDAS -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">Prevenção de feridas</h3>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="Lesão por pressão o que é como prevenir">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=29&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">14</span>
+                    <span class="topic-label">
+                      Lesão por pressão — o que é e como prevenir
+                      <span class="topic-page">Páginas 29–33</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- SAÚDE MENTAL -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">Saúde mental e cuidador</h3>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="Cuidando de quem cuida cuidador família">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=34&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">15</span>
+                    <span class="topic-label">
+                      Cuidando de quem cuida — cuidados com o cuidador
+                      <span class="topic-page">Página 34</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Saúde mental paciente família após alta">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=35&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">16</span>
+                    <span class="topic-label">
+                      Saúde mental do paciente e da família após a alta
+                      <span class="topic-page">Página 35</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- SERVIÇO SOCIAL E REDE DE APOIO -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">Serviço social e rede de apoio</h3>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="Solicitação de insumos Goiânia Paço Municipal">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=36&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">17</span>
+                    <span class="topic-label">
+                      Solicitação de insumos — Goiânia (Paço Municipal)
+                      <span class="topic-page">Páginas 36–37</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Solicitação de insumos OVG">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=38&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">18</span>
+                    <span class="topic-label">
+                      Solicitação de insumos — OVG
+                      <span class="topic-page">Páginas 38–39</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Solicitação de insumos demais municípios">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=40&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">19</span>
+                    <span class="topic-label">
+                      Solicitação de insumos — demais municípios
+                      <span class="topic-page">Página 40</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Ventilação mecânica TRILOGY BIPAP Home Care">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=41&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">20</span>
+                    <span class="topic-label">
+                      Ventilação mecânica (TRILOGY/BIPAP) e Home Care
+                      <span class="topic-page">Páginas 41–42</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Serviço de apoio ao ostomizado SAO">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=43&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">21</span>
+                    <span class="topic-label">
+                      Serviço de apoio ao ostomizado (SAO)
+                      <span class="topic-page">Páginas 43–45</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="Serviço de Atenção Domiciliar SAD">
+                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=46&view=FitH" target="_blank" rel="noopener">
+                    <span class="topic-badge">22</span>
+                    <span class="topic-label">
+                      Serviço de Atenção Domiciliar (SAD)
+                      <span class="topic-page">Páginas 46–49</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <p>
+              Para consultar o material completo sem filtros de tema, você também pode
+              <a href="DocumentoCartilhaCuidarmais-combinado.pdf" target="_blank" rel="noopener">
+                abrir a cartilha integral em PDF
+              </a>.
+            </p>
+          </div>
+        </section>
+      </div>
     </main>
   </div>
 
-    <script>
-    // ATENÇÃO: o nome abaixo deve ser exatamente igual ao arquivo do repositório
-    const PDF_FILE = "DocumentoCartilhaCuidarmais-combinado.pdf";
+  <script>
+    // Busca por assunto (filtra os cards)
+    const searchInput = document.getElementById("topicSearch");
+    const topicItems = document.querySelectorAll("[data-topic-item]");
 
-    const topicButtons = document.querySelectorAll(".topic-btn");
-    const pdfViewer = document.getElementById("pdfViewer");
-    const topicSearch = document.getElementById("topicSearch");
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        const query = searchInput.value.trim().toLowerCase();
 
-    function updatePdf(pageNumber) {
-      // monta a URL com a página desejada
-      const url = PDF_FILE + "#page=" + pageNumber + "&view=FitH";
-      pdfViewer.src = url;
-    }
-
-    // clique nos tópicos
-    topicButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const page = btn.dataset.page;
-
-        // atualiza destaque visual
-        topicButtons.forEach((b) => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
-
-        // atualiza o PDF
-        updatePdf(page);
-      });
-    });
-
-    // filtro de tópicos pelo campo de busca
-    if (topicSearch) {
-      topicSearch.addEventListener("input", () => {
-        const query = topicSearch.value.trim().toLowerCase();
-
-        topicButtons.forEach((btn) => {
-          const label = btn.textContent.toLowerCase();
-          const item = btn.closest(".topic-item");
-          if (!item) return;
-
+        topicItems.forEach((item) => {
+          const label = (item.getAttribute("data-label") || "").toLowerCase();
           item.style.display = label.includes(query) ? "" : "none";
         });
       });
     }
-
-    // ao carregar a página, abre automaticamente o primeiro tópico ativo
-    document.addEventListener("DOMContentLoaded", () => {
-      const active = document.querySelector(".topic-btn.is-active") || topicButtons[0];
-      if (active) {
-        const page = active.dataset.page;
-        updatePdf(page);
-      }
-    });
   </script>
 </body>
 </html>
