@@ -55,7 +55,7 @@
       flex-direction: column;
     }
 
-    /* TESTEIRA (logo do programa) – sem card pesado */
+    /* TESTEIRA (logo do programa) */
 
     header.hero {
       max-width: 1200px;
@@ -66,7 +66,7 @@
 
     .hero-logo {
       width: 100%;
-      max-width: 450px;
+      max-width: 520px; /* você pediu 520 */
       height: auto;
       display: inline-block;
       filter: drop-shadow(0 4px 16px rgba(15, 23, 42, 0.35));
@@ -77,7 +77,7 @@
         margin-top: 12px;
       }
       .hero-logo {
-        max-width: 450px;
+        max-width: 280px; /* versão mobile maiorzinha */
       }
     }
 
@@ -107,7 +107,7 @@
       }
     }
 
-    /* BUSCA – pill fixa, com ícone e texto (sem colapsar) */
+    /* BUSCA – pill fixa com ícone */
 
     .search-wrapper {
       max-width: 680px;
@@ -322,7 +322,7 @@
       color: var(--text-soft);
     }
 
-    /* DOWNLOAD DA CARTILHA – texto escuro, mais legível */
+    /* DOWNLOAD DA CARTILHA – texto escuro */
 
     .download-section {
       margin-top: 26px;
@@ -399,7 +399,7 @@
       }
     }
 
-    /* RODAPÉ – assinatura leve, sem card separado */
+    /* RODAPÉ – assinatura leve */
 
     footer {
       width: 100%;
@@ -417,7 +417,7 @@
     }
 
     .footer-logo {
-      max-width: 240px;
+      max-width: 240px; /* você pediu 240 */
       width: 100%;
       height: auto;
       display: block;
@@ -435,11 +435,11 @@
 
     @media (max-width: 480px) {
       .footer-logo {
-        max-width: 240px;
+        max-width: 200px;
       }
     }
 
-    /* MODAL DE IMAGEM */
+    /* MODAL DE IMAGEM + VÍDEO */
 
     .page-modal {
       position: fixed;
@@ -523,6 +523,64 @@
         border-radius: 14px;
       }
     }
+
+    /* BARRA DE VÍDEO NO MODAL */
+
+    .page-modal-video-wrapper {
+      margin-top: 8px;
+      margin-bottom: 12px;
+      display: none; /* só aparece quando tiver vídeo */
+    }
+
+    .page-modal-video-card {
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      border-radius: 20px;
+      padding: 12px 14px 14px;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.7);
+      color: #e5f2ff;
+    }
+
+    .page-modal-video-header h3 {
+      margin: 4px 0 4px;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    .page-modal-video-header p {
+      margin: 0;
+      font-size: 0.78rem;
+      color: #bfdbfe;
+    }
+
+    .page-modal-video-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: rgba(59, 130, 246, 0.16);
+      color: #e0f2fe;
+    }
+
+    .page-modal-video-player {
+      margin-top: 8px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #020617;
+    }
+
+    .page-modal-video-player video {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
   </style>
 </head>
 
@@ -601,7 +659,7 @@
     </div>
   </footer>
 
-  <!-- MODAL PARA VISUALIZAR PÁGINAS -->
+  <!-- MODAL PARA VISUALIZAR PÁGINAS E VÍDEO -->
   <div class="page-modal" id="pageModal" aria-hidden="true">
     <div class="page-modal-backdrop" id="pageModalBackdrop"></div>
     <div class="page-modal-content">
@@ -613,12 +671,18 @@
       >
         ×
       </button>
+
+      <!-- barra de vídeo -->
+      <div class="page-modal-video-wrapper" id="pageModalVideoWrapper"></div>
+
+      <!-- imagens das páginas -->
       <div class="page-modal-images" id="pageModalImages"></div>
     </div>
   </div>
 
   <script>
-    // MAPA DE TEMAS E PÁGINAS (ajustado para abrir as imagens corretas)
+    // MAPA DE TEMAS E PÁGINAS
+    // (vídeo SOMENTE no tema "Introdução: Programa Cuidar+" por enquanto)
     const topicGroups = [
       {
         id: "visao-geral",
@@ -629,6 +693,7 @@
             id: "introducao-programa",
             title: "Introdução: Programa Cuidar+",
             pages: [1],
+            videoFile: "videos/introducao.mp4" // <-- arquivo que você vai subir
           },
           {
             id: "higienizacao-maos",
@@ -812,8 +877,8 @@
           <div class="group-icon">${group.icon}</div>
           <h2 class="group-title">${group.title}</h2>
           <p class="group-count">${group.topics.length} ${
-          group.topics.length === 1 ? "tema" : "temas"
-        }</p>
+            group.topics.length === 1 ? "tema" : "temas"
+          }</p>
           <span class="group-toggle-icon" aria-hidden="true">⌄</span>
         `;
 
@@ -846,8 +911,9 @@
             <p class="topic-page">${pageLabel}</p>
           `;
 
+          // passa o objeto "topic" inteiro para o modal
           card.addEventListener("click", () => {
-            openPageModal(topic.pages);
+            openPageModal(topic);
           });
 
           listEl.appendChild(card);
@@ -896,17 +962,42 @@
 
     searchInput.addEventListener("input", filterTopics);
 
-    // MODAL DE PÁGINAS
+    // MODAL DE PÁGINAS + VÍDEO
 
     const pageModal = document.getElementById("pageModal");
     const pageModalImages = document.getElementById("pageModalImages");
     const pageModalClose = document.getElementById("pageModalClose");
     const pageModalBackdrop = document.getElementById("pageModalBackdrop");
+    const pageModalVideoWrapper = document.getElementById("pageModalVideoWrapper");
 
-    function openPageModal(pages) {
+    function openPageModal(topic) {
       pageModalImages.innerHTML = "";
+      pageModalVideoWrapper.innerHTML = "";
 
-      pages.forEach((page) => {
+      // se o tema tiver vídeo, mostra a barra de vídeo
+      if (topic.videoFile) {
+        pageModalVideoWrapper.style.display = "block";
+        pageModalVideoWrapper.innerHTML = `
+          <div class="page-modal-video-card">
+            <div class="page-modal-video-header">
+              <span class="page-modal-video-pill">🎥 Vídeo explicativo</span>
+              <h3>${topic.title}</h3>
+              <p>Assista a um vídeo curto com orientações sobre este assunto.</p>
+            </div>
+            <div class="page-modal-video-player">
+              <video controls preload="metadata">
+                <source src="${topic.videoFile}" type="video/mp4" />
+                Seu navegador não suporta o elemento de vídeo.
+              </video>
+            </div>
+          </div>
+        `;
+      } else {
+        pageModalVideoWrapper.style.display = "none";
+      }
+
+      // carrega as páginas da cartilha
+      topic.pages.forEach((page) => {
         const img = document.createElement("img");
         img.src = pageNumberToFile(page);
         img.alt = `Página ${page} da cartilha Programa Cuidar+`;
@@ -924,6 +1015,8 @@
       document.body.style.overflow = "";
       pageModal.setAttribute("aria-hidden", "true");
       pageModalImages.innerHTML = "";
+      pageModalVideoWrapper.innerHTML = "";
+      pageModalVideoWrapper.style.display = "none";
     }
 
     pageModalClose.addEventListener("click", closePageModal);
@@ -937,5 +1030,3 @@
   </script>
 </body>
 </html>
-
-
