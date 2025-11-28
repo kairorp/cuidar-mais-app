@@ -187,15 +187,18 @@
     }
 
     .topic-group-header {
+      position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 14px 14px;
+      justify-content: center;
+      gap: 4px;
+      padding: 18px 32px 16px;
       cursor: pointer;
       user-select: none;
       transition: background 0.12s ease;
-      min-height: 88px;
+      min-height: 96px;
+      text-align: center;
     }
 
     .topic-group-header:hover {
@@ -208,12 +211,13 @@
     }
 
     .topic-group-title {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 800; /* ExtraBold */
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       color: var(--hugol-blue-dark);
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
     }
 
@@ -229,9 +233,11 @@
 
     .topic-group-header::after {
       content: "▾";
+      position: absolute;
+      top: 12px;
+      right: 14px;
       font-size: 14px;
       color: var(--text-muted);
-      margin-left: 6px;
       transition: transform 0.2s ease;
     }
 
