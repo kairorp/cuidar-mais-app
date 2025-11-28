@@ -156,39 +156,49 @@
       margin-top: 4px;
     }
 
+    /* BUSCA COM LUPA (PRIMEIRO BLOCO) */
+
     .search-wrapper {
-      margin-top: 4px;
+      margin-top: 2px;
+      display: flex;
+      justify-content: center;
     }
 
-    .search-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-      display: block;
+    .search-shell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 480px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #f9fbff;
+      border: 1px solid #dde4f4;
+      box-shadow: 0 3px 8px rgba(15, 35, 80, 0.12);
+    }
+
+    .search-shell:focus-within {
+      border-color: var(--hugol-blue);
+      box-shadow: 0 0 0 2px rgba(0, 121, 200, 0.2);
+    }
+
+    .search-icon {
+      font-size: 18px;
+      color: var(--hugol-blue-dark);
+      flex-shrink: 0;
     }
 
     .search-input {
-      width: 100%;
-      max-width: 420px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      border: 1px solid #dde4f4;
-      font-size: 14px;
+      flex: 1;
+      border: none;
       outline: none;
-      background: #f9fbff;
-      box-shadow: 0 3px 8px rgba(15, 35, 80, 0.12);
+      background: transparent;
+      font-size: 14px;
+      color: var(--text-main);
     }
 
     .search-input::placeholder {
       color: #9ba4c7;
-    }
-
-    .search-input:focus {
-      border-color: var(--hugol-blue);
-      box-shadow: 0 0 0 2px rgba(0, 121, 200, 0.2);
     }
 
     /* LISTA DE TEMAS */
@@ -444,23 +454,17 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="page">
       <div class="page-inner">
-        <!-- BLOCO 1: AGORA SÓ COM BUSCA -->
+        <!-- BLOCO 1: APENAS BUSCA COM LUPA -->
         <section class="card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span class="card-title-emoji">💡</span>
-              Como usar esta versão digital
-            </h2>
-            <span class="badge">Acesso rápido por temas</span>
-          </div>
-
           <div class="search-wrapper">
-            <label class="search-label" for="topicSearch">Buscar assunto</label>
-            <input
-              id="topicSearch"
-              class="search-input"
-              type="search"
-              placeholder="Ex.: sonda, dieta, oxigênio, feridas, traqueostomia..." />
+            <div class="search-shell">
+              <span class="search-icon">🔍</span>
+              <input
+                id="topicSearch"
+                class="search-input"
+                type="search"
+                placeholder="Busque um tema da cartilha (ex.: sonda, dieta, oxigênio, feridas, traqueostomia...)" />
+            </div>
           </div>
         </section>
 
