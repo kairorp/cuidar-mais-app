@@ -1,1 +1,1251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Programa Cuidar+ — Cartilha em HTML</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Versão em HTML da cartilha do Programa Cuidar+ do HUGOL, com leitura otimizada para celular e navegação por temas." />
+
+  <!-- Fonte próxima ao padrão visual da cartilha -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --hugol-blue: #0079c8;
+      --hugol-blue-dark: #004785;
+      --hugol-blue-light: #e6f4ff;
+      --bg-gradient-start: #0b8ae5;
+      --bg-gradient-end: #12c2f4;
+      --text-main: #112143;
+      --text-muted: #565f8a;
+      --surface: #ffffff;
+      --border-radius-lg: 18px;
+      --border-radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(6, 35, 82, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f4f7fb;
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOPO COM LOGO */
+
+    .hero {
+      background: radial-gradient(circle at top left, #31b3ff 0, var(--bg-gradient-start) 30%, var(--bg-gradient-end) 100%);
+      padding: 32px 16px 90px;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-logo-wrap {
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .hero-logo-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* CONTEÚDO */
+
+    .page {
+      flex: 1;
+      margin-top: -60px;
+      padding: 0 12px 32px;
+    }
+
+    .page-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 20px 20px;
+    }
+
+    /* BUSCA */
+
+    .search-wrapper {
+      margin-top: 2px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-shell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 480px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #f9fbff;
+      border: 1px solid #dde4f4;
+      box-shadow: 0 3px 8px rgba(15, 35, 80, 0.12);
+    }
+
+    .search-shell:focus-within {
+      border-color: var(--hugol-blue);
+      box-shadow: 0 0 0 2px rgba(0, 121, 200, 0.2);
+    }
+
+    .search-icon {
+      font-size: 18px;
+      color: var(--hugol-blue-dark);
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .search-input::placeholder {
+      color: #9ba4c7;
+    }
+
+    /* TÍTULO LISTA TEMAS */
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px 16px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--hugol-blue-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title-emoji {
+      font-size: 20px;
+    }
+
+    .topics {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .topic-group {
+      background: #f8fbff;
+      border-radius: var(--border-radius-md);
+      padding: 10px 12px 8px;
+      border: 1px solid #e1e7fa;
+    }
+
+    .topic-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .topic-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--hugol-blue-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .topic-group-title-emoji {
+      font-size: 16px;
+    }
+
+    .topic-group-counter {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .topic-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .topic-item {
+      font-size: 14px;
+    }
+
+    .topic-link {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #ffffff, #f3f7ff);
+      color: var(--text-main);
+      box-shadow: 0 6px 16px rgba(10, 37, 64, 0.12);
+      border: 1px solid #dde6fb;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+      cursor: pointer;
+    }
+
+    .topic-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(10, 37, 64, 0.18);
+      background: linear-gradient(145deg, #ffffff, #eef4ff);
+    }
+
+    .topic-link:focus-visible {
+      outline: 2px solid var(--hugol-blue);
+      outline-offset: 3px;
+    }
+
+    .topic-badge {
+      min-width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--hugol-blue-light);
+      color: var(--hugol-blue-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .topic-label {
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .topic-title {
+      display: block;
+    }
+
+    .topic-page {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      display: block;
+    }
+
+    .card-footer {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .card-footer a {
+      color: var(--hugol-blue-dark);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .card-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* CONTEÚDO EM HTML PURO */
+
+    .content-card {
+      margin-top: 4px;
+    }
+
+    .content-header {
+      margin-bottom: 10px;
+    }
+
+    .content-title-main {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--hugol-blue-dark);
+      margin-bottom: 4px;
+    }
+
+    .content-subtext {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .content-sections {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .content-block {
+      padding: 14px 0 8px;
+      border-top: 1px solid #dde4f4;
+    }
+
+    .content-block:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .content-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #e9f3ff;
+      color: var(--hugol-blue-dark);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+
+    .content-tag span {
+      font-size: 14px;
+    }
+
+    .content-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--hugol-blue-dark);
+      margin-bottom: 8px;
+    }
+
+    .content-paragraph {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .content-paragraph strong {
+      font-weight: 700;
+    }
+
+    .content-list {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.7;
+      margin: 4px 0 8px 18px;
+    }
+
+    .content-list li + li {
+      margin-top: 2px;
+    }
+
+    .content-steps {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.7;
+      margin: 6px 0 10px 18px;
+    }
+
+    .content-steps li + li {
+      margin-top: 3px;
+    }
+
+    .content-note {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .content-back-top {
+      margin-top: 6px;
+      font-size: 12px;
+    }
+
+    .content-back-top a {
+      color: var(--hugol-blue-dark);
+      font-weight: 600;
+    }
+
+    /* CAIXA "EM CONSTRUÇÃO" PARA OS PRÓXIMOS TEMAS */
+
+    .content-placeholder {
+      font-size: 13px;
+      color: var(--text-muted);
+      background: #f8fbff;
+      border-radius: 10px;
+      padding: 10px 12px;
+      border: 1px dashed #c7d4f5;
+      margin-top: 4px;
+    }
+
+    /* DOWNLOAD CARTILHA */
+
+    .download-section {
+      margin-top: 8px;
+    }
+
+    .download-card {
+      background: var(--surface);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 20px 22px;
+      text-align: center;
+    }
+
+    .download-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--hugol-blue-dark);
+      margin-bottom: 6px;
+    }
+
+    .download-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #00a9ff, #0064d0);
+      color: #ffffff;
+      box-shadow: 0 10px 24px rgba(0, 74, 145, 0.5);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0, 74, 145, 0.6);
+      background: linear-gradient(135deg, #11b3ff, #0057b8);
+    }
+
+    .download-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 16px rgba(0, 74, 145, 0.45);
+    }
+
+    /* RODAPÉ HUGOL */
+
+    .hugol-footer {
+      margin-top: 26px;
+      background: linear-gradient(90deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      padding: 20px 12px 26px;
+    }
+
+    .hugol-footer-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hugol-footer img {
+      display: block;
+      height: 52px;
+      width: auto;
+    }
+
+    /* RESPONSIVO */
+
+    @media (max-width: 840px) {
+      .hero {
+        padding: 26px 14px 80px;
+      }
+
+      .hero-logo-wrap {
+        max-width: 420px;
+      }
+
+      .page {
+        margin-top: -52px;
+        padding: 0 10px 30px;
+      }
+
+      .card {
+        padding: 16px 16px 19px;
+      }
+
+      .download-card {
+        padding: 16px 16px 20px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topic-list {
+        grid-template-columns: 1fr;
+      }
+
+      .hugol-footer img {
+        height: 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- TOPO COM LOGO DO PROGRAMA -->
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-logo-wrap">
+          <img src="testeira.png" alt="Programa Cuidar+" />
+        </div>
+      </div>
+    </header>
+
+    <main class="page" role="main">
+      <div class="page-inner">
+        <!-- BUSCA -->
+        <section class="card" aria-label="Buscar tema da cartilha">
+          <div class="search-wrapper">
+            <div class="search-shell">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <input
+                id="topicSearch"
+                class="search-input"
+                type="search"
+                placeholder="Busque um tema da cartilha (ex.: sonda, dieta, oxigênio, feridas, traqueostomia...)"
+                aria-label="Buscar tema da cartilha Cuidar+"
+                autocomplete="off" />
+            </div>
+          </div>
+        </section>
+
+        <!-- LISTA DE TEMAS (AGORA APONTANDO PARA ÂNCORAS) -->
+        <section class="card" aria-label="Lista de temas da cartilha">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="card-title-emoji" aria-hidden="true">📚</span>
+              Temas da cartilha
+            </h2>
+          </div>
+
+          <div class="topics" id="topicsRoot">
+            <!-- VISÃO GERAL -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">📘</span>
+                  Visão geral
+                </h3>
+                <span class="topic-group-counter">2 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="introdução programa cuidar mais">
+                  <a class="topic-link" href="#tema-introducao" aria-label="Ir para o tema Introdução do Programa Cuidar+">
+                    <span class="topic-badge">1</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Introdução do Programa Cuidar+</span>
+                      <span class="topic-page">Conteúdo em HTML</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="higienização das mãos higiene das mãos">
+                  <a class="topic-link" href="#tema-higienizacao-maos" aria-label="Ir para o tema Higienização das mãos">
+                    <span class="topic-badge">2</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Higienização das mãos</span>
+                      <span class="topic-page">Conteúdo em HTML</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- NUTRIÇÃO DOMICILIAR -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">🍽️</span>
+                  Nutrição domiciliar
+                </h3>
+                <span class="topic-group-counter">6 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="nutrição domiciliar tipos de sonda orientações gerais">
+                  <a class="topic-link" href="#tema-nutricao-domiciliar">
+                    <span class="topic-badge">3</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Nutrição domiciliar: tipos de sonda e orientações gerais</span>
+                      <span class="topic-page">Página 4 a 6 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="tipos de dieta industrializada artesanal mista">
+                  <a class="topic-link" href="#tema-tipos-dieta">
+                    <span class="topic-badge">4</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Tipos de dieta (industrializada, artesanal e mista)</span>
+                      <span class="topic-page">Página 7 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="preparo da dieta higiene do cuidador local utensílios">
+                  <a class="topic-link" href="#tema-preparo-dieta">
+                    <span class="topic-badge">5</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Preparo da dieta: higiene do cuidador, local e utensílios</span>
+                      <span class="topic-page">Página 8 e 9 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="preparando guardando administrando a dieta e a água">
+                  <a class="topic-link" href="#tema-preparando-dieta-agua">
+                    <span class="topic-badge">6</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Preparando, guardando e administrando a dieta e a água</span>
+                      <span class="topic-page">Página 10 a 12 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="limpeza da sonda frascos equipos">
+                  <a class="topic-link" href="#tema-limpeza-sonda">
+                    <span class="topic-badge">7</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Limpeza da sonda, frascos e equipos</span>
+                      <span class="topic-page">Página 13 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="problemas comuns na nutrição sinais de alerta">
+                  <a class="topic-link" href="#tema-problemas-nutricao">
+                    <span class="topic-badge">8</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Problemas comuns na nutrição e sinais de alerta</span>
+                      <span class="topic-page">Página 14 e 15 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- CUIDADOS COM DISPOSITIVOS -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">🩺</span>
+                  Cuidados com dispositivos
+                </h3>
+                <span class="topic-group-counter">5 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="sonda vesical cuidados no dia a dia">
+                  <a class="topic-link" href="#tema-sonda-vesical">
+                    <span class="topic-badge">9</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Sonda vesical: cuidados no dia a dia</span>
+                      <span class="topic-page">Página 16 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="colostomia estoma bolsa coletora pele ao redor">
+                  <a class="topic-link" href="#tema-colostomia">
+                    <span class="topic-badge">10</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Colostomia: estoma, bolsa coletora e pele ao redor</span>
+                      <span class="topic-page">Página 17 a 19 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="traqueostomia cuidados com estoma e cânula">
+                  <a class="topic-link" href="#tema-traqueostomia">
+                    <span class="topic-badge">11</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Traqueostomia: cuidados com estoma e cânula</span>
+                      <span class="topic-page">Página 20 a 22 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="aspiração traqueal quando e como fazer">
+                  <a class="topic-link" href="#tema-aspiracao-traqueal">
+                    <span class="topic-badge">12</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Aspiração traqueal: quando e como fazer</span>
+                      <span class="topic-page">Página 23 a 25 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="oxigenoterapia domiciliar uso do oxímetro de pulso">
+                  <a class="topic-link" href="#tema-oxigenoterapia">
+                    <span class="topic-badge">13</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Oxigenoterapia domiciliar e uso do oxímetro de pulso</span>
+                      <span class="topic-page">Página 26 a 28 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- PREVENÇÃO DE FERIDAS -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">🛡️</span>
+                  Prevenção de feridas
+                </h3>
+                <span class="topic-group-counter">1 tema</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="lesão por pressão o que é como prevenir">
+                  <a class="topic-link" href="#tema-lesao-pressao">
+                    <span class="topic-badge">14</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Lesão por pressão: o que é e como prevenir</span>
+                      <span class="topic-page">Página 29 a 33 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- SAÚDE MENTAL -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">💚</span>
+                  Saúde mental e cuidador
+                </h3>
+                <span class="topic-group-counter">2 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="cuidando de quem cuida cuidador família">
+                  <a class="topic-link" href="#tema-cuidando-quem-cuida">
+                    <span class="topic-badge">15</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Cuidando de quem cuida: cuidados com o cuidador</span>
+                      <span class="topic-page">Página 34 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="saúde mental paciente família após alta">
+                  <a class="topic-link" href="#tema-saude-mental">
+                    <span class="topic-badge">16</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Saúde mental do paciente e da família após a alta</span>
+                      <span class="topic-page">Página 35 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- SERVIÇO SOCIAL E REDE DE APOIO -->
+            <div class="topic-group">
+              <div class="topic-group-header">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">🤝</span>
+                  Serviço social e rede de apoio
+                </h3>
+                <span class="topic-group-counter">6 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="solicitação de insumos goiânia paço municipal">
+                  <a class="topic-link" href="#tema-insumos-goiania">
+                    <span class="topic-badge">17</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Solicitação de insumos — Goiânia (Paço Municipal)</span>
+                      <span class="topic-page">Página 36 e 37 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="solicitação de insumos ovg">
+                  <a class="topic-link" href="#tema-insumos-ovg">
+                    <span class="topic-badge">18</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Solicitação de insumos — OVG</span>
+                      <span class="topic-page">Página 38 e 39 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="solicitação de insumos demais municípios">
+                  <a class="topic-link" href="#tema-insumos-outros-municipios">
+                    <span class="topic-badge">19</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Solicitação de insumos — demais municípios</span>
+                      <span class="topic-page">Página 40 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="ventilação mecânica trilogy bipap home care">
+                  <a class="topic-link" href="#tema-ventilacao-home-care">
+                    <span class="topic-badge">20</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Ventilação mecânica (TRILOGY/BIPAP) e Home Care</span>
+                      <span class="topic-page">Página 41 e 42 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="serviço de apoio ao ostomizado sao">
+                  <a class="topic-link" href="#tema-sao">
+                    <span class="topic-badge">21</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Serviço de apoio ao ostomizado (SAO)</span>
+                      <span class="topic-page">Página 43 a 45 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="topic-item" data-topic-item data-label="serviço de atenção domiciliar sad">
+                  <a class="topic-link" href="#tema-sad">
+                    <span class="topic-badge">22</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Serviço de Atenção Domiciliar (SAD)</span>
+                      <span class="topic-page">Página 46 a 49 na cartilha</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <p>
+              Se preferir, você também pode
+              <a href="DocumentoCartilhaCuidarmais-combinado.pdf" target="_blank" rel="noopener">
+                abrir a cartilha integral em PDF
+              </a>.
+            </p>
+          </div>
+        </section>
+
+        <!-- CONTEÚDO EM HTML PURO -->
+        <section class="card content-card" aria-label="Conteúdo em HTML da cartilha">
+          <div class="content-header">
+            <h2 class="content-title-main">Conteúdo da cartilha em HTML</h2>
+            <p class="content-subtext">
+              Abaixo você encontra os temas da cartilha em formato de leitura otimizado
+              para celular. Clique em um tema na lista acima para ir direto ao ponto.
+            </p>
+          </div>
+
+          <div class="content-sections">
+            <!-- TEMA 1: INTRODUÇÃO (COM TEXTO COMPLETO) -->
+            <article id="tema-introducao" class="content-block">
+              <div class="content-tag">
+                <span>01</span>
+                <span>Introdução</span>
+              </div>
+              <h3 class="content-title">Programa Cuidar+</h3>
+
+              <p class="content-paragraph">
+                Saber como continuar o tratamento em casa é uma das partes mais importantes
+                para uma alta segura. Essa é uma orientação oficial do Ministério da Saúde.
+              </p>
+
+              <p class="content-paragraph">
+                O Programa Cuidar Mais do Hugol é a forma de garantir que você e sua família
+                recebam apoio e orientação para continuar o cuidado do paciente depois que ele
+                sair do hospital. O objetivo é que as informações sobre o cuidado em casa
+                sejam claras, seguras e acessíveis para quem cuida.
+              </p>
+
+              <span class="content-note">
+                Conteúdo baseado na página 2 da cartilha oficial do Programa Cuidar+.
+              </span>
+
+              <div class="content-back-top">
+                <a href="#topo">Voltar para o início da página</a>
+              </div>
+            </article>
+
+            <!-- TEMA 2: HIGIENIZAÇÃO DAS MÃOS (COM TEXTO COMPLETO) -->
+            <article id="tema-higienizacao-maos" class="content-block">
+              <div class="content-tag">
+                <span>02</span>
+                <span>Higiene</span>
+              </div>
+              <h3 class="content-title">Higienização das mãos</h3>
+
+              <p class="content-paragraph">
+                <strong>Atenção:</strong> higienize corretamente as mãos antes e depois de
+                realizar qualquer procedimento ou cuidado com o paciente.
+              </p>
+
+              <p class="content-paragraph">
+                Lave bem as mãos e os antebraços (região do punho até o cotovelo) com água e sabão,
+                massageando uma mão na outra, esfregando bem entre os dedos, o polegar e o dorso
+                das mãos, por no mínimo 1 minuto, seguindo os passos a seguir.
+              </p>
+
+              <ol class="content-steps">
+                <li>Molhe as mãos.</li>
+                <li>Aplique o sabão.</li>
+                <li>Esfregue as palmas das mãos.</li>
+                <li>Esfregue o dorso das mãos.</li>
+                <li>Esfregue os punhos.</li>
+                <li>Esfregue o dorso dos dedos.</li>
+                <li>Esfregue as polpas digitais (pontas dos dedos).</li>
+                <li>Esfregue os polegares.</li>
+                <li>Enxágue bem as mãos.</li>
+                <li>Seque as mãos com toalha limpa ou papel toalha.</li>
+              </ol>
+
+              <span class="content-note">
+                Conteúdo baseado na página 3 da cartilha oficial do Programa Cuidar+.
+              </span>
+
+              <div class="content-back-top">
+                <a href="#topo">Voltar para o início da página</a>
+              </div>
+            </article>
+
+            <!-- A PARTIR DAQUI: ESTRUTURA PRONTA PARA OS PRÓXIMOS TEMAS -->
+            <article id="tema-nutricao-domiciliar" class="content-block">
+              <div class="content-tag">
+                <span>03</span>
+                <span>Nutrição domiciliar</span>
+              </div>
+              <h3 class="content-title">Nutrição domiciliar: tipos de sonda e orientações gerais</h3>
+              <p class="content-placeholder">
+                Este tema será trazido em HTML completo, com base nas páginas 4 a 6 da cartilha.
+                Enquanto a versão em HTML estiver em construção, utilize a versão em PDF para
+                consulta detalhada.
+              </p>
+            </article>
+
+            <article id="tema-tipos-dieta" class="content-block">
+              <div class="content-tag">
+                <span>04</span>
+                <span>Nutrição</span>
+              </div>
+              <h3 class="content-title">Tipos de dieta (industrializada, artesanal e mista)</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte a página 7 da cartilha oficial em PDF para
+                orientações completas sobre os tipos de dieta.
+              </p>
+            </article>
+
+            <article id="tema-preparo-dieta" class="content-block">
+              <div class="content-tag">
+                <span>05</span>
+                <span>Nutrição</span>
+              </div>
+              <h3 class="content-title">Preparo da dieta: higiene do cuidador, local e utensílios</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 8 e 9 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-preparando-dieta-agua" class="content-block">
+              <div class="content-tag">
+                <span>06</span>
+                <span>Nutrição</span>
+              </div>
+              <h3 class="content-title">Preparando, guardando e administrando a dieta e a água</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 10 a 12 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-limpeza-sonda" class="content-block">
+              <div class="content-tag">
+                <span>07</span>
+                <span>Nutrição</span>
+              </div>
+              <h3 class="content-title">Limpeza da sonda, frascos e equipos</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte a página 13 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-problemas-nutricao" class="content-block">
+              <div class="content-tag">
+                <span>08</span>
+                <span>Nutrição</span>
+              </div>
+              <h3 class="content-title">Problemas comuns na nutrição e sinais de alerta</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 14 e 15 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-sonda-vesical" class="content-block">
+              <div class="content-tag">
+                <span>09</span>
+                <span>Cuidados</span>
+              </div>
+              <h3 class="content-title">Sonda vesical: cuidados no dia a dia</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte a página 16 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-colostomia" class="content-block">
+              <div class="content-tag">
+                <span>10</span>
+                <span>Cuidados</span>
+              </div>
+              <h3 class="content-title">Colostomia: estoma, bolsa coletora e pele ao redor</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 17 a 19 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-traqueostomia" class="content-block">
+              <div class="content-tag">
+                <span>11</span>
+                <span>Cuidados</span>
+              </div>
+              <h3 class="content-title">Traqueostomia: cuidados com estoma e cânula</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 20 a 22 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-aspiracao-traqueal" class="content-block">
+              <div class="content-tag">
+                <span>12</span>
+                <span>Cuidados</span>
+              </div>
+              <h3 class="content-title">Aspiração traqueal: quando e como fazer</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 23 a 25 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-oxigenoterapia" class="content-block">
+              <div class="content-tag">
+                <span>13</span>
+                <span>Cuidados</span>
+              </div>
+              <h3 class="content-title">Oxigenoterapia domiciliar e uso do oxímetro de pulso</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 26 a 28 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-lesao-pressao" class="content-block">
+              <div class="content-tag">
+                <span>14</span>
+                <span>Prevenção</span>
+              </div>
+              <h3 class="content-title">Lesão por pressão: o que é e como prevenir</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 29 a 33 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-cuidando-quem-cuida" class="content-block">
+              <div class="content-tag">
+                <span>15</span>
+                <span>Saúde mental</span>
+              </div>
+              <h3 class="content-title">Cuidando de quem cuida: cuidados com o cuidador</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte a página 34 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-saude-mental" class="content-block">
+              <div class="content-tag">
+                <span>16</span>
+                <span>Saúde mental</span>
+              </div>
+              <h3 class="content-title">Saúde mental do paciente e da família após a alta</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte a página 35 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-insumos-goiania" class="content-block">
+              <div class="content-tag">
+                <span>17</span>
+                <span>Rede de apoio</span>
+              </div>
+              <h3 class="content-title">Solicitação de insumos — Goiânia (Paço Municipal)</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 36 e 37 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-insumos-ovg" class="content-block">
+              <div class="content-tag">
+                <span>18</span>
+                <span>Rede de apoio</span>
+              </div>
+              <h3 class="content-title">Solicitação de insumos — OVG</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 38 e 39 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-insumos-outros-municipios" class="content-block">
+              <div class="content-tag">
+                <span>19</span>
+                <span>Rede de apoio</span>
+              </div>
+              <h3 class="content-title">Solicitação de insumos — demais municípios</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte a página 40 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-ventilacao-home-care" class="content-block">
+              <div class="content-tag">
+                <span>20</span>
+                <span>Rede de apoio</span>
+              </div>
+              <h3 class="content-title">Ventilação mecânica (TRILOGY/BIPAP) e Home Care</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 41 e 42 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-sao" class="content-block">
+              <div class="content-tag">
+                <span>21</span>
+                <span>Rede de apoio</span>
+              </div>
+              <h3 class="content-title">Serviço de apoio ao ostomizado (SAO)</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 43 a 45 da cartilha oficial em PDF.
+              </p>
+            </article>
+
+            <article id="tema-sad" class="content-block">
+              <div class="content-tag">
+                <span>22</span>
+                <span>Rede de apoio</span>
+              </div>
+              <h3 class="content-title">Serviço de Atenção Domiciliar (SAD)</h3>
+              <p class="content-placeholder">
+                Conteúdo em construção. Consulte as páginas 46 a 49 da cartilha oficial em PDF.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- DOWNLOAD CARTILHA COMPLETA -->
+        <section class="download-section">
+          <div class="download-card">
+            <div class="download-title">Cartilha completa do Programa Cuidar+</div>
+            <p class="download-text">
+              Se quiser salvar no seu celular, computador ou enviar para alguém, faça o download da cartilha completa em PDF.
+            </p>
+            <a
+              class="download-btn"
+              href="DocumentoCartilhaCuidarmais-combinado.pdf"
+              target="_blank"
+              rel="noopener"
+              download>
+              📄 Baixar cartilha completa (PDF)
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- RODAPÉ HUGOL -->
+    <footer class="hugol-footer">
+      <div class="hugol-footer-inner">
+        <img src="logohugol.png" alt="Hospital Estadual de Urgências Governador Otávio Lage de Siqueira (HUGOL)" />
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Âncora para voltar ao topo
+    const body = document.body;
+    body.setAttribute("id", "topo");
+
+    // Busca por assunto (filtra os temas da lista)
+    const searchInput = document.getElementById("topicSearch");
+    const topicItems = document.querySelectorAll("[data-topic-item]");
+
+    function filtrarTopicos() {
+      const query = (searchInput.value || "").trim().toLowerCase();
+
+      topicItems.forEach((item) => {
+        const label = (item.getAttribute("data-label") || "").toLowerCase();
+        item.style.display = label.includes(query) ? "" : "none";
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", filtrarTopicos);
+
+      searchInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          const visibles = Array.from(topicItems).filter(
+            (item) => item.style.display !== "none"
+          );
+
+          if (visibles.length === 1) {
+            event.preventDefault();
+            const link = visibles[0].querySelector("a.topic-link");
+            if (link) {
+              link.click();
+            }
+          }
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        try {
+          searchInput.focus();
+        } catch (e) {}
+      });
+    }
+  </script>
+</body>
+</html>
 
