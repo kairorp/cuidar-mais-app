@@ -19,7 +19,7 @@
       --bg-gradient-start: #0b8ae5;
       --bg-gradient-end: #12c2f4;
       --text-main: #112143;
-      --text-muted: #66719a;
+      --text-muted: #565f8a;
       --surface: #ffffff;
       --border-radius-lg: 18px;
       --border-radius-md: 12px;
@@ -278,6 +278,11 @@
       background: linear-gradient(145deg, #ffffff, #eef4ff);
     }
 
+    .topic-link:focus-visible {
+      outline: 2px solid var(--hugol-blue);
+      outline-offset: 3px;
+    }
+
     .topic-badge {
       min-width: 24px;
       height: 24px;
@@ -302,7 +307,7 @@
     }
 
     .topic-page {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
       margin-top: 2px;
       display: block;
@@ -381,6 +386,11 @@
       box-shadow: 0 6px 16px rgba(0, 74, 145, 0.45);
     }
 
+    .download-btn:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 3px;
+    }
+
     /* FOOTER HUGOL */
 
     .hugol-footer {
@@ -452,30 +462,31 @@
     </header>
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <main class="page">
+    <main class="page" role="main">
       <div class="page-inner">
         <!-- BLOCO 1: APENAS BUSCA COM LUPA -->
-        <section class="card">
+        <section class="card" aria-label="Buscar tema da cartilha">
           <div class="search-wrapper">
             <div class="search-shell">
-              <span class="search-icon">🔍</span>
+              <span class="search-icon" aria-hidden="true">🔍</span>
               <input
                 id="topicSearch"
                 class="search-input"
                 type="search"
-                placeholder="Busque um tema da cartilha (ex.: sonda, dieta, oxigênio, feridas, traqueostomia...)" />
+                placeholder="Busque um tema da cartilha (ex.: sonda, dieta, oxigênio, feridas, traqueostomia...)"
+                aria-label="Buscar tema da cartilha Cuidar+"
+                autocomplete="off" />
             </div>
           </div>
         </section>
 
         <!-- LISTA DE TEMAS -->
-        <section class="card">
+        <section class="card" aria-label="Lista de temas da cartilha">
           <div class="card-header">
             <h2 class="card-title">
-              <span class="card-title-emoji">📚</span>
+              <span class="card-title-emoji" aria-hidden="true">📚</span>
               Temas da cartilha
             </h2>
-            <!-- badge 'Clique para abrir a página' removido -->
           </div>
 
           <div class="topics" id="topicsRoot">
@@ -483,14 +494,19 @@
             <div class="topic-group">
               <div class="topic-group-header">
                 <h3 class="topic-group-title">
-                  <span class="topic-group-title-emoji">📘</span>
+                  <span class="topic-group-title-emoji" aria-hidden="true">📘</span>
                   Visão geral
                 </h3>
                 <span class="topic-group-counter">2 temas</span>
               </div>
               <ul class="topic-list">
                 <li class="topic-item" data-topic-item data-label="introdução programa cuidar mais">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=2&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=2&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha na página 2: Introdução do Programa Cuidar+">
                     <span class="topic-badge">1</span>
                     <span class="topic-label">
                       <span class="topic-title">Introdução — Programa Cuidar+</span>
@@ -499,7 +515,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="higienização das mãos higiene das mãos">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=3&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=3&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha na página 3: Higienização das mãos">
                     <span class="topic-badge">2</span>
                     <span class="topic-label">
                       <span class="topic-title">Higienização das mãos</span>
@@ -514,14 +535,19 @@
             <div class="topic-group">
               <div class="topic-group-header">
                 <h3 class="topic-group-title">
-                  <span class="topic-group-title-emoji">🍽️</span>
+                  <span class="topic-group-title-emoji" aria-hidden="true">🍽️</span>
                   Nutrição domiciliar
                 </h3>
                 <span class="topic-group-counter">6 temas</span>
               </div>
               <ul class="topic-list">
                 <li class="topic-item" data-topic-item data-label="nutrição domiciliar tipos de sonda orientações gerais">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=4&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=4&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 4 a 6: Nutrição domiciliar, tipos de sonda e orientações gerais">
                     <span class="topic-badge">3</span>
                     <span class="topic-label">
                       <span class="topic-title">Nutrição domiciliar — tipos de sonda e orientações gerais</span>
@@ -530,7 +556,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="tipos de dieta industrializada artesanal mista">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=7&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=7&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha na página 7: Tipos de dieta industrializada, artesanal e mista">
                     <span class="topic-badge">4</span>
                     <span class="topic-label">
                       <span class="topic-title">Tipos de dieta (industrializada, artesanal e mista)</span>
@@ -539,7 +570,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="preparo da dieta higiene do cuidador local utensílios">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=8&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=8&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 8 e 9: Preparo da dieta, higiene do cuidador, local e utensílios">
                     <span class="topic-badge">5</span>
                     <span class="topic-label">
                       <span class="topic-title">Preparo da dieta: higiene do cuidador, local e utensílios</span>
@@ -548,7 +584,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="preparando guardando administrando a dieta e a água">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=10&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=10&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 10 a 12: Preparando, guardando e administrando a dieta e a água">
                     <span class="topic-badge">6</span>
                     <span class="topic-label">
                       <span class="topic-title">Preparando, guardando e administrando a dieta e a água</span>
@@ -557,7 +598,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="limpeza da sonda frascos equipos">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=13&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=13&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha na página 13: Limpeza da sonda, frascos e equipos">
                     <span class="topic-badge">7</span>
                     <span class="topic-label">
                       <span class="topic-title">Limpeza da sonda, frascos e equipos</span>
@@ -566,7 +612,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="problemas comuns na nutrição sinais de alerta">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=14&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=14&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 14 e 15: Problemas comuns na nutrição e sinais de alerta">
                     <span class="topic-badge">8</span>
                     <span class="topic-label">
                       <span class="topic-title">Problemas comuns na nutrição e sinais de alerta</span>
@@ -581,14 +632,19 @@
             <div class="topic-group">
               <div class="topic-group-header">
                 <h3 class="topic-group-title">
-                  <span class="topic-group-title-emoji">🩺</span>
+                  <span class="topic-group-title-emoji" aria-hidden="true">🩺</span>
                   Cuidados com dispositivos
                 </h3>
                 <span class="topic-group-counter">5 temas</span>
               </div>
               <ul class="topic-list">
                 <li class="topic-item" data-topic-item data-label="sonda vesical cuidados no dia a dia">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=16&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=16&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha na página 16: Sonda vesical, cuidados no dia a dia">
                     <span class="topic-badge">9</span>
                     <span class="topic-label">
                       <span class="topic-title">Sonda vesical — cuidados no dia a dia</span>
@@ -597,7 +653,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="colostomia estoma bolsa coletora pele ao redor">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=17&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=17&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 17 a 19: Colostomia, estoma, bolsa coletora e pele ao redor">
                     <span class="topic-badge">10</span>
                     <span class="topic-label">
                       <span class="topic-title">Colostomia — estoma, bolsa coletora e pele ao redor</span>
@@ -606,7 +667,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="traqueostomia cuidados com estoma e cânula">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=20&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=20&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 20 a 22: Traqueostomia, cuidados com estoma e cânula">
                     <span class="topic-badge">11</span>
                     <span class="topic-label">
                       <span class="topic-title">Traqueostomia — cuidados com estoma e cânula</span>
@@ -615,7 +681,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="aspiração traqueal quando e como fazer">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=23&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=23&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 23 a 25: Aspiração traqueal, quando e como fazer">
                     <span class="topic-badge">12</span>
                     <span class="topic-label">
                       <span class="topic-title">Aspiração traqueal — quando e como fazer</span>
@@ -624,7 +695,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="oxigenoterapia domiciliar uso do oxímetro de pulso">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=26&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=26&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 26 a 28: Oxigenoterapia domiciliar e uso do oxímetro de pulso">
                     <span class="topic-badge">13</span>
                     <span class="topic-label">
                       <span class="topic-title">Oxigenoterapia domiciliar e uso do oxímetro de pulso</span>
@@ -639,14 +715,19 @@
             <div class="topic-group">
               <div class="topic-group-header">
                 <h3 class="topic-group-title">
-                  <span class="topic-group-title-emoji">🛡️</span>
+                  <span class="topic-group-title-emoji" aria-hidden="true">🛡️</span>
                   Prevenção de feridas
                 </h3>
                 <span class="topic-group-counter">1 tema</span>
               </div>
               <ul class="topic-list">
                 <li class="topic-item" data-topic-item data-label="lesão por pressão o que é como prevenir">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=29&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=29&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 29 a 33: Lesão por pressão, o que é e como prevenir">
                     <span class="topic-badge">14</span>
                     <span class="topic-label">
                       <span class="topic-title">Lesão por pressão — o que é e como prevenir</span>
@@ -661,14 +742,19 @@
             <div class="topic-group">
               <div class="topic-group-header">
                 <h3 class="topic-group-title">
-                  <span class="topic-group-title-emoji">💚</span>
+                  <span class="topic-group-title-emoji" aria-hidden="true">💚</span>
                   Saúde mental e cuidador
                 </h3>
                 <span class="topic-group-counter">2 temas</span>
               </div>
               <ul class="topic-list">
                 <li class="topic-item" data-topic-item data-label="cuidando de quem cuida cuidador família">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=34&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=34&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha na página 34: Cuidando de quem cuida, cuidados com o cuidador">
                     <span class="topic-badge">15</span>
                     <span class="topic-label">
                       <span class="topic-title">Cuidando de quem cuida — cuidados com o cuidador</span>
@@ -677,7 +763,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="saúde mental paciente família após alta">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=35&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=35&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha na página 35: Saúde mental do paciente e da família após a alta">
                     <span class="topic-badge">16</span>
                     <span class="topic-label">
                       <span class="topic-title">Saúde mental do paciente e da família após a alta</span>
@@ -692,14 +783,19 @@
             <div class="topic-group">
               <div class="topic-group-header">
                 <h3 class="topic-group-title">
-                  <span class="topic-group-title-emoji">🤝</span>
+                  <span class="topic-group-title-emoji" aria-hidden="true">🤝</span>
                   Serviço social e rede de apoio
                 </h3>
                 <span class="topic-group-counter">6 temas</span>
               </div>
               <ul class="topic-list">
                 <li class="topic-item" data-topic-item data-label="solicitação de insumos goiânia paço municipal">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=36&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=36&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 36 e 37: Solicitação de insumos em Goiânia, Paço Municipal">
                     <span class="topic-badge">17</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos — Goiânia (Paço Municipal)</span>
@@ -708,7 +804,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="solicitação de insumos ovg">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=38&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=38&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 38 e 39: Solicitação de insumos pela OVG">
                     <span class="topic-badge">18</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos — OVG</span>
@@ -717,7 +818,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="solicitação de insumos demais municípios">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=40&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=40&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha na página 40: Solicitação de insumos, demais municípios">
                     <span class="topic-badge">19</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos — demais municípios</span>
@@ -726,7 +832,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="ventilação mecânica trilogy bipap home care">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=41&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=41&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 41 e 42: Ventilação mecânica (Trilogy/BIPAP) e Home Care">
                     <span class="topic-badge">20</span>
                     <span class="topic-label">
                       <span class="topic-title">Ventilação mecânica (TRILOGY/BIPAP) e Home Care</span>
@@ -735,7 +846,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="serviço de apoio ao ostomizado sao">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=43&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=43&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 43 a 45: Serviço de apoio ao ostomizado, SAO">
                     <span class="topic-badge">21</span>
                     <span class="topic-label">
                       <span class="topic-title">Serviço de apoio ao ostomizado (SAO)</span>
@@ -744,7 +860,12 @@
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="serviço de atenção domiciliar sad">
-                  <a class="topic-link" href="DocumentoCartilhaCuidarmais-combinado.pdf#page=46&view=FitH" target="_blank" rel="noopener">
+                  <a
+                    class="topic-link"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=46&view=FitH"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Abrir cartilha nas páginas 46 a 49: Serviço de Atenção Domiciliar, SAD">
                     <span class="topic-badge">22</span>
                     <span class="topic-label">
                       <span class="topic-title">Serviço de Atenção Domiciliar (SAD)</span>
@@ -779,7 +900,8 @@
               href="DocumentoCartilhaCuidarmais-combinado.pdf"
               target="_blank"
               rel="noopener"
-              download>
+              download
+              aria-label="Baixar cartilha completa do Programa Cuidar+, em PDF">
               📄 Baixar cartilha completa (PDF)
             </a>
           </div>
@@ -801,14 +923,43 @@
     const searchInput = document.getElementById("topicSearch");
     const topicItems = document.querySelectorAll("[data-topic-item]");
 
-    if (searchInput) {
-      searchInput.addEventListener("input", () => {
-        const query = searchInput.value.trim().toLowerCase();
+    function filtrarTopicos() {
+      const query = (searchInput.value || "").trim().toLowerCase();
 
-        topicItems.forEach((item) => {
-          const label = (item.getAttribute("data-label") || "").toLowerCase();
-          item.style.display = label.includes(query) ? "" : "none";
-        });
+      topicItems.forEach((item) => {
+        const label = (item.getAttribute("data-label") || "").toLowerCase();
+        item.style.display = label.includes(query) ? "" : "none";
+      });
+    }
+
+    if (searchInput) {
+      // Aplica filtro enquanto digita
+      searchInput.addEventListener("input", filtrarTopicos);
+
+      // Enter abre o único resultado visível, se houver
+      searchInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          const visibles = Array.from(topicItems).filter(
+            (item) => item.style.display !== "none"
+          );
+
+          if (visibles.length === 1) {
+            event.preventDefault();
+            const link = visibles[0].querySelector("a.topic-link");
+            if (link) {
+              window.open(link.href, link.target || "_blank");
+            }
+          }
+        }
+      });
+
+      // Tenta focar automaticamente no campo de busca ao carregar
+      window.addEventListener("DOMContentLoaded", () => {
+        try {
+          searchInput.focus();
+        } catch (e) {
+          // alguns navegadores móveis podem bloquear o foco automático
+        }
       });
     }
   </script>
