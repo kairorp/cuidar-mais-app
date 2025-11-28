@@ -121,6 +121,23 @@
       font-size: 20px;
     }
 
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: #e9f3ff;
+      color: var(--hugol-blue-dark);
+      white-space: nowrap;
+    }
+
+    /* TEXTO GERAL */
+
     .card-text {
       font-size: 14px;
       color: var(--text-muted);
@@ -139,23 +156,8 @@
       margin-top: 4px;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      background: #e9f3ff;
-      color: var(--hugol-blue-dark);
-      white-space: nowrap;
-    }
-
     .search-wrapper {
-      margin-top: 12px;
+      margin-top: 4px;
     }
 
     .search-label {
@@ -442,7 +444,7 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="page">
       <div class="page-inner">
-        <!-- COMO FUNCIONA -->
+        <!-- BLOCO 1: AGORA SÓ COM BUSCA -->
         <section class="card">
           <div class="card-header">
             <h2 class="card-title">
@@ -451,14 +453,6 @@
             </h2>
             <span class="badge">Acesso rápido por temas</span>
           </div>
-          <p class="card-text">
-            Este site organiza a cartilha para facilitar a consulta no dia a dia, principalmente em celulares.
-          </p>
-          <ul class="card-list">
-            <li>Use a busca para localizar um assunto específico (ex.: sonda, dieta, oxigênio, feridas).</li>
-            <li>Clique no tema desejado para abrir a cartilha oficial na página correspondente.</li>
-            <li>Você pode ampliar, salvar ou compartilhar o PDF a partir do leitor de PDF do próprio aparelho.</li>
-          </ul>
 
           <div class="search-wrapper">
             <label class="search-label" for="topicSearch">Buscar assunto</label>
@@ -477,7 +471,7 @@
               <span class="card-title-emoji">📚</span>
               Temas da cartilha
             </h2>
-            <span class="badge">Clique para abrir a página</span>
+            <!-- badge 'Clique para abrir a página' removido -->
           </div>
 
           <div class="topics" id="topicsRoot">
