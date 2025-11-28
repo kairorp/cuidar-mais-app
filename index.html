@@ -132,7 +132,7 @@
       background: #f9fbff;
       border: 1px solid #dde4f4;
       box-shadow: 0 3px 8px rgba(15, 35, 80, 0.12);
-      transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+      transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.12s ease, max-width 0.18s ease, padding 0.18s ease, background 0.18s ease;
     }
 
     .search-shell:focus-within {
@@ -145,6 +145,7 @@
       font-size: 18px;
       color: var(--hugol-blue-dark);
       flex-shrink: 0;
+      transition: font-size 0.16s ease;
     }
 
     .search-input {
@@ -155,10 +156,65 @@
       font-size: 14px;
       color: var(--text-main);
       font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transition: opacity 0.16s ease, width 0.16s ease;
     }
 
     .search-input::placeholder {
       color: #9ba4c7;
+    }
+
+    /* ESTADO COMPACTO DA BUSCA (VIRA LUPA FLUTUANTE) */
+
+    .search-card.compact {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .search-card.compact .search-wrapper {
+      justify-content: flex-end;
+    }
+
+    .search-card.compact .search-shell {
+      max-width: 52px;
+      padding: 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      background: linear-gradient(145deg, #ffffff, #e3f1ff);
+      border-color: rgba(0, 121, 200, 0.3);
+      box-shadow: 0 6px 18px rgba(0, 74, 145, 0.35);
+    }
+
+    .search-card.compact .search-icon {
+      font-size: 20px;
+    }
+
+    .search-card.compact .search-input {
+      width: 0;
+      opacity: 0;
+      padding: 0;
+      margin: 0;
+      pointer-events: none;
+    }
+
+    .search-card.compact.expanded {
+      padding-top: 4px;
+    }
+
+    .search-card.compact.expanded .search-wrapper {
+      justify-content: center;
+    }
+
+    .search-card.compact.expanded .search-shell {
+      max-width: 480px;
+      padding: 10px 16px;
+      cursor: text;
+    }
+
+    .search-card.compact.expanded .search-input {
+      width: 100%;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     /* LISTA DE TEMAS: GRID DE BLOCOS */
@@ -470,6 +526,31 @@
 
       .download-card {
         padding: 16px 16px 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      /* grid com 2 colunas também no mobile */
+      .topics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .topic-group {
+        border-radius: 14px;
+      }
+
+      .topic-group-header {
+        padding: 14px 10px 12px;
+        min-height: 92px;
+      }
+
+      .topic-list {
+        padding: 0 10px 10px;
+      }
+
+      .search-card.compact .search-wrapper {
+        justify-content: flex-end;
       }
     }
 
@@ -948,6 +1029,8 @@
     const topicGroups = document.querySelectorAll(".topic-group");
     const topicTitles = document.querySelectorAll(".topic-title");
     const groupHeaders = document.querySelectorAll(".topic-group-header");
+    const searchCard = document.querySelector(".search-card");
+    const searchShell = document.querySelector(".search-shell");
 
     // Guarda o título original para poder aplicar/remover destaque
     topicTitles.forEach((title) => {
@@ -1049,6 +1132,54 @@
           // Alguns navegadores móveis podem bloquear o foco automático
         }
       });
+    }
+
+    // Comportamento da barra de busca: vira lupa ao descer
+    if (searchCard && searchShell && searchInput) {
+      const SCROLL_THRESHOLD = 140;
+
+      function updateSearchCompactState() {
+        if (window.scrollY > SCROLL_THRESHOLD) {
+          searchCard.classList.add("compact");
+        } else {
+          searchCard.classList.remove("compact");
+          searchCard.classList.remove("expanded");
+        }
+      }
+
+      window.addEventListener("scroll", updateSearchCompactState);
+
+      // Lupa expande ao clicar
+      searchShell.addEventListener("click", (event) => {
+        if (!searchCard.classList.contains("compact")) return;
+        event.stopPropagation();
+        searchCard.classList.toggle("expanded");
+
+        if (searchCard.classList.contains("expanded")) {
+          setTimeout(() => {
+            try {
+              searchInput.focus();
+            } catch (e) {}
+          }, 80);
+        }
+      });
+
+      // Clique fora fecha a busca expandida em modo compacto
+      document.addEventListener("click", (event) => {
+        if (
+          !searchCard.classList.contains("compact") ||
+          !searchCard.classList.contains("expanded")
+        ) {
+          return;
+        }
+        const isInside = searchCard.contains(event.target);
+        if (!isInside) {
+          searchCard.classList.remove("expanded");
+        }
+      });
+
+      // Estado inicial
+      updateSearchCompactState();
     }
 
     // Estado inicial: garante que tudo esteja visível para a busca, mas mantém os blocos recolhidos
