@@ -96,7 +96,7 @@
       background: var(--surface);
       border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow-soft);
-      padding: 16px 18px 18px;
+      padding: 18px 20px 20px;
     }
 
     .card-header {
@@ -105,11 +105,11 @@
       justify-content: space-between;
       gap: 8px 16px;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .card-title {
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--hugol-blue-dark);
       display: inline-flex;
@@ -118,25 +118,25 @@
     }
 
     .card-title-emoji {
-      font-size: 18px;
+      font-size: 20px;
     }
 
     .card-text {
-      font-size: 13px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .card-list {
+      margin-top: 8px;
+      padding-left: 18px;
+      font-size: 14px;
       color: var(--text-muted);
       line-height: 1.6;
     }
 
-    .card-list {
-      margin-top: 6px;
-      padding-left: 16px;
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
     .card-list li + li {
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .badge {
@@ -149,13 +149,13 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      background: var(--hugol-blue-light);
+      background: #e9f3ff;
       color: var(--hugol-blue-dark);
       white-space: nowrap;
     }
 
     .search-wrapper {
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .search-label {
@@ -170,17 +170,23 @@
 
     .search-input {
       width: 100%;
-      max-width: 380px;
-      padding: 8px 12px;
+      max-width: 420px;
+      padding: 9px 14px;
       border-radius: 999px;
       border: 1px solid #dde4f4;
-      font-size: 13px;
+      font-size: 14px;
       outline: none;
       background: #f9fbff;
+      box-shadow: 0 3px 8px rgba(15, 35, 80, 0.12);
     }
 
     .search-input::placeholder {
       color: #9ba4c7;
+    }
+
+    .search-input:focus {
+      border-color: var(--hugol-blue);
+      box-shadow: 0 0 0 2px rgba(0, 121, 200, 0.2);
     }
 
     /* LISTA DE TEMAS */
@@ -193,7 +199,7 @@
     }
 
     .topic-group {
-      background: #f9fbff;
+      background: #f8fbff;
       border-radius: var(--border-radius-md);
       padding: 10px 12px 8px;
       border: 1px solid #e1e7fa;
@@ -231,12 +237,12 @@
       list-style: none;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 6px;
+      gap: 8px;
       margin-top: 4px;
     }
 
     .topic-item {
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .topic-link {
@@ -244,24 +250,25 @@
       align-items: flex-start;
       gap: 8px;
       width: 100%;
-      padding: 8px 9px;
-      border-radius: 10px;
-      background: #ffffff;
+      padding: 10px 11px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #ffffff, #f3f7ff);
       color: var(--text-main);
       text-decoration: none;
-      box-shadow: var(--shadow-subtle);
+      box-shadow: 0 6px 16px rgba(10, 37, 64, 0.12);
+      border: 1px solid #dde6fb;
       transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
     }
 
     .topic-link:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(10, 37, 64, 0.18);
-      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(10, 37, 64, 0.18);
+      background: linear-gradient(145deg, #ffffff, #eef4ff);
     }
 
     .topic-badge {
-      min-width: 22px;
-      height: 22px;
+      min-width: 24px;
+      height: 24px;
       border-radius: 999px;
       background: var(--hugol-blue-light);
       color: var(--hugol-blue-dark);
@@ -283,15 +290,15 @@
     }
 
     .topic-page {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
       margin-top: 2px;
       display: block;
     }
 
     .card-footer {
-      margin-top: 10px;
-      font-size: 11px;
+      margin-top: 12px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
@@ -308,28 +315,29 @@
     /* SEÇÃO DE DOWNLOAD NO FINAL */
 
     .download-section {
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
     .download-card {
       background: var(--surface);
       border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow-soft);
-      padding: 16px 18px 18px;
+      padding: 18px 20px 22px;
       text-align: center;
     }
 
     .download-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--hugol-blue-dark);
       margin-bottom: 6px;
     }
 
     .download-text {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      line-height: 1.6;
     }
 
     .download-btn {
@@ -337,30 +345,36 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 10px 22px;
+      padding: 12px 28px;
       border-radius: 999px;
-      border: none;
-      font-size: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      font-size: 14px;
       font-weight: 600;
       text-decoration: none;
       cursor: pointer;
-      background: var(--hugol-blue);
+      background: linear-gradient(135deg, #00a9ff, #0064d0);
       color: #ffffff;
-      box-shadow: var(--shadow-subtle);
+      box-shadow: 0 10px 24px rgba(0, 74, 145, 0.5);
       transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
     }
 
     .download-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(0, 74, 145, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0, 74, 145, 0.6);
+      background: linear-gradient(135deg, #11b3ff, #0057b8);
+    }
+
+    .download-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 16px rgba(0, 74, 145, 0.45);
     }
 
     /* FOOTER HUGOL */
 
     .hugol-footer {
-      margin-top: 24px;
+      margin-top: 26px;
       background: linear-gradient(90deg, var(--bg-gradient-start), var(--bg-gradient-end));
-      padding: 18px 12px 22px;
+      padding: 20px 12px 26px;
     }
 
     .hugol-footer-inner {
@@ -373,7 +387,7 @@
 
     .hugol-footer img {
       display: block;
-      height: 36px;
+      height: 52px;
       width: auto;
     }
 
@@ -389,23 +403,26 @@
       }
 
       .page {
-        margin-top: -50px;
+        margin-top: -52px;
         padding: 0 10px 30px;
+      }
+
+      .card {
+        padding: 16px 16px 19px;
+      }
+
+      .download-card {
+        padding: 16px 16px 20px;
       }
     }
 
     @media (max-width: 720px) {
-      .card,
-      .download-card {
-        padding: 14px 14px 18px;
-      }
-
       .topic-list {
         grid-template-columns: 1fr;
       }
 
       .hugol-footer img {
-        height: 30px;
+        height: 44px;
       }
     }
   </style>
