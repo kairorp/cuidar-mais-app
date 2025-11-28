@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Programa Cuidar+ – Cuidados em casa após a alta</title>
+  <title>Programa Cuidar+: cuidados em casa após a alta</title>
 
   <!-- Fonte Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -55,13 +55,6 @@
       flex-direction: column;
     }
 
-    main {
-      flex: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 16px 40px;
-    }
-
     /* CAPA */
 
     .hero {
@@ -102,6 +95,32 @@
       }
     }
 
+    /* MIolo CLARO (MAIN) */
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 10px auto 24px;
+      padding: 14px 16px 28px;
+      background: radial-gradient(
+        circle at top,
+        #f9fbff 0,
+        #eef3ff 45%,
+        #e2ebff 100%
+      );
+      border-radius: 32px;
+      box-shadow: 0 22px 48px rgba(15, 23, 42, 0.3);
+    }
+
+    @media (max-width: 640px) {
+      main {
+        margin: 10px 10px 22px;
+        padding: 12px 12px 24px;
+        border-radius: 24px;
+        box-shadow: 0 16px 34px rgba(15, 23, 42, 0.3);
+      }
+    }
+
     /* BUSCA FIXA / LUPA */
 
     .search-wrapper {
@@ -109,7 +128,7 @@
       top: 12px;
       z-index: 40;
       max-width: 520px;
-      margin: 10px auto 20px;
+      margin: 4px auto 18px;
     }
 
     .search-container {
@@ -237,6 +256,7 @@
       text-align: center;
       gap: 4px;
       margin-bottom: 6px;
+      cursor: pointer;
     }
 
     .group-icon {
@@ -269,10 +289,14 @@
     }
 
     .topic-list {
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 8px;
       margin-top: 6px;
+    }
+
+    .topic-group.expanded .topic-list {
+      display: flex;
     }
 
     .topic-card {
@@ -545,7 +569,7 @@
     <div class="hero-inner">
       <img
         src="testeira.png"
-        alt="Programa Cuidar+ – Cuidados em casa após a alta"
+        alt="Programa Cuidar+: cuidados em casa após a alta"
         class="hero-logo"
       />
     </div>
@@ -609,7 +633,7 @@
         class="footer-logo"
       />
       <p class="footer-text">
-        Programa Cuidar+ – Material informativo para cuidados em casa após a alta
+        Programa Cuidar+: material informativo para cuidados em casa após a alta
         hospitalar.
       </p>
     </div>
@@ -632,11 +656,8 @@
   </div>
 
   <script>
-    // -----------------------------
     // MAPA DE TEMAS E PÁGINAS
-    // -----------------------------
-    // Obs: "pages" usa o número do arquivo de imagem cuidarmais-pXX.png
-    //      Você pode ajustar esses números depois conforme o PDF.
+    // "pages" usa o número do arquivo de imagem cuidarmais-pXX.png
 
     const topicGroups = [
       {
@@ -647,12 +668,12 @@
           {
             id: "introducao-programa",
             title: "Introdução: Programa Cuidar+",
-            pages: [1], // cuidarmais-p01.png
+            pages: [1],
           },
           {
             id: "higienizacao-maos",
             title: "Higienização das mãos",
-            pages: [2], // cuidarmais-p02.png
+            pages: [2],
           },
         ],
       },
@@ -794,10 +815,6 @@
       },
     ];
 
-    // -----------------------------
-    // FUNÇÕES DE APOIO
-    // -----------------------------
-
     function pageNumberToFile(page) {
       const num = String(page).padStart(2, "0");
       return `paginas/cuidarmais-p${num}.png`;
@@ -819,10 +836,6 @@
       return `Páginas ${sorted.join(", ")}`;
     }
 
-    // -----------------------------
-    // RENDERIZAÇÃO DOS BLOCOS
-    // -----------------------------
-
     const topicsGrid = document.getElementById("topicsGrid");
 
     function renderTopics() {
@@ -842,6 +855,11 @@
           group.topics.length === 1 ? "tema" : "temas"
         }</p>
         `;
+
+        // Clicar no cabeçalho abre/fecha os temas do bloco
+        headerEl.addEventListener("click", () => {
+          groupEl.classList.toggle("expanded");
+        });
 
         const listEl = document.createElement("div");
         listEl.className = "topic-list";
@@ -883,9 +901,7 @@
 
     renderTopics();
 
-    // -----------------------------
     // BUSCA / FILTRO
-    // -----------------------------
 
     const searchInput = document.getElementById("searchInput");
     const searchToggle = document.getElementById("searchToggle");
@@ -910,7 +926,13 @@
         const visibleCards = group.querySelectorAll(
           ".topic-card:not(.hidden)"
         );
-        group.classList.toggle("hidden", visibleCards.length === 0);
+        const hasVisible = visibleCards.length > 0;
+        group.classList.toggle("hidden", !hasVisible);
+
+        // Quando estiver buscando, os blocos com resultado abrem automaticamente
+        if (query && hasVisible) {
+          group.classList.add("expanded");
+        }
       });
     }
 
@@ -935,9 +957,7 @@
       searchInput.focus();
     });
 
-    // -----------------------------
     // MODAL DE PÁGINAS
-    // -----------------------------
 
     const pageModal = document.getElementById("pageModal");
     const pageModalImages = document.getElementById("pageModalImages");
