@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Programa Cuidar+ — Guia de cuidados em casa</title>
+  <title>Programa Cuidar+ - Guia de cuidados em casa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Cartilha digital do Programa Cuidar+ do HUGOL, com acesso rápido por temas às páginas da cartilha oficial." />
 
@@ -113,61 +113,6 @@
       z-index: 30;
     }
 
-    .card-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 8px 16px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .card-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--hugol-blue-dark);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-title-emoji {
-      font-size: 20px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      background: #e9f3ff;
-      color: var(--hugol-blue-dark);
-      white-space: nowrap;
-    }
-
-    .card-text {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    .card-list {
-      margin-top: 8px;
-      padding-left: 18px;
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .card-list li + li {
-      margin-top: 4px;
-    }
-
     /* BUSCA COM LUPA (PRIMEIRO BLOCO) */
 
     .search-wrapper {
@@ -216,13 +161,14 @@
       color: #9ba4c7;
     }
 
-    /* LISTA DE TEMAS */
+    /* LISTA DE TEMAS: GRID DE BLOCOS */
 
     .topics {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
       margin-top: 6px;
+      align-items: flex-start;
     }
 
     .topic-group {
@@ -230,11 +176,14 @@
       border-radius: var(--border-radius-md);
       border: 1px solid #e1e7fa;
       overflow: hidden;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+      box-shadow: var(--shadow-subtle);
     }
 
-    .topic-group.collapsed {
-      box-shadow: none;
+    .topic-group.collapsed:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(10, 37, 64, 0.18);
+      border-color: #c7d4fb;
     }
 
     .topic-group-header {
@@ -242,10 +191,11 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      padding: 10px 12px;
+      padding: 14px 14px;
       cursor: pointer;
       user-select: none;
       transition: background 0.12s ease;
+      min-height: 88px;
     }
 
     .topic-group-header:hover {
@@ -258,10 +208,9 @@
     }
 
     .topic-group-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 800; /* ExtraBold */
-      letter-spacing: 0.08em;
-      /* removido text-transform: uppercase */
+      letter-spacing: 0.04em;
       color: var(--hugol-blue-dark);
       display: inline-flex;
       align-items: center;
@@ -293,7 +242,7 @@
     .topic-list {
       list-style: none;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: 1fr;
       gap: 8px;
       margin-top: 4px;
       padding: 0 12px 10px;
@@ -519,10 +468,6 @@
     }
 
     @media (max-width: 720px) {
-      .topic-list {
-        grid-template-columns: 1fr;
-      }
-
       .hugol-footer img {
         height: 44px;
       }
@@ -560,19 +505,12 @@
           </div>
         </section>
 
-        <!-- LISTA DE TEMAS -->
+        <!-- LISTA DE TEMAS EM GRID DE BLOCOS -->
         <section class="card" aria-label="Lista de temas da cartilha">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span class="card-title-emoji" aria-hidden="true">📚</span>
-              Temas da cartilha
-            </h2>
-          </div>
-
           <div class="topics" id="topicsRoot">
             <!-- VISÃO GERAL -->
-            <div class="topic-group">
-              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">📘</span>
                   Visão geral
@@ -612,8 +550,8 @@
             </div>
 
             <!-- NUTRIÇÃO DOMICILIAR -->
-            <div class="topic-group">
-              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">🍽️</span>
                   Nutrição domiciliar
@@ -631,7 +569,7 @@
                     <span class="topic-badge">3</span>
                     <span class="topic-label">
                       <span class="topic-title">Nutrição domiciliar: tipos de sonda e orientações gerais</span>
-                      <span class="topic-page">Páginas 4–6</span>
+                      <span class="topic-page">Páginas 4 a 6</span>
                     </span>
                   </a>
                 </li>
@@ -659,7 +597,7 @@
                     <span class="topic-badge">5</span>
                     <span class="topic-label">
                       <span class="topic-title">Preparo da dieta: higiene do cuidador, local e utensílios</span>
-                      <span class="topic-page">Páginas 8–9</span>
+                      <span class="topic-page">Páginas 8 e 9</span>
                     </span>
                   </a>
                 </li>
@@ -673,7 +611,7 @@
                     <span class="topic-badge">6</span>
                     <span class="topic-label">
                       <span class="topic-title">Preparando, guardando e administrando a dieta e a água</span>
-                      <span class="topic-page">Páginas 10–12</span>
+                      <span class="topic-page">Páginas 10 a 12</span>
                     </span>
                   </a>
                 </li>
@@ -701,7 +639,7 @@
                     <span class="topic-badge">8</span>
                     <span class="topic-label">
                       <span class="topic-title">Problemas comuns na nutrição e sinais de alerta</span>
-                      <span class="topic-page">Páginas 14–15</span>
+                      <span class="topic-page">Páginas 14 e 15</span>
                     </span>
                   </a>
                 </li>
@@ -709,8 +647,8 @@
             </div>
 
             <!-- CUIDADOS COM DISPOSITIVOS -->
-            <div class="topic-group">
-              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">🩺</span>
                   Cuidados com dispositivos
@@ -742,7 +680,7 @@
                     <span class="topic-badge">10</span>
                     <span class="topic-label">
                       <span class="topic-title">Colostomia: estoma, bolsa coletora e pele ao redor</span>
-                      <span class="topic-page">Páginas 17–19</span>
+                      <span class="topic-page">Páginas 17 a 19</span>
                     </span>
                   </a>
                 </li>
@@ -756,7 +694,7 @@
                     <span class="topic-badge">11</span>
                     <span class="topic-label">
                       <span class="topic-title">Traqueostomia: cuidados com estoma e cânula</span>
-                      <span class="topic-page">Páginas 20–22</span>
+                      <span class="topic-page">Páginas 20 a 22</span>
                     </span>
                   </a>
                 </li>
@@ -766,25 +704,25 @@
                     href="DocumentoCartilhaCuidarmais-combinado.pdf#page=23&view=FitH"
                     target="_blank"
                     rel="noopener"
-                    aria-label="Abrir cartilha nas páginas 23 a 25: Aspiração traqueal: quando e como fazer">
+                    aria-label="Abrir cartilha nas páginas 23 a 26: Aspiração traqueal: quando e como fazer">
                     <span class="topic-badge">12</span>
                     <span class="topic-label">
                       <span class="topic-title">Aspiração traqueal: quando e como fazer</span>
-                      <span class="topic-page">Páginas 23–25</span>
+                      <span class="topic-page">Páginas 23 a 26</span>
                     </span>
                   </a>
                 </li>
                 <li class="topic-item" data-topic-item data-label="oxigenoterapia domiciliar uso do oxímetro de pulso">
                   <a
                     class="topic-link"
-                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=29&view=FitH"
+                    href="DocumentoCartilhaCuidarmais-combinado.pdf#page=27&view=FitH"
                     target="_blank"
                     rel="noopener"
-                    aria-label="Abrir cartilha nas páginas 26 a 29: Oxigenoterapia domiciliar e uso do oxímetro de pulso">
+                    aria-label="Abrir cartilha nas páginas 27 a 29: Oxigenoterapia domiciliar e uso do oxímetro de pulso">
                     <span class="topic-badge">13</span>
                     <span class="topic-label">
                       <span class="topic-title">Oxigenoterapia domiciliar e uso do oxímetro de pulso</span>
-                      <span class="topic-page">Páginas 26–29</span>
+                      <span class="topic-page">Páginas 27 a 29</span>
                     </span>
                   </a>
                 </li>
@@ -792,8 +730,8 @@
             </div>
 
             <!-- PREVENÇÃO DE FERIDAS -->
-            <div class="topic-group">
-              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">🛡️</span>
                   Prevenção de feridas
@@ -811,16 +749,16 @@
                     <span class="topic-badge">14</span>
                     <span class="topic-label">
                       <span class="topic-title">Lesão por pressão: o que é e como prevenir</span>
-                      <span class="topic-page">Páginas 30–34</span>
+                      <span class="topic-page">Páginas 30 a 34</span>
                     </span>
                   </a>
                 </li>
               </ul>
             </div>
 
-            <!-- SAÚDE MENTAL -->
-            <div class="topic-group">
-              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
+            <!-- SAÚDE MENTAL E CUIDADOR -->
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">💚</span>
                   Saúde mental e cuidador
@@ -860,8 +798,8 @@
             </div>
 
             <!-- SERVIÇO SOCIAL E REDE DE APOIO -->
-            <div class="topic-group">
-              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">🤝</span>
                   Serviço social e rede de apoio
@@ -879,7 +817,7 @@
                     <span class="topic-badge">17</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos: Goiânia (Paço Municipal)</span>
-                      <span class="topic-page">Páginas 38–39</span>
+                      <span class="topic-page">Páginas 38 e 39</span>
                     </span>
                   </a>
                 </li>
@@ -893,7 +831,7 @@
                     <span class="topic-badge">18</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos: OVG</span>
-                      <span class="topic-page">Páginas 40–41</span>
+                      <span class="topic-page">Páginas 40 e 41</span>
                     </span>
                   </a>
                 </li>
@@ -907,7 +845,7 @@
                     <span class="topic-badge">19</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos: demais municípios</span>
-                      <span class="topic-page">Páginas 42–43</span>
+                      <span class="topic-page">Páginas 42 e 43</span>
                     </span>
                   </a>
                 </li>
@@ -921,7 +859,7 @@
                     <span class="topic-badge">20</span>
                     <span class="topic-label">
                       <span class="topic-title">Ventilação mecânica (TRILOGY/BIPAP) e Home Care</span>
-                      <span class="topic-page">Páginas 43–44</span>
+                      <span class="topic-page">Páginas 43 e 44</span>
                     </span>
                   </a>
                 </li>
@@ -935,7 +873,7 @@
                     <span class="topic-badge">21</span>
                     <span class="topic-label">
                       <span class="topic-title">Serviço de apoio ao ostomizado (SAO)</span>
-                      <span class="topic-page">Páginas 45–46</span>
+                      <span class="topic-page">Páginas 45 e 46</span>
                     </span>
                   </a>
                 </li>
@@ -949,7 +887,7 @@
                     <span class="topic-badge">22</span>
                     <span class="topic-label">
                       <span class="topic-title">Serviço de Atenção Domiciliar (SAD)</span>
-                      <span class="topic-page">Páginas 47–49</span>
+                      <span class="topic-page">Páginas 47 a 49</span>
                     </span>
                   </a>
                 </li>
@@ -1035,7 +973,7 @@
         }
       });
 
-      // Esconde grupos sem resultados visíveis
+      // Esconde grupos sem resultados visíveis e expande automaticamente grupos com resultados quando há busca
       topicGroups.forEach((group) => {
         const items = group.querySelectorAll("[data-topic-item]");
         let hasVisible = false;
@@ -1047,6 +985,14 @@
         });
 
         group.style.display = hasVisible ? "" : "none";
+
+        const header = group.querySelector(".topic-group-header");
+        if (!header) return;
+
+        if (query && query.length >= 2 && hasVisible) {
+          group.classList.remove("collapsed");
+          header.setAttribute("aria-expanded", "true");
+        }
       });
     }
 
@@ -1099,7 +1045,7 @@
       });
     }
 
-    // Estado inicial: garante que tudo esteja visível
+    // Estado inicial: garante que tudo esteja visível para a busca, mas mantém os blocos recolhidos
     filtrarTopicos();
   </script>
 </body>
