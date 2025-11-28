@@ -62,7 +62,7 @@
       max-width: 1040px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
       gap: 18px;
       align-items: center;
     }
@@ -97,8 +97,8 @@
 
     .hero-subtitle {
       font-size: 13px;
-      line-height: 1.7;
-      max-width: 520px;
+      line-height: 1.6;
+      max-width: 460px;
       color: rgba(255, 255, 255, 0.9);
     }
 
@@ -111,18 +111,24 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      max-width: 260px;
+      margin-left: auto;
     }
 
     .hero-cover {
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       box-shadow: var(--shadow-subtle);
+      background: #f4f7ff;
+      /* Mantém proporção mais "card" e corta o excesso de A4 */
+      aspect-ratio: 4 / 3;
     }
 
     .hero-cover img {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
     }
 
     .hero-side-title {
@@ -162,6 +168,7 @@
       color: #ffffff;
       box-shadow: var(--shadow-subtle);
       width: 100%;
+      white-space: nowrap;
     }
 
     .hero-btn:hover {
@@ -418,6 +425,11 @@
         font-size: 22px;
       }
 
+      .hero-side-card {
+        margin: 10px auto 0;
+        max-width: 260px;
+      }
+
       .page {
         margin-top: -50px;
         padding: 0 10px 22px;
@@ -445,10 +457,9 @@
             <span class="hero-tag-dot"></span>
             <span>Programa Cuidar+</span>
           </div>
-          <h1 class="hero-title">Os próximos passos para os cuidados em casa</h1>
+          <h1 class="hero-title">Cuidados em casa após a alta</h1>
           <p class="hero-subtitle">
-            Versão digital da cartilha oficial do Programa Cuidar+ do HUGOL. Aqui você encontra os temas organizados
-            por assunto e acessa o PDF direto na página certa.
+            Versão digital da cartilha do Programa Cuidar+ com acesso rápido aos principais temas para pacientes e cuidadores.
           </p>
         </div>
 
@@ -491,8 +502,7 @@
             <span class="badge">Acesso rápido por temas</span>
           </div>
           <p class="card-text">
-            Este site não substitui a cartilha impressa. Ele organiza o conteúdo para facilitar a consulta no dia a dia,
-            principalmente em celulares.
+            Este site organiza a cartilha para facilitar a consulta no dia a dia, principalmente em celulares.
           </p>
           <ul class="card-list">
             <li>Use a busca para localizar um assunto específico (ex.: sonda, dieta, oxigênio, feridas).</li>
