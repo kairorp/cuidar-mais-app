@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Cartilha interativa do Programa Cuidar+ do HUGOL, com orientações para os cuidados em casa após a alta hospitalar." />
 
-  <!-- Fonte próxima ao padrão visual da cartilha (ajuste se o manual usar outra) -->
+  <!-- Fonte próxima ao padrão visual da cartilha -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      /* Ajuste estes valores para as cores oficiais do HUGOL, se quiser ficar 100% igual ao manual */
       --hugol-blue: #0079c8;
       --hugol-blue-dark: #004785;
       --hugol-blue-light: #e6f4ff;
@@ -638,7 +637,7 @@
           id="pdfViewer"
           class="pdf-frame"
           title="Cartilha Programa Cuidar+ em PDF"
-          src="DocumentoCartilhaCuidarmais-combinado.pdf#page=2&view=FitH"
+          src=""
           loading="lazy">
         </iframe>
       </section>
@@ -646,7 +645,7 @@
   </div>
 
   <script>
-    // Nome do arquivo PDF — se você mudar o nome do arquivo, atualize aqui também:
+    // ATENÇÃO: o nome abaixo deve ser exatamente igual ao arquivo do repositório
     const PDF_FILE = "DocumentoCartilhaCuidarmais-combinado.pdf";
 
     const topicButtons = document.querySelectorAll(".topic-btn");
@@ -654,24 +653,26 @@
     const topicSearch = document.getElementById("topicSearch");
 
     function updatePdf(pageNumber) {
-      // O parâmetro #page=n é interpretado pela maioria dos leitores de PDF do navegador
-      pdfViewer.src = PDF_FILE + "#page=" + pageNumber + "&view=FitH";
+      // monta a URL com a página desejada
+      const url = PDF_FILE + "#page=" + pageNumber + "&view=FitH";
+      pdfViewer.src = url;
     }
 
+    // clique nos tópicos
     topicButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const page = btn.dataset.page;
 
-        // Atualiza destaque visual
+        // atualiza destaque visual
         topicButtons.forEach((b) => b.classList.remove("is-active"));
         btn.classList.add("is-active");
 
-        // Atualiza o PDF
+        // atualiza o PDF
         updatePdf(page);
       });
     });
 
-    // Filtro de tópicos pelo campo de busca
+    // filtro de tópicos pelo campo de busca
     if (topicSearch) {
       topicSearch.addEventListener("input", () => {
         const query = topicSearch.value.trim().toLowerCase();
@@ -685,6 +686,15 @@
         });
       });
     }
+
+    // ao carregar a página, abre automaticamente o primeiro tópico ativo
+    document.addEventListener("DOMContentLoaded", () => {
+      const active = document.querySelector(".topic-btn.is-active") || topicButtons[0];
+      if (active) {
+        const page = active.dataset.page;
+        updatePdf(page);
+      }
+    });
   </script>
 </body>
 </html>
