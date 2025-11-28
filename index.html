@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Cartilha digital do Programa Cuidar+ do Hugól, com acesso rápido por temas às páginas da cartilha oficial." />
 
-  <!-- Montserrat com pesos adicionais (inclui 800 para ExtraBold) -->
+  <!-- Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -117,7 +117,7 @@
       z-index: 30;
     }
 
-    /* BUSCA COM LUPA (PRIMEIRO BLOCO) */
+    /* BUSCA COM LUPA */
 
     .search-wrapper {
       margin-top: 2px;
@@ -167,7 +167,7 @@
       color: #9ba4c7;
     }
 
-    /* ESTADO COMPACTO DA BUSCA (VIRA LUPA FLUTUANTE) */
+    /* ESTADO COMPACTO: LUPA FLUTUANTE */
 
     .search-card.compact {
       background: transparent;
@@ -272,7 +272,7 @@
 
     .topic-group-title {
       font-size: 17px;
-      font-weight: 800; /* ExtraBold */
+      font-weight: 800;
       letter-spacing: 0.05em;
       color: var(--hugol-blue-dark);
       display: inline-flex;
@@ -362,12 +362,6 @@
       outline-offset: 3px;
     }
 
-    .topic-link-active {
-      background: linear-gradient(145deg, #eef4ff, #ffffff);
-      border-color: #90b4ff;
-      box-shadow: 0 10px 24px rgba(10, 37, 64, 0.2);
-    }
-
     .topic-badge {
       min-width: 24px;
       height: 24px;
@@ -399,22 +393,10 @@
       display: block;
     }
 
-    /* CONTEÚDO EXPANDIDO DO TEMA (IMAGENS DAS PÁGINAS) */
+    /* CONTEÚDO DAS PÁGINAS (FONTE PARA O MODAL, FICA ESCONDIDO) */
 
     .topic-content {
-      margin-top: 8px;
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 10px;
-      border: 1px solid #dde6fb;
-      max-height: 70vh;
-      overflow-y: auto;
-      box-shadow: 0 8px 18px rgba(10, 37, 64, 0.12);
       display: none;
-    }
-
-    .topic-content.open {
-      display: block;
     }
 
     .topic-page-image {
@@ -435,7 +417,74 @@
       border-radius: 3px;
     }
 
-    /* SEÇÃO DE DOWNLOAD NO FINAL */
+    /* MODAL DE ZOOM DAS PÁGINAS */
+
+    .image-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 20, 45, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 120;
+    }
+
+    .image-modal.open {
+      display: flex;
+    }
+
+    .image-modal-content {
+      background: #f5f8ff;
+      border-radius: 18px;
+      box-shadow: 0 22px 60px rgba(3, 16, 40, 0.85);
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 12px 12px 16px;
+    }
+
+    .image-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-top: 8px;
+    }
+
+    .image-modal-body img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: none;
+      background: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(10, 37, 64, 0.35);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #3b4a6b;
+    }
+
+    .image-modal-close:focus-visible {
+      outline: 2px solid var(--hugol-blue);
+      outline-offset: 3px;
+    }
+
+    /* DOWNLOAD CARTILHA COMPLETA */
 
     .download-section {
       margin-top: 8px;
@@ -552,7 +601,6 @@
     }
 
     @media (max-width: 640px) {
-      /* grid com 2 colunas também no mobile */
       .topics {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
@@ -577,8 +625,9 @@
         padding: 0 10px 10px;
       }
 
-      .search-card.compact .search-wrapper {
-        justify-content: flex-end;
+      .image-modal-content {
+        border-radius: 16px;
+        padding: 10px 10px 14px;
       }
     }
 
@@ -591,11 +640,10 @@
 </head>
 <body>
   <div class="app">
-    <!-- TOPO: APENAS LOGO DO PROGRAMA -->
+    <!-- HERO COM LOGO -->
     <header class="hero">
       <div class="hero-inner">
         <div class="hero-logo-wrap">
-          <!-- arquivo testeira.png deve estar no repositório -->
           <img src="testeira.png" alt="Programa Cuidar+" />
         </div>
       </div>
@@ -604,7 +652,7 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="page" role="main">
       <div class="page-inner">
-        <!-- BLOCO 1: APENAS BUSCA COM LUPA (STICKY) -->
+        <!-- BUSCA -->
         <section class="card search-card" aria-label="Buscar tema da cartilha">
           <div class="search-wrapper">
             <div class="search-shell">
@@ -620,7 +668,7 @@
           </div>
         </section>
 
-        <!-- LISTA DE TEMAS EM GRID DE BLOCOS -->
+        <!-- TEMAS EM GRID -->
         <section class="card" aria-label="Lista de temas da cartilha">
           <div class="topics" id="topicsRoot">
 
@@ -639,18 +687,18 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-intro-p2"
-                    aria-label="Ver conteúdo da cartilha: Introdução: Programa Cuidar+, página 2">
+                    aria-label="Ver conteúdo da cartilha: Introdução: Programa Cuidar+, página 1">
                     <span class="topic-badge">1</span>
                     <span class="topic-label">
                       <span class="topic-title">Introdução: Programa Cuidar+</span>
-                      <span class="topic-page">Página 2</span>
+                      <span class="topic-page">Página 1</span>
                     </span>
                   </button>
                   <div id="topic-intro-p2" class="topic-content" aria-hidden="true">
                     <img
                       class="topic-page-image"
-                      src="paginas/cuidarmais-p02.png"
-                      alt="Cartilha Cuidar+ - Introdução ao Programa Cuidar+ - página 2"
+                      src="páginas/cuidarmais-p02.png"
+                      alt="Cartilha Cuidar+ - Introdução ao Programa Cuidar+ - página 1"
                       loading="lazy" />
                   </div>
                 </li>
@@ -660,18 +708,18 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-higiene-p3"
-                    aria-label="Ver conteúdo da cartilha: Higienização das mãos, página 3">
+                    aria-label="Ver conteúdo da cartilha: Higienização das mãos, página 2">
                     <span class="topic-badge">2</span>
                     <span class="topic-label">
                       <span class="topic-title">Higienização das mãos</span>
-                      <span class="topic-page">Página 3</span>
+                      <span class="topic-page">Página 2</span>
                     </span>
                   </button>
                   <div id="topic-higiene-p3" class="topic-content" aria-hidden="true">
                     <img
                       class="topic-page-image"
-                      src="paginas/cuidarmais-p03.png"
-                      alt="Cartilha Cuidar+ - Higienização das mãos - página 3"
+                      src="páginas/cuidarmais-p03.png"
+                      alt="Cartilha Cuidar+ - Higienização das mãos - página 2"
                       loading="lazy" />
                   </div>
                 </li>
@@ -693,17 +741,17 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-nutricao-p4-6"
-                    aria-label="Ver conteúdo da cartilha: Nutrição domiciliar: tipos de sonda e orientações gerais, páginas 4 a 6">
+                    aria-label="Ver conteúdo da cartilha: Nutrição domiciliar: tipos de sonda e orientações gerais, páginas 3 a 5">
                     <span class="topic-badge">3</span>
                     <span class="topic-label">
                       <span class="topic-title">Nutrição domiciliar: tipos de sonda e orientações gerais</span>
-                      <span class="topic-page">Páginas 4 a 6</span>
+                      <span class="topic-page">Páginas 3 a 5</span>
                     </span>
                   </button>
                   <div id="topic-nutricao-p4-6" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p04.png" alt="Cartilha Cuidar+ - Nutrição domiciliar, página 4" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p05.png" alt="Cartilha Cuidar+ - Nutrição domiciliar, página 5" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p06.png" alt="Cartilha Cuidar+ - Nutrição domiciliar, página 6" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p04.png" alt="Cartilha Cuidar+ - Nutrição domiciliar - página 3" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p05.png" alt="Cartilha Cuidar+ - Nutrição domiciliar - página 4" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p06.png" alt="Cartilha Cuidar+ - Nutrição domiciliar - página 5" loading="lazy" />
                   </div>
                 </li>
 
@@ -712,15 +760,15 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-tipos-dieta-p7"
-                    aria-label="Ver conteúdo da cartilha: Tipos de dieta, página 7">
+                    aria-label="Ver conteúdo da cartilha: Tipos de dieta, página 6">
                     <span class="topic-badge">4</span>
                     <span class="topic-label">
                       <span class="topic-title">Tipos de dieta (industrializada, artesanal e mista)</span>
-                      <span class="topic-page">Página 7</span>
+                      <span class="topic-page">Página 6</span>
                     </span>
                   </button>
                   <div id="topic-tipos-dieta-p7" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p07.png" alt="Cartilha Cuidar+ - Tipos de dieta - página 7" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p07.png" alt="Cartilha Cuidar+ - Tipos de dieta - página 6" loading="lazy" />
                   </div>
                 </li>
 
@@ -729,16 +777,16 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-preparo-dieta-p8-9"
-                    aria-label="Ver conteúdo da cartilha: Preparo da dieta, páginas 8 e 9">
+                    aria-label="Ver conteúdo da cartilha: Preparo da dieta, páginas 7 e 8">
                     <span class="topic-badge">5</span>
                     <span class="topic-label">
                       <span class="topic-title">Preparo da dieta: higiene do cuidador, local e utensílios</span>
-                      <span class="topic-page">Páginas 8 e 9</span>
+                      <span class="topic-page">Páginas 7 e 8</span>
                     </span>
                   </button>
                   <div id="topic-preparo-dieta-p8-9" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p08.png" alt="Cartilha Cuidar+ - Preparo da dieta - página 8" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p09.png" alt="Cartilha Cuidar+ - Preparo da dieta - página 9" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p08.png" alt="Cartilha Cuidar+ - Preparo da dieta - página 7" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p09.png" alt="Cartilha Cuidar+ - Preparo da dieta - página 8" loading="lazy" />
                   </div>
                 </li>
 
@@ -747,17 +795,17 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-preparando-dieta-p10-12"
-                    aria-label="Ver conteúdo da cartilha: Preparando, guardando e administrando a dieta e a água, páginas 10 a 12">
+                    aria-label="Ver conteúdo da cartilha: Preparando, guardando e administrando a dieta e a água, páginas 9 a 11">
                     <span class="topic-badge">6</span>
                     <span class="topic-label">
                       <span class="topic-title">Preparando, guardando e administrando a dieta e a água</span>
-                      <span class="topic-page">Páginas 10 a 12</span>
+                      <span class="topic-page">Páginas 9 a 11</span>
                     </span>
                   </button>
                   <div id="topic-preparando-dieta-p10-12" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p10.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 10" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p11.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 11" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p12.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 12" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p10.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 9" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p11.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 10" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p12.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 11" loading="lazy" />
                   </div>
                 </li>
 
@@ -766,15 +814,15 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-limpeza-sonda-p13"
-                    aria-label="Ver conteúdo da cartilha: Limpeza da sonda, frascos e equipos, página 13">
+                    aria-label="Ver conteúdo da cartilha: Limpeza da sonda, frascos e equipos, página 12">
                     <span class="topic-badge">7</span>
                     <span class="topic-label">
                       <span class="topic-title">Limpeza da sonda, frascos e equipos</span>
-                      <span class="topic-page">Página 13</span>
+                      <span class="topic-page">Página 12</span>
                     </span>
                   </button>
                   <div id="topic-limpeza-sonda-p13" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p13.png" alt="Cartilha Cuidar+ - Limpeza da sonda, frascos e equipos - página 13" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p13.png" alt="Cartilha Cuidar+ - Limpeza da sonda, frascos e equipos - página 12" loading="lazy" />
                   </div>
                 </li>
 
@@ -783,16 +831,16 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-problemas-nutricao-p14-15"
-                    aria-label="Ver conteúdo da cartilha: Problemas comuns na nutrição e sinais de alerta, páginas 14 e 15">
+                    aria-label="Ver conteúdo da cartilha: Problemas comuns na nutrição e sinais de alerta, páginas 13 e 14">
                     <span class="topic-badge">8</span>
                     <span class="topic-label">
                       <span class="topic-title">Problemas comuns na nutrição e sinais de alerta</span>
-                      <span class="topic-page">Páginas 14 e 15</span>
+                      <span class="topic-page">Páginas 13 e 14</span>
                     </span>
                   </button>
                   <div id="topic-problemas-nutricao-p14-15" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p14.png" alt="Cartilha Cuidar+ - Problemas comuns na nutrição - página 14" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p15.png" alt="Cartilha Cuidar+ - Problemas comuns na nutrição - página 15" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p14.png" alt="Cartilha Cuidar+ - Problemas comuns na nutrição - página 13" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p15.png" alt="Cartilha Cuidar+ - Problemas comuns na nutrição - página 14" loading="lazy" />
                   </div>
                 </li>
               </ul>
@@ -813,15 +861,15 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-sonda-vesical-p16"
-                    aria-label="Ver conteúdo da cartilha: Sonda vesical: cuidados no dia a dia, página 16">
+                    aria-label="Ver conteúdo da cartilha: Sonda vesical: cuidados no dia a dia, página 15">
                     <span class="topic-badge">9</span>
                     <span class="topic-label">
                       <span class="topic-title">Sonda vesical: cuidados no dia a dia</span>
-                      <span class="topic-page">Página 16</span>
+                      <span class="topic-page">Página 15</span>
                     </span>
                   </button>
                   <div id="topic-sonda-vesical-p16" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p16.png" alt="Cartilha Cuidar+ - Sonda vesical: cuidados no dia a dia - página 16" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p16.png" alt="Cartilha Cuidar+ - Sonda vesical: cuidados no dia a dia - página 15" loading="lazy" />
                   </div>
                 </li>
 
@@ -830,17 +878,17 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-colostomia-p17-19"
-                    aria-label="Ver conteúdo da cartilha: Colostomia: estoma, bolsa coletora e pele ao redor, páginas 17 a 19">
+                    aria-label="Ver conteúdo da cartilha: Colostomia: estoma, bolsa coletora e pele ao redor, páginas 16 a 18">
                     <span class="topic-badge">10</span>
                     <span class="topic-label">
                       <span class="topic-title">Colostomia: estoma, bolsa coletora e pele ao redor</span>
-                      <span class="topic-page">Páginas 17 a 19</span>
+                      <span class="topic-page">Páginas 16 a 18</span>
                     </span>
                   </button>
                   <div id="topic-colostomia-p17-19" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p17.png" alt="Cartilha Cuidar+ - Colostomia - página 17" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p18.png" alt="Cartilha Cuidar+ - Colostomia - página 18" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p19.png" alt="Cartilha Cuidar+ - Colostomia - página 19" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p17.png" alt="Cartilha Cuidar+ - Colostomia - página 16" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p18.png" alt="Cartilha Cuidar+ - Colostomia - página 17" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p19.png" alt="Cartilha Cuidar+ - Colostomia - página 18" loading="lazy" />
                   </div>
                 </li>
 
@@ -849,17 +897,17 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-traqueostomia-p20-22"
-                    aria-label="Ver conteúdo da cartilha: Traqueostomia: cuidados com estoma e cânula, páginas 20 a 22">
+                    aria-label="Ver conteúdo da cartilha: Traqueostomia: cuidados com estoma e cânula, páginas 19 a 21">
                     <span class="topic-badge">11</span>
                     <span class="topic-label">
                       <span class="topic-title">Traqueostomia: cuidados com estoma e cânula</span>
-                      <span class="topic-page">Páginas 20 a 22</span>
+                      <span class="topic-page">Páginas 19 a 21</span>
                     </span>
                   </button>
                   <div id="topic-traqueostomia-p20-22" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p20.png" alt="Cartilha Cuidar+ - Traqueostomia - página 20" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p21.png" alt="Cartilha Cuidar+ - Traqueostomia - página 21" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p22.png" alt="Cartilha Cuidar+ - Traqueostomia - página 22" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p20.png" alt="Cartilha Cuidar+ - Traqueostomia - página 19" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p21.png" alt="Cartilha Cuidar+ - Traqueostomia - página 20" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p22.png" alt="Cartilha Cuidar+ - Traqueostomia - página 21" loading="lazy" />
                   </div>
                 </li>
 
@@ -868,18 +916,18 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-aspiracao-p23-26"
-                    aria-label="Ver conteúdo da cartilha: Aspiração traqueal: quando e como fazer, páginas 23 a 26">
+                    aria-label="Ver conteúdo da cartilha: Aspiração traqueal: quando e como fazer, páginas 22 a 25">
                     <span class="topic-badge">12</span>
                     <span class="topic-label">
                       <span class="topic-title">Aspiração traqueal: quando e como fazer</span>
-                      <span class="topic-page">Páginas 23 a 26</span>
+                      <span class="topic-page">Páginas 22 a 25</span>
                     </span>
                   </button>
                   <div id="topic-aspiracao-p23-26" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p23.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 23" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p24.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 24" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p25.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 25" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p26.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 26" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p23.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 22" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p24.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 23" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p25.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 24" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p26.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 25" loading="lazy" />
                   </div>
                 </li>
 
@@ -888,17 +936,17 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-oxigenoterapia-p27-29"
-                    aria-label="Ver conteúdo da cartilha: Oxigenoterapia domiciliar e uso do oxímetro de pulso, páginas 27 a 29">
+                    aria-label="Ver conteúdo da cartilha: Oxigenoterapia domiciliar e uso do oxímetro de pulso, páginas 26 a 28">
                     <span class="topic-badge">13</span>
                     <span class="topic-label">
                       <span class="topic-title">Oxigenoterapia domiciliar e uso do oxímetro de pulso</span>
-                      <span class="topic-page">Páginas 27 a 29</span>
+                      <span class="topic-page">Páginas 26 a 28</span>
                     </span>
                   </button>
                   <div id="topic-oxigenoterapia-p27-29" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p27.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 27" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p28.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 28" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p29.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 29" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p27.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 26" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p28.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 27" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p29.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 28" loading="lazy" />
                   </div>
                 </li>
               </ul>
@@ -919,19 +967,19 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-lesao-pressao-p30-34"
-                    aria-label="Ver conteúdo da cartilha: Lesão por pressão: o que é e como prevenir, páginas 30 a 34">
+                    aria-label="Ver conteúdo da cartilha: Lesão por pressão: o que é e como prevenir, páginas 29 a 33">
                     <span class="topic-badge">14</span>
                     <span class="topic-label">
                       <span class="topic-title">Lesão por pressão: o que é e como prevenir</span>
-                      <span class="topic-page">Páginas 30 a 34</span>
+                      <span class="topic-page">Páginas 29 a 33</span>
                     </span>
                   </button>
                   <div id="topic-lesao-pressao-p30-34" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p30.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 30" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p31.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 31" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p32.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 32" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p33.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 33" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p34.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 34" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p30.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 29" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p31.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 30" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p32.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 31" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p33.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 32" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p34.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 33" loading="lazy" />
                   </div>
                 </li>
               </ul>
@@ -952,15 +1000,15 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-cuidando-cuidador-p36"
-                    aria-label="Ver conteúdo da cartilha: Cuidando de quem cuida: cuidados com o cuidador, página 36">
+                    aria-label="Ver conteúdo da cartilha: Cuidando de quem cuida: cuidados com o cuidador, página 35">
                     <span class="topic-badge">15</span>
                     <span class="topic-label">
                       <span class="topic-title">Cuidando de quem cuida: cuidados com o cuidador</span>
-                      <span class="topic-page">Página 36</span>
+                      <span class="topic-page">Página 35</span>
                     </span>
                   </button>
                   <div id="topic-cuidando-cuidador-p36" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p36.png" alt="Cartilha Cuidar+ - Cuidando de quem cuida - página 36" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p36.png" alt="Cartilha Cuidar+ - Cuidando de quem cuida - página 35" loading="lazy" />
                   </div>
                 </li>
 
@@ -969,15 +1017,15 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-saude-mental-p35"
-                    aria-label="Ver conteúdo da cartilha: Saúde mental do paciente e da família após a alta, página 35">
+                    aria-label="Ver conteúdo da cartilha: Saúde mental do paciente e da família após a alta, página 34">
                     <span class="topic-badge">16</span>
                     <span class="topic-label">
                       <span class="topic-title">Saúde mental do paciente e da família após a alta</span>
-                      <span class="topic-page">Página 35</span>
+                      <span class="topic-page">Página 34</span>
                     </span>
                   </button>
                   <div id="topic-saude-mental-p35" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p35.png" alt="Cartilha Cuidar+ - Saúde mental do paciente e da família - página 35" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p35.png" alt="Cartilha Cuidar+ - Saúde mental do paciente e da família - página 34" loading="lazy" />
                   </div>
                 </li>
               </ul>
@@ -998,16 +1046,16 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-insumos-goiania-p38-39"
-                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: Goiânia (Paço Municipal), páginas 38 e 39">
+                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: Goiânia (Paço Municipal), páginas 37 e 38">
                     <span class="topic-badge">17</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos: Goiânia (Paço Municipal)</span>
-                      <span class="topic-page">Páginas 38 e 39</span>
+                      <span class="topic-page">Páginas 37 e 38</span>
                     </span>
                   </button>
                   <div id="topic-insumos-goiania-p38-39" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p38.png" alt="Cartilha Cuidar+ - Solicitação de insumos: Goiânia (Paço Municipal) - página 38" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p39.png" alt="Cartilha Cuidar+ - Solicitação de insumos: Goiânia (Paço Municipal) - página 39" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p38.png" alt="Cartilha Cuidar+ - Solicitação de insumos: Goiânia (Paço Municipal) - página 37" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p39.png" alt="Cartilha Cuidar+ - Solicitação de insumos: Goiânia (Paço Municipal) - página 38" loading="lazy" />
                   </div>
                 </li>
 
@@ -1016,16 +1064,16 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-insumos-ovg-p40-41"
-                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: OVG, páginas 40 e 41">
+                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: OVG, páginas 39 e 40">
                     <span class="topic-badge">18</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos: OVG</span>
-                      <span class="topic-page">Páginas 40 e 41</span>
+                      <span class="topic-page">Páginas 39 e 40</span>
                     </span>
                   </button>
                   <div id="topic-insumos-ovg-p40-41" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p40.png" alt="Cartilha Cuidar+ - Solicitação de insumos: OVG - página 40" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p41.png" alt="Cartilha Cuidar+ - Solicitação de insumos: OVG - página 41" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p40.png" alt="Cartilha Cuidar+ - Solicitação de insumos: OVG - página 39" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p41.png" alt="Cartilha Cuidar+ - Solicitação de insumos: OVG - página 40" loading="lazy" />
                   </div>
                 </li>
 
@@ -1034,16 +1082,16 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-insumos-municipios-p42-43"
-                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: demais municípios, páginas 42 e 43">
+                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: demais municípios, páginas 41 e 42">
                     <span class="topic-badge">19</span>
                     <span class="topic-label">
                       <span class="topic-title">Solicitação de insumos: demais municípios</span>
-                      <span class="topic-page">Páginas 42 e 43</span>
+                      <span class="topic-page">Páginas 41 e 42</span>
                     </span>
                   </button>
                   <div id="topic-insumos-municipios-p42-43" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p42.png" alt="Cartilha Cuidar+ - Solicitação de insumos: demais municípios - página 42" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p43.png" alt="Cartilha Cuidar+ - Solicitação de insumos: demais municípios - página 43" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p42.png" alt="Cartilha Cuidar+ - Solicitação de insumos: demais municípios - página 41" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p43.png" alt="Cartilha Cuidar+ - Solicitação de insumos: demais municípios - página 42" loading="lazy" />
                   </div>
                 </li>
 
@@ -1052,16 +1100,16 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-ventilacao-homecare-p43-44"
-                    aria-label="Ver conteúdo da cartilha: Ventilação mecânica (TRILOGY/BIPAP) e Home Care, páginas 43 e 44">
+                    aria-label="Ver conteúdo da cartilha: Ventilação mecânica (TRILOGY/BIPAP) e Home Care, páginas 42 e 43">
                     <span class="topic-badge">20</span>
                     <span class="topic-label">
                       <span class="topic-title">Ventilação mecânica (TRILOGY/BIPAP) e Home Care</span>
-                      <span class="topic-page">Páginas 43 e 44</span>
+                      <span class="topic-page">Páginas 42 e 43</span>
                     </span>
                   </button>
                   <div id="topic-ventilacao-homecare-p43-44" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p43.png" alt="Cartilha Cuidar+ - Ventilação mecânica (TRILOGY/BIPAP) e Home Care - página 43" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p44.png" alt="Cartilha Cuidar+ - Ventilação mecânica (TRILOGY/BIPAP) e Home Care - página 44" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p43.png" alt="Cartilha Cuidar+ - Ventilação mecânica (TRILOGY/BIPAP) e Home Care - página 42" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p44.png" alt="Cartilha Cuidar+ - Ventilação mecânica (TRILOGY/BIPAP) e Home Care - página 43" loading="lazy" />
                   </div>
                 </li>
 
@@ -1070,16 +1118,16 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-sao-p45-46"
-                    aria-label="Ver conteúdo da cartilha: Serviço de apoio ao ostomizado (SAO), páginas 45 e 46">
+                    aria-label="Ver conteúdo da cartilha: Serviço de apoio ao ostomizado (SAO), páginas 44 e 45">
                     <span class="topic-badge">21</span>
                     <span class="topic-label">
                       <span class="topic-title">Serviço de apoio ao ostomizado (SAO)</span>
-                      <span class="topic-page">Páginas 45 e 46</span>
+                      <span class="topic-page">Páginas 44 e 45</span>
                     </span>
                   </button>
                   <div id="topic-sao-p45-46" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p45.png" alt="Cartilha Cuidar+ - Serviço de apoio ao ostomizado - página 45" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p46.png" alt="Cartilha Cuidar+ - Serviço de apoio ao ostomizado - página 46" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p45.png" alt="Cartilha Cuidar+ - Serviço de apoio ao ostomizado - página 44" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p46.png" alt="Cartilha Cuidar+ - Serviço de apoio ao ostomizado - página 45" loading="lazy" />
                   </div>
                 </li>
 
@@ -1088,17 +1136,17 @@
                     class="topic-link"
                     type="button"
                     data-content-id="topic-sad-p47-49"
-                    aria-label="Ver conteúdo da cartilha: Serviço de Atenção Domiciliar (SAD), páginas 47 a 49">
+                    aria-label="Ver conteúdo da cartilha: Serviço de Atenção Domiciliar (SAD), páginas 46 a 48">
                     <span class="topic-badge">22</span>
                     <span class="topic-label">
                       <span class="topic-title">Serviço de Atenção Domiciliar (SAD)</span>
-                      <span class="topic-page">Páginas 47 a 49</span>
+                      <span class="topic-page">Páginas 46 a 48</span>
                     </span>
                   </button>
                   <div id="topic-sad-p47-49" class="topic-content" aria-hidden="true">
-                    <img class="topic-page-image" src="paginas/cuidarmais-p47.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 47" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p48.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 48" loading="lazy" />
-                    <img class="topic-page-image" src="paginas/cuidarmais-p49.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 49" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p47.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 46" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p48.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 47" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p49.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 48" loading="lazy" />
                   </div>
                 </li>
               </ul>
@@ -1106,7 +1154,7 @@
           </div>
         </section>
 
-        <!-- DOWNLOAD CARTILHA COMPLETA (FINAL DA PÁGINA) -->
+        <!-- DOWNLOAD CARTILHA COMPLETA -->
         <section class="download-section">
           <div class="download-card">
             <div class="download-title">Cartilha completa do Programa Cuidar+</div>
@@ -1127,10 +1175,19 @@
       </div>
     </main>
 
+    <!-- MODAL PARA ZOOM DAS PÁGINAS -->
+    <div id="imageModal" class="image-modal" aria-hidden="true" role="dialog" aria-label="Visualização da página da cartilha">
+      <div class="image-modal-content">
+        <button id="imageModalClose" class="image-modal-close" type="button" aria-label="Fechar visualização">
+          ✕
+        </button>
+        <div id="imageModalBody" class="image-modal-body"></div>
+      </div>
+    </div>
+
     <!-- RODAPÉ HUGOL -->
     <footer class="hugol-footer">
       <div class="hugol-footer-inner">
-        <!-- arquivo logohugol.png deve estar no repositório -->
         <img src="logohugol.png" alt="Hospital Estadual de Urgências Governador Otávio Lage de Siqueira (Hugól)" />
       </div>
     </footer>
@@ -1146,54 +1203,24 @@
     const searchShell = document.querySelector(".search-shell");
     const topicTriggers = document.querySelectorAll(".topic-link");
 
-    // Guarda o título original para poder aplicar/remover destaque
+    const imageModal = document.getElementById("imageModal");
+    const imageModalBody = document.getElementById("imageModalBody");
+    const imageModalClose = document.getElementById("imageModalClose");
+    let lastFocusedTrigger = null;
+
+    // Guardar título original para remover destaque da busca depois
     topicTitles.forEach((title) => {
       title.dataset.originalTitle = title.textContent;
     });
 
     function escapeRegExp(string) {
-      return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return string.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&");
     }
 
-    function closeAllTopicContents() {
-      const openContents = document.querySelectorAll(".topic-content.open");
-      openContents.forEach((content) => {
-        content.classList.remove("open");
-        content.setAttribute("aria-hidden", "true");
-      });
-      topicTriggers.forEach((trigger) => {
-        trigger.classList.remove("topic-link-active");
-      });
-    }
-
-    function toggleTopicContent(trigger) {
-      const contentId = trigger.getAttribute("data-content-id");
-      if (!contentId) return;
-      const contentEl = document.getElementById(contentId);
-      if (!contentEl) return;
-
-      const isOpen = contentEl.classList.contains("open");
-
-      // Fecha todos antes
-      closeAllTopicContents();
-
-      if (!isOpen) {
-        contentEl.classList.add("open");
-        contentEl.setAttribute("aria-hidden", "false");
-        trigger.classList.add("topic-link-active");
-        contentEl.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-
-    topicTriggers.forEach((trigger) => {
-      trigger.addEventListener("click", () => toggleTopicContent(trigger));
-    });
+    /* FILTRO DE BUSCA */
 
     function filtrarTopicos() {
       const query = (searchInput.value || "").trim().toLowerCase();
-
-      // Fecha conteúdos abertos ao alterar a busca
-      closeAllTopicContents();
 
       topicItems.forEach((item) => {
         const label = (item.getAttribute("data-label") || "").toLowerCase();
@@ -1213,7 +1240,6 @@
         }
       });
 
-      // Esconde grupos sem resultados visíveis e expande automaticamente grupos com resultados quando há busca
       topicGroups.forEach((group) => {
         const items = group.querySelectorAll("[data-topic-item]");
         let hasVisible = false;
@@ -1236,7 +1262,8 @@
       });
     }
 
-    // Toggle de acordeão nos grupos
+    /* ACORDEÃO DOS BLOCOS */
+
     function toggleGroup(header) {
       const group = header.closest(".topic-group");
       const expanded = header.getAttribute("aria-expanded") === "true";
@@ -1254,11 +1281,59 @@
       });
     });
 
+    /* MODAL DE IMAGENS */
+
+    function openModalFromTrigger(trigger) {
+      const contentId = trigger.getAttribute("data-content-id");
+      if (!contentId) return;
+      const sourceContent = document.getElementById(contentId);
+      if (!sourceContent) return;
+
+      imageModalBody.innerHTML = sourceContent.innerHTML;
+      imageModal.classList.add("open");
+      imageModal.setAttribute("aria-hidden", "false");
+      lastFocusedTrigger = trigger;
+
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      if (!imageModal.classList.contains("open")) return;
+      imageModal.classList.remove("open");
+      imageModal.setAttribute("aria-hidden", "true");
+      imageModalBody.innerHTML = "";
+      document.body.style.overflow = "";
+
+      if (lastFocusedTrigger) {
+        try {
+          lastFocusedTrigger.focus();
+        } catch (e) {}
+      }
+    }
+
+    topicTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => openModalFromTrigger(trigger));
+    });
+
+    imageModalClose.addEventListener("click", closeModal);
+
+    imageModal.addEventListener("click", (event) => {
+      if (event.target === imageModal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    /* BUSCA: eventos */
+
     if (searchInput) {
-      // Filtra enquanto digita
       searchInput.addEventListener("input", filtrarTopicos);
 
-      // Enter abre o único resultado visível, se houver
       searchInput.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
           const visibles = Array.from(topicItems).filter(
@@ -1269,23 +1344,21 @@
             event.preventDefault();
             const trigger = visibles[0].querySelector(".topic-link");
             if (trigger) {
-              trigger.click();
+              openModalFromTrigger(trigger);
             }
           }
         }
       });
 
-      // Autofocus no campo de busca (onde o navegador permitir)
       window.addEventListener("DOMContentLoaded", () => {
         try {
           searchInput.focus();
-        } catch (e) {
-          // Alguns navegadores móveis podem bloquear o foco automático
-        }
+        } catch (e) {}
       });
     }
 
-    // Comportamento da barra de busca: vira lupa ao descer
+    /* COMPORTAMENTO DA BARRA DE BUSCA (LUPA AO DESCER) */
+
     if (searchCard && searchShell && searchInput) {
       const SCROLL_THRESHOLD = 140;
 
@@ -1300,7 +1373,6 @@
 
       window.addEventListener("scroll", updateSearchCompactState);
 
-      // Lupa expande ao clicar
       searchShell.addEventListener("click", (event) => {
         if (!searchCard.classList.contains("compact")) return;
         event.stopPropagation();
@@ -1315,7 +1387,6 @@
         }
       });
 
-      // Clique fora fecha a busca expandida em modo compacto
       document.addEventListener("click", (event) => {
         if (
           !searchCard.classList.contains("compact") ||
@@ -1329,11 +1400,10 @@
         }
       });
 
-      // Estado inicial
       updateSearchCompactState();
     }
 
-    // Estado inicial: garante que tudo esteja visível para a busca, mas mantém os blocos recolhidos
+    // estado inicial da lista
     filtrarTopicos();
   </script>
 </body>
