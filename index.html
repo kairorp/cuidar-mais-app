@@ -50,143 +50,38 @@
       flex-direction: column;
     }
 
-    /* HERO */
+    /* HERO APENAS COM LOGO */
 
     .hero {
       background: radial-gradient(circle at top left, #31b3ff 0, var(--bg-gradient-start) 30%, var(--bg-gradient-end) 100%);
-      color: #ffffff;
-      padding: 22px 16px 80px;
+      padding: 32px 16px 90px;
     }
 
     .hero-inner {
       max-width: 1040px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      gap: 18px;
-      align-items: center;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.18);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .hero-tag-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #ffffff;
-    }
-
-    .hero-title {
-      font-size: 24px;
-      line-height: 1.3;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .hero-subtitle {
-      font-size: 13px;
-      line-height: 1.6;
-      max-width: 460px;
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .hero-side-card {
-      background: rgba(255, 255, 255, 0.96);
-      color: var(--text-main);
-      border-radius: 16px;
-      padding: 12px 12px 14px;
-      box-shadow: var(--shadow-soft);
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-width: 260px;
-      margin-left: auto;
+      justify-content: center;
+      align-items: center;
     }
 
-    .hero-cover {
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--shadow-subtle);
-      background: #f4f7ff;
-      /* Mantém proporção mais "card" e corta o excesso de A4 */
-      aspect-ratio: 4 / 3;
+    .hero-logo-wrap {
+      max-width: 520px;
+      width: 100%;
     }
 
-    .hero-cover img {
+    .hero-logo-wrap img {
       display: block;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
     }
 
-    .hero-side-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--hugol-blue-dark);
-    }
-
-    .hero-side-text {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 2px;
-    }
-
-    .hero-btn {
-      border: none;
-      outline: none;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      border-radius: 999px;
-      padding: 8px 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
-      background: var(--hugol-blue);
-      color: #ffffff;
-      box-shadow: var(--shadow-subtle);
-      width: 100%;
-      white-space: nowrap;
-    }
-
-    .hero-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(0, 74, 145, 0.4);
-    }
-
-    .hero-badge-small {
-      font-size: 10px;
-      color: var(--text-muted);
-    }
-
-    /* PAGE */
+    /* CONTEÚDO */
 
     .page {
       flex: 1;
-      margin-top: -52px;
-      padding: 0 12px 24px;
+      margin-top: -60px;
+      padding: 0 12px 32px;
     }
 
     .page-inner {
@@ -288,7 +183,7 @@
       color: #9ba4c7;
     }
 
-    /* TOPIC GROUPS */
+    /* LISTA DE TEMAS */
 
     .topics {
       display: flex;
@@ -410,82 +305,120 @@
       text-decoration: underline;
     }
 
+    /* SEÇÃO DE DOWNLOAD NO FINAL */
+
+    .download-section {
+      margin-top: 6px;
+    }
+
+    .download-card {
+      background: var(--surface);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 18px 18px;
+      text-align: center;
+    }
+
+    .download-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--hugol-blue-dark);
+      margin-bottom: 6px;
+    }
+
+    .download-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      background: var(--hugol-blue);
+      color: #ffffff;
+      box-shadow: var(--shadow-subtle);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 74, 145, 0.4);
+    }
+
+    /* FOOTER HUGOL */
+
+    .hugol-footer {
+      margin-top: 24px;
+      background: linear-gradient(90deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      padding: 18px 12px 22px;
+    }
+
+    .hugol-footer-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hugol-footer img {
+      display: block;
+      height: 36px;
+      width: auto;
+    }
+
     /* RESPONSIVO */
 
     @media (max-width: 840px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-      }
-
       .hero {
-        padding: 20px 14px 76px;
+        padding: 26px 14px 80px;
       }
 
-      .hero-title {
-        font-size: 22px;
-      }
-
-      .hero-side-card {
-        margin: 10px auto 0;
-        max-width: 260px;
+      .hero-logo-wrap {
+        max-width: 420px;
       }
 
       .page {
         margin-top: -50px;
-        padding: 0 10px 22px;
+        padding: 0 10px 30px;
       }
     }
 
     @media (max-width: 720px) {
-      .card {
+      .card,
+      .download-card {
         padding: 14px 14px 18px;
       }
 
       .topic-list {
         grid-template-columns: 1fr;
       }
+
+      .hugol-footer img {
+        height: 30px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <!-- HERO -->
+    <!-- TOPO: APENAS LOGO DO PROGRAMA -->
     <header class="hero">
       <div class="hero-inner">
-        <div>
-          <div class="hero-tag">
-            <span class="hero-tag-dot"></span>
-            <span>Programa Cuidar+</span>
-          </div>
-          <h1 class="hero-title">Cuidados em casa após a alta</h1>
-          <p class="hero-subtitle">
-            Versão digital da cartilha do Programa Cuidar+ com acesso rápido aos principais temas para pacientes e cuidadores.
-          </p>
+        <div class="hero-logo-wrap">
+          <!-- arquivo testeira.png deve estar no repositório -->
+          <img src="testeira.png" alt="Programa Cuidar+" />
         </div>
-
-        <aside class="hero-side-card">
-          <div class="hero-cover">
-            <!-- Lembre: subir cuidarmais-capa.jpg no repositório -->
-            <img src="cuidarmais-capa.jpg" alt="Capa da cartilha Programa Cuidar+" />
-          </div>
-          <div>
-            <div class="hero-side-title">Cartilha Programa Cuidar+</div>
-            <p class="hero-side-text">
-              Material oficial com orientações para o cuidado em casa após a alta hospitalar.
-            </p>
-          </div>
-          <div class="hero-actions">
-            <a class="hero-btn"
-               href="DocumentoCartilhaCuidarmais-combinado.pdf"
-               target="_blank"
-               rel="noopener">
-              📄 Ver cartilha em PDF
-            </a>
-          </div>
-          <span class="hero-badge-small">
-            Você pode compartilhar este link ou gerar um QR Code para pacientes e cuidadores.
-          </span>
-        </aside>
       </div>
     </header>
 
@@ -818,8 +751,34 @@
             </p>
           </div>
         </section>
+
+        <!-- DOWNLOAD CARTILHA COMPLETA (FINAL DA PÁGINA) -->
+        <section class="download-section">
+          <div class="download-card">
+            <div class="download-title">Cartilha completa do Programa Cuidar+</div>
+            <p class="download-text">
+              Se quiser salvar no seu celular, computador ou enviar para alguém, faça o download da cartilha completa em PDF.
+            </p>
+            <a
+              class="download-btn"
+              href="DocumentoCartilhaCuidarmais-combinado.pdf"
+              target="_blank"
+              rel="noopener"
+              download>
+              📄 Baixar cartilha completa (PDF)
+            </a>
+          </div>
+        </section>
       </div>
     </main>
+
+    <!-- RODAPÉ HUGOL -->
+    <footer class="hugol-footer">
+      <div class="hugol-footer-inner">
+        <!-- arquivo logohugol.png deve estar no repositório -->
+        <img src="logohugol.png" alt="Hospital Estadual de Urgências Governador Otávio Lage de Siqueira (HUGOL)" />
+      </div>
+    </footer>
   </div>
 
   <script>
