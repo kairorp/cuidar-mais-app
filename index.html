@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Cartilha digital do Programa Cuidar+ do HUGOL, com acesso rápido por temas às páginas da cartilha oficial." />
 
-  <!-- Fonte próxima ao padrão visual da cartilha -->
+  <!-- Montserrat com pesos adicionais (inclui 800 para ExtraBold) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -97,6 +97,20 @@
       border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow-soft);
       padding: 18px 20px 20px;
+      transition: box-shadow 0.2s ease, transform 0.12s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 20px 46px rgba(6, 35, 82, 0.22);
+      transform: translateY(-1px);
+    }
+
+    /* Search card sticky */
+
+    .search-card {
+      position: sticky;
+      top: 12px;
+      z-index: 30;
     }
 
     .card-header {
@@ -136,8 +150,6 @@
       white-space: nowrap;
     }
 
-    /* TEXTO GERAL */
-
     .card-text {
       font-size: 14px;
       color: var(--text-muted);
@@ -175,11 +187,13 @@
       background: #f9fbff;
       border: 1px solid #dde4f4;
       box-shadow: 0 3px 8px rgba(15, 35, 80, 0.12);
+      transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
     }
 
     .search-shell:focus-within {
       border-color: var(--hugol-blue);
       box-shadow: 0 0 0 2px rgba(0, 121, 200, 0.2);
+      transform: translateY(-1px);
     }
 
     .search-icon {
@@ -195,6 +209,7 @@
       background: transparent;
       font-size: 14px;
       color: var(--text-main);
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .search-input::placeholder {
@@ -213,8 +228,13 @@
     .topic-group {
       background: #f8fbff;
       border-radius: var(--border-radius-md);
-      padding: 10px 12px 8px;
       border: 1px solid #e1e7fa;
+      overflow: hidden;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .topic-group.collapsed {
+      box-shadow: none;
     }
 
     .topic-group-header {
@@ -222,14 +242,26 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 4px;
+      padding: 10px 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.12s ease;
+    }
+
+    .topic-group-header:hover {
+      background: #eef4ff;
+    }
+
+    .topic-group-header:focus-visible {
+      outline: 2px solid var(--hugol-blue);
+      outline-offset: 2px;
     }
 
     .topic-group-title {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 800; /* ExtraBold */
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       color: var(--hugol-blue-dark);
       display: inline-flex;
       align-items: center;
@@ -237,12 +269,25 @@
     }
 
     .topic-group-title-emoji {
-      font-size: 16px;
+      font-size: 18px;
     }
 
     .topic-group-counter {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .topic-group-header::after {
+      content: "▾";
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-left: 6px;
+      transition: transform 0.2s ease;
+    }
+
+    .topic-group.collapsed .topic-group-header::after {
+      transform: rotate(-90deg);
     }
 
     .topic-list {
@@ -251,6 +296,18 @@
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 8px;
       margin-top: 4px;
+      padding: 0 12px 10px;
+      max-height: 1000px;
+      opacity: 1;
+      overflow: hidden;
+      transition: max-height 0.25s ease, opacity 0.2s ease, padding-top 0.2s ease, padding-bottom 0.2s ease;
+    }
+
+    .topic-group.collapsed .topic-list {
+      max-height: 0;
+      opacity: 0;
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     .topic-item {
@@ -269,13 +326,19 @@
       text-decoration: none;
       box-shadow: 0 6px 16px rgba(10, 37, 64, 0.12);
       border: 1px solid #dde6fb;
-      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
     }
 
     .topic-link:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 24px rgba(10, 37, 64, 0.18);
       background: linear-gradient(145deg, #ffffff, #eef4ff);
+      border-color: #c7d4fb;
+    }
+
+    .topic-link:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 14px rgba(10, 37, 64, 0.18);
     }
 
     .topic-link:focus-visible {
@@ -304,6 +367,7 @@
 
     .topic-title {
       display: block;
+      font-weight: 600;
     }
 
     .topic-page {
@@ -311,6 +375,15 @@
       color: var(--text-muted);
       margin-top: 2px;
       display: block;
+    }
+
+    /* Destaque da busca */
+
+    mark {
+      background: #ffeaa7;
+      color: inherit;
+      padding: 0 2px;
+      border-radius: 3px;
     }
 
     .card-footer {
@@ -341,6 +414,12 @@
       box-shadow: var(--shadow-soft);
       padding: 18px 20px 22px;
       text-align: center;
+      transition: box-shadow 0.2s ease, transform 0.12s ease;
+    }
+
+    .download-card:hover {
+      box-shadow: 0 22px 50px rgba(6, 35, 82, 0.24);
+      transform: translateY(-1px);
     }
 
     .download-title {
@@ -372,13 +451,14 @@
       background: linear-gradient(135deg, #00a9ff, #0064d0);
       color: #ffffff;
       box-shadow: 0 10px 24px rgba(0, 74, 145, 0.5);
-      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
     }
 
     .download-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 14px 30px rgba(0, 74, 145, 0.6);
       background: linear-gradient(135deg, #11b3ff, #0057b8);
+      border-color: rgba(255, 255, 255, 0.9);
     }
 
     .download-btn:active {
@@ -464,8 +544,8 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="page" role="main">
       <div class="page-inner">
-        <!-- BLOCO 1: APENAS BUSCA COM LUPA -->
-        <section class="card" aria-label="Buscar tema da cartilha">
+        <!-- BLOCO 1: APENAS BUSCA COM LUPA (STICKY) -->
+        <section class="card search-card" aria-label="Buscar tema da cartilha">
           <div class="search-wrapper">
             <div class="search-shell">
               <span class="search-icon" aria-hidden="true">🔍</span>
@@ -492,7 +572,7 @@
           <div class="topics" id="topicsRoot">
             <!-- VISÃO GERAL -->
             <div class="topic-group">
-              <div class="topic-group-header">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">📘</span>
                   Visão geral
@@ -533,7 +613,7 @@
 
             <!-- NUTRIÇÃO DOMICILIAR -->
             <div class="topic-group">
-              <div class="topic-group-header">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">🍽️</span>
                   Nutrição domiciliar
@@ -630,7 +710,7 @@
 
             <!-- CUIDADOS COM DISPOSITIVOS -->
             <div class="topic-group">
-              <div class="topic-group-header">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">🩺</span>
                   Cuidados com dispositivos
@@ -713,7 +793,7 @@
 
             <!-- PREVENÇÃO DE FERIDAS -->
             <div class="topic-group">
-              <div class="topic-group-header">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">🛡️</span>
                   Prevenção de feridas
@@ -740,7 +820,7 @@
 
             <!-- SAÚDE MENTAL -->
             <div class="topic-group">
-              <div class="topic-group-header">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">💚</span>
                   Saúde mental e cuidador
@@ -781,7 +861,7 @@
 
             <!-- SERVIÇO SOCIAL E REDE DE APOIO -->
             <div class="topic-group">
-              <div class="topic-group-header">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="true">
                 <h3 class="topic-group-title">
                   <span class="topic-group-title-emoji" aria-hidden="true">🤝</span>
                   Serviço social e rede de apoio
@@ -919,21 +999,77 @@
   </div>
 
   <script>
-    // Busca por assunto (filtra os temas)
     const searchInput = document.getElementById("topicSearch");
     const topicItems = document.querySelectorAll("[data-topic-item]");
+    const topicGroups = document.querySelectorAll(".topic-group");
+    const topicTitles = document.querySelectorAll(".topic-title");
+    const groupHeaders = document.querySelectorAll(".topic-group-header");
+
+    // Guarda o título original para poder aplicar/remover destaque
+    topicTitles.forEach((title) => {
+      title.dataset.originalTitle = title.textContent;
+    });
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
 
     function filtrarTopicos() {
       const query = (searchInput.value || "").trim().toLowerCase();
 
       topicItems.forEach((item) => {
         const label = (item.getAttribute("data-label") || "").toLowerCase();
-        item.style.display = label.includes(query) ? "" : "none";
+        const matches = label.includes(query);
+        item.style.display = matches ? "" : "none";
+
+        const titleSpan = item.querySelector(".topic-title");
+        if (!titleSpan) return;
+
+        const original = titleSpan.dataset.originalTitle || titleSpan.textContent;
+
+        if (query && query.length >= 2 && matches) {
+          const regex = new RegExp("(" + escapeRegExp(query) + ")", "gi");
+          titleSpan.innerHTML = original.replace(regex, "<mark>$1</mark>");
+        } else {
+          titleSpan.textContent = original;
+        }
+      });
+
+      // Esconde grupos sem resultados visíveis
+      topicGroups.forEach((group) => {
+        const items = group.querySelectorAll("[data-topic-item]");
+        let hasVisible = false;
+
+        items.forEach((item) => {
+          if (item.style.display !== "none") {
+            hasVisible = true;
+          }
+        });
+
+        group.style.display = hasVisible ? "" : "none";
       });
     }
 
+    // Toggle de acordeão nos grupos
+    function toggleGroup(header) {
+      const group = header.closest(".topic-group");
+      const expanded = header.getAttribute("aria-expanded") === "true";
+      header.setAttribute("aria-expanded", String(!expanded));
+      group.classList.toggle("collapsed", expanded);
+    }
+
+    groupHeaders.forEach((header) => {
+      header.addEventListener("click", () => toggleGroup(header));
+      header.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleGroup(header);
+        }
+      });
+    });
+
     if (searchInput) {
-      // Aplica filtro enquanto digita
+      // Filtra enquanto digita
       searchInput.addEventListener("input", filtrarTopicos);
 
       // Enter abre o único resultado visível, se houver
@@ -953,15 +1089,18 @@
         }
       });
 
-      // Tenta focar automaticamente no campo de busca ao carregar
+      // Autofocus no campo de busca (onde o navegador permitir)
       window.addEventListener("DOMContentLoaded", () => {
         try {
           searchInput.focus();
         } catch (e) {
-          // alguns navegadores móveis podem bloquear o foco automático
+          // Alguns navegadores móveis podem bloquear o foco automático
         }
       });
     }
+
+    // Estado inicial: garante que tudo esteja visível
+    filtrarTopicos();
   </script>
 </body>
 </html>
