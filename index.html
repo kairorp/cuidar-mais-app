@@ -2,1013 +2,1409 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Programa Cuidar+ – Cuidados em casa após a alta</title>
+  <title>Programa Cuidar+ - Guia de cuidados em casa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Cartilha digital do Programa Cuidar+ do Hugól, com acesso rápido por temas às páginas da cartilha oficial." />
 
-  <!-- Fonte Montserrat -->
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  />
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg-gradient-start: #0093e9;
-      --bg-gradient-end: #00c0b9;
-      --card-bg: #ffffff;
-      --card-soft-bg: #f5f8ff;
-      --border-soft: #dbe4ff;
-      --accent: #0078ff;
-      --accent-soft: rgba(0, 120, 255, 0.08);
-      --accent-strong: #0056b3;
-      --text-main: #0f172a;
-      --text-soft: #64748b;
-      --chip-bg: rgba(255, 255, 255, 0.16);
-      --shadow-card: 0 22px 45px rgba(15, 23, 42, 0.24);
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --radius-pill: 999px;
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.25s ease;
+      --hugol-blue: #0079c8;
+      --hugol-blue-dark: #004785;
+      --hugol-blue-light: #e6f4ff;
+      --bg-gradient-start: #0b8ae5;
+      --bg-gradient-end: #12c2f4;
+      --text-main: #112143;
+      --text-muted: #565f8a;
+      --surface: #ffffff;
+      --border-radius-lg: 18px;
+      --border-radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(6, 35, 82, 0.18);
+      --shadow-subtle: 0 4px 12px rgba(10, 37, 64, 0.12);
     }
 
     * {
       box-sizing: border-box;
-    }
-
-    html,
-    body {
       margin: 0;
       padding: 0;
-      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background: linear-gradient(
-        135deg,
-        var(--bg-gradient-start),
-        var(--bg-gradient-end)
-      );
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
     }
 
     body {
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f4f7fb;
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .app {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    main {
-      flex: 1;
-      padding: 0 16px 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* HERO / CAPA */
+    /* HERO APENAS COM LOGO */
 
     .hero {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 16px 12px;
+      background: radial-gradient(circle at top left, #31b3ff 0, var(--bg-gradient-start) 30%, var(--bg-gradient-end) 100%);
+      padding: 32px 16px 90px;
     }
 
     .hero-inner {
-      background: radial-gradient(
-          circle at top left,
-          rgba(255, 255, 255, 0.18),
-          transparent 60%
-        ),
-        rgba(0, 0, 0, 0.08);
-      border-radius: 0 0 36px 36px;
-      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.4);
-      overflow: hidden;
+      max-width: 1040px;
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10px 18px 6px;
     }
 
-    .hero-logo {
+    .hero-logo-wrap {
       max-width: 520px;
       width: 100%;
-      height: auto;
+    }
+
+    .hero-logo-wrap img {
       display: block;
+      width: 100%;
+      height: auto;
     }
 
-    @media (max-width: 480px) {
-      .hero-inner {
-        border-radius: 0 0 26px 26px;
-        padding: 10px 12px 6px;
-      }
+    /* CONTEÚDO */
 
-      .hero-logo {
-        max-width: 420px;
-      }
+    .page {
+      flex: 1;
+      margin-top: -60px;
+      padding: 0 12px 32px;
     }
 
-    /* BARRA DE BUSCA FIXA / LUPA */
+    .page-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-    .search-wrapper {
+    .card {
+      background: var(--surface);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 20px 20px;
+      transition: box-shadow 0.2s ease, transform 0.12s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 20px 46px rgba(6, 35, 82, 0.22);
+      transform: translateY(-1px);
+    }
+
+    /* Search card sticky */
+
+    .search-card {
       position: sticky;
       top: 12px;
       z-index: 30;
-      margin: 10px auto 18px;
-      max-width: 540px;
+    }
+
+    /* BUSCA COM LUPA */
+
+    .search-wrapper {
+      margin-top: 2px;
       display: flex;
       justify-content: center;
     }
 
-    .search-container {
-      position: relative;
+    .search-shell {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 8px 8px 8px;
-      border-radius: var(--radius-pill);
-      background: rgba(15, 23, 42, 0.26);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.45);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: transform var(--transition-med),
-        box-shadow var(--transition-med), background var(--transition-med);
       width: 100%;
-    }
-
-    body.search-collapsed .search-container {
-      max-width: 60px;
-      justify-content: center;
-      padding-inline: 10px;
-      background: rgba(15, 23, 42, 0.76);
-    }
-
-    .search-toggle {
-      border: none;
-      outline: none;
-      cursor: pointer;
-      min-width: 42px;
-      height: 42px;
+      max-width: 480px;
+      padding: 10px 16px;
       border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(
-        135deg,
-        #ffffff,
-        rgba(255, 255, 255, 0.82)
-      );
-      box-shadow: 0 6px 12px rgba(15, 23, 42, 0.45);
-      transition: transform var(--transition-fast),
-        box-shadow var(--transition-fast);
+      background: #f9fbff;
+      border: 1px solid #dde4f4;
+      box-shadow: 0 3px 8px rgba(15, 35, 80, 0.12);
+      transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.12s ease, max-width 0.18s ease, padding 0.18s ease, background 0.18s ease;
     }
 
-    .search-toggle:active {
-      transform: translateY(1px) scale(0.97);
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.45);
+    .search-shell:focus-within {
+      border-color: var(--hugol-blue);
+      box-shadow: 0 0 0 2px rgba(0, 121, 200, 0.2);
+      transform: translateY(-1px);
     }
 
-    .search-toggle-icon {
-      font-size: 20px;
-      color: #0369a1;
+    .search-icon {
+      font-size: 18px;
+      color: var(--hugol-blue-dark);
+      flex-shrink: 0;
+      transition: font-size 0.16s ease;
     }
 
     .search-input {
       flex: 1;
       border: none;
       outline: none;
-      background: rgba(15, 23, 42, 0.42);
-      color: #e2f3ff;
-      border-radius: var(--radius-pill);
-      padding: 10px 14px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      min-width: 0;
-      transition: max-width var(--transition-med), opacity var(--transition-med),
-        padding-inline var(--transition-med);
+      background: transparent;
+      font-size: 14px;
+      color: var(--text-main);
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transition: opacity 0.16s ease, width 0.16s ease;
     }
 
     .search-input::placeholder {
-      color: rgba(226, 243, 255, 0.78);
+      color: #9ba4c7;
     }
 
-    body.search-collapsed .search-input {
-      max-width: 0;
+    /* ESTADO COMPACTO: LUPA FLUTUANTE */
+
+    .search-card.compact {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .search-card.compact .search-wrapper {
+      justify-content: flex-end;
+    }
+
+    .search-card.compact .search-shell {
+      max-width: 52px;
+      padding: 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      background: linear-gradient(145deg, #ffffff, #e3f1ff);
+      border-color: rgba(0, 121, 200, 0.3);
+      box-shadow: 0 6px 18px rgba(0, 74, 145, 0.35);
+    }
+
+    .search-card.compact .search-icon {
+      font-size: 20px;
+    }
+
+    .search-card.compact .search-input {
+      width: 0;
       opacity: 0;
-      padding-inline: 0;
+      padding: 0;
+      margin: 0;
       pointer-events: none;
     }
 
-    /* GRID DE BLOCOS */
-
-    .topics-section {
-      margin-top: 6px;
+    .search-card.compact.expanded {
+      padding-top: 4px;
     }
 
-    .topics-grid {
+    .search-card.compact.expanded .search-wrapper {
+      justify-content: center;
+    }
+
+    .search-card.compact.expanded .search-shell {
+      max-width: 480px;
+      padding: 10px 16px;
+      cursor: text;
+    }
+
+    .search-card.compact.expanded .search-input {
+      width: 100%;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* LISTA DE TEMAS: GRID DE BLOCOS */
+
+    .topics {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
-    }
-
-    @media (min-width: 720px) {
-      .topics-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (min-width: 1120px) {
-      .topics-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
+      margin-top: 6px;
+      align-items: flex-start;
     }
 
     .topic-group {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: var(--radius-xl);
-      padding: 14px 14px 16px;
-      box-shadow: 0 16px 34px rgba(15, 23, 42, 0.25);
-      border: 1px solid rgba(15, 23, 42, 0.06);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transform: translateY(0);
-      transition: transform var(--transition-med),
-        box-shadow var(--transition-med), background var(--transition-med);
+      background: #f8fbff;
+      border-radius: var(--border-radius-md);
+      border: 1px solid #e1e7fa;
+      overflow: hidden;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+      box-shadow: var(--shadow-subtle);
     }
 
-    .topic-group:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 45px rgba(15, 23, 42, 0.35);
-      background: #ffffff;
+    .topic-group.collapsed:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(10, 37, 64, 0.18);
+      border-color: #c7d4fb;
     }
 
     .topic-group-header {
+      position: relative;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 4px;
-      margin-bottom: 6px;
-    }
-
-    .group-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: var(--radius-pill);
-      display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      background: var(--accent-soft);
-      margin-bottom: 4px;
-    }
-
-    .group-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      color: var(--text-main);
-      margin: 0;
-    }
-
-    .group-subtitle {
-      margin: 0;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      color: var(--text-soft);
-    }
-
-    .topic-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .topic-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-soft);
-      background: var(--card-soft-bg);
-      padding: 10px 11px;
-      text-align: left;
+      gap: 4px;
+      padding: 18px 32px 16px;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      transition: background var(--transition-fast),
-        border-color var(--transition-fast),
-        box-shadow var(--transition-fast), transform var(--transition-fast);
-      box-shadow: 0 0 0 rgba(15, 23, 42, 0);
-      width: 100%;
+      user-select: none;
+      transition: background 0.12s ease;
+      min-height: 96px;
+      text-align: center;
     }
 
-    .topic-card:hover {
-      background: #ffffff;
-      border-color: rgba(59, 130, 246, 0.55);
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.25);
-      transform: translateY(-2px);
+    .topic-group-header:hover {
+      background: #eef4ff;
     }
 
-    .topic-card-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .topic-group-header:focus-visible {
+      outline: 2px solid var(--hugol-blue);
+      outline-offset: 2px;
     }
 
-    .topic-badge {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      background: var(--accent-soft);
-      color: var(--accent-strong);
-      flex-shrink: 0;
-    }
-
-    .topic-title {
-      margin: 0;
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.25;
-    }
-
-    .topic-page {
-      margin: 0 0 2px;
-      font-size: 0.74rem;
-      font-weight: 500;
-      color: var(--text-soft);
-    }
-
-    .topic-card.hidden {
-      display: none;
-    }
-
-    .topic-group.hidden {
-      display: none;
-    }
-
-    /* DOWNLOAD DA CARTILHA */
-
-    .download-section {
-      margin-top: 26px;
-    }
-
-    .download-card {
-      background: rgba(15, 23, 42, 0.08);
-      border-radius: var(--radius-xl);
-      padding: 18px 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.4);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
-
-    .download-text {
-      max-width: 640px;
-      color: #e5f2ff;
-    }
-
-    .download-text h2 {
-      margin: 0 0 4px;
-      font-size: 1rem;
+    .topic-group-title {
+      font-size: 17px;
       font-weight: 800;
-    }
-
-    .download-text p {
-      margin: 0;
-      font-size: 0.8rem;
-      font-weight: 500;
-      opacity: 0.95;
-    }
-
-    .primary-button {
-      border-radius: var(--radius-pill);
-      border: none;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, #ffffff, #e0f2ff);
-      color: #0369a1;
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-decoration: none;
+      letter-spacing: 0.05em;
+      color: var(--hugol-blue-dark);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.45);
-      transition: box-shadow var(--transition-fast),
-        transform var(--transition-fast);
-      white-space: nowrap;
-    }
-
-    .primary-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 15px 30px rgba(15, 23, 42, 0.65);
-    }
-
-    .primary-button span {
-      font-size: 1rem;
-    }
-
-    @media (max-width: 640px) {
-      .download-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .primary-button {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    /* RODAPÉ */
-
-    footer {
-      width: 100%;
-      padding: 18px 16px 26px;
-      margin-top: 12px;
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      border-radius: 24px 24px 0 0;
-      background: rgba(15, 23, 42, 0.32);
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 14px 14px 10px;
+      justify-content: center;
       gap: 6px;
     }
 
-    .footer-logo {
-      max-width: 190px;
-      width: 100%;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.6));
+    .topic-group-title-emoji {
+      font-size: 18px;
     }
 
-    .footer-text {
-      margin: 0;
-      color: #e2f3ff;
-      font-size: 0.72rem;
+    .topic-group-counter {
+      font-size: 12px;
+      color: var(--text-muted);
       font-weight: 500;
-      text-align: center;
-      opacity: 0.9;
     }
 
-    /* MODAL DE PÁGINA */
-
-    .page-modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      z-index: 60;
-    }
-
-    .page-modal.open {
-      display: block;
-    }
-
-    .page-modal-backdrop {
+    .topic-group-header::after {
+      content: "▾";
       position: absolute;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      top: 12px;
+      right: 14px;
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
     }
 
-    .page-modal-content {
-      position: relative;
-      max-width: min(920px, 100% - 32px);
-      margin: 22px auto;
-      max-height: calc(100vh - 48px);
-      background: #f5f7fb;
-      border-radius: 26px;
-      padding: 16px 16px 18px;
-      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5);
-      overflow-y: auto;
+    .topic-group.collapsed .topic-group-header::after {
+      transform: rotate(-90deg);
     }
 
-    .page-modal-close {
-      position: sticky;
-      top: 0;
-      margin-left: auto;
-      border: none;
-      border-radius: 999px;
-      width: 34px;
-      height: 34px;
+    .topic-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 4px;
+      padding: 0 12px 10px;
+      max-height: 1000px;
+      opacity: 1;
+      overflow: hidden;
+      transition: max-height 0.25s ease, opacity 0.2s ease, padding-top 0.2s ease, padding-bottom 0.2s ease;
+    }
+
+    .topic-group.collapsed .topic-list {
+      max-height: 0;
+      opacity: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .topic-item {
+      font-size: 14px;
+    }
+
+    .topic-link {
       display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #ffffff, #f3f7ff);
+      color: var(--text-main);
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(10, 37, 64, 0.12);
+      border: 1px solid #dde6fb;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+      cursor: pointer;
+    }
+
+    .topic-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(10, 37, 64, 0.18);
+      background: linear-gradient(145deg, #ffffff, #eef4ff);
+      border-color: #c7d4fb;
+    }
+
+    .topic-link:active {
+      transform: translateY(0);
+      box-shadow: 0 5px 14px rgba(10, 37, 64, 0.18);
+    }
+
+    .topic-link:focus-visible {
+      outline: 2px solid var(--hugol-blue);
+      outline-offset: 3px;
+    }
+
+    .topic-badge {
+      min-width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--hugol-blue-light);
+      color: var(--hugol-blue-dark);
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: #ffffff;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
-      cursor: pointer;
-      font-size: 20px;
+      font-size: 11px;
       font-weight: 700;
-      color: #0f172a;
-      z-index: 2;
+      flex-shrink: 0;
     }
 
-    .page-modal-images {
-      margin-top: 10px;
+    .topic-label {
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .topic-title {
+      display: block;
+      font-weight: 600;
+    }
+
+    .topic-page {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* CONTEÚDO DAS PÁGINAS (FONTE PARA O MODAL, FICA ESCONDIDO) */
+
+    .topic-content {
+      display: none;
+    }
+
+    .topic-page-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: #f4f7ff;
+    }
+
+    /* Destaque da busca */
+
+    mark {
+      background: #ffeaa7;
+      color: inherit;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+
+    /* MODAL DE ZOOM DAS PÁGINAS */
+
+    .image-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 20, 45, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 120;
+    }
+
+    .image-modal.open {
+      display: flex;
+    }
+
+    .image-modal-content {
+      background: #f5f8ff;
+      border-radius: 18px;
+      box-shadow: 0 22px 60px rgba(3, 16, 40, 0.85);
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      position: relative;
+      padding: 12px 12px 16px;
     }
 
-    .page-modal-images img {
+    .image-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-top: 8px;
+    }
+
+    .image-modal-body img {
       width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 10px;
       display: block;
-      border-radius: 18px;
-      background: #e2e8f0;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: none;
+      background: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(10, 37, 64, 0.35);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #3b4a6b;
+    }
+
+    .image-modal-close:focus-visible {
+      outline: 2px solid var(--hugol-blue);
+      outline-offset: 3px;
+    }
+
+    /* DOWNLOAD CARTILHA COMPLETA */
+
+    .download-section {
+      margin-top: 8px;
+    }
+
+    .download-card {
+      background: var(--surface);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 20px 22px;
+      text-align: center;
+      transition: box-shadow 0.2s ease, transform 0.12s ease;
+    }
+
+    .download-card:hover {
+      box-shadow: 0 22px 50px rgba(6, 35, 82, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .download-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--hugol-blue-dark);
+      margin-bottom: 6px;
+    }
+
+    .download-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #00a9ff, #0064d0);
+      color: #ffffff;
+      box-shadow: 0 10px 24px rgba(0, 74, 145, 0.5);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0, 74, 145, 0.6);
+      background: linear-gradient(135deg, #11b3ff, #0057b8);
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .download-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 16px rgba(0, 74, 145, 0.45);
+    }
+
+    .download-btn:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 3px;
+    }
+
+    /* FOOTER HUGOL */
+
+    .hugol-footer {
+      margin-top: 26px;
+      background: linear-gradient(90deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      padding: 20px 12px 26px;
+    }
+
+    .hugol-footer-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hugol-footer img {
+      display: block;
+      height: 52px;
+      width: auto;
+    }
+
+    /* RESPONSIVO */
+
+    @media (max-width: 840px) {
+      .hero {
+        padding: 26px 14px 80px;
+      }
+
+      .hero-logo-wrap {
+        max-width: 420px;
+      }
+
+      .page {
+        margin-top: -52px;
+        padding: 0 10px 30px;
+      }
+
+      .card {
+        padding: 16px 16px 19px;
+      }
+
+      .download-card {
+        padding: 16px 16px 20px;
+      }
     }
 
     @media (max-width: 640px) {
-      .page-modal-content {
-        margin: 16px auto;
-        max-height: calc(100vh - 32px);
-        padding: 12px 10px 14px;
-        border-radius: 22px;
+      .topics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
       }
 
-      .page-modal-close {
-        width: 32px;
-        height: 32px;
-      }
-
-      .page-modal-images img {
+      .topic-group {
         border-radius: 14px;
+      }
+
+      .topic-group-header {
+        padding: 14px 10px 12px;
+        min-height: 92px;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .topic-group-title {
+        justify-content: flex-start;
+      }
+
+      .topic-list {
+        padding: 0 10px 10px;
+      }
+
+      .image-modal-content {
+        border-radius: 16px;
+        padding: 10px 10px 14px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hugol-footer img {
+        height: 44px;
       }
     }
   </style>
 </head>
-
 <body>
-  <!-- CAPA COM LOGO DO PROGRAMA -->
-  <header class="hero">
-    <div class="hero-inner">
-      <img
-        src="testeira.png"
-        alt="Programa Cuidar+ – Cuidados em casa após a alta"
-        class="hero-logo"
-      />
-    </div>
-  </header>
-
-  <main>
-    <!-- BARRA DE BUSCA / LUPA -->
-    <div class="search-wrapper">
-      <div class="search-container">
-        <button
-          type="button"
-          class="search-toggle"
-          id="searchToggle"
-          aria-label="Buscar assunto"
-        >
-          <span class="search-toggle-icon">🔍</span>
-        </button>
-        <input
-          id="searchInput"
-          class="search-input"
-          type="search"
-          placeholder="Buscar assunto, por exemplo: sonda, oxigênio, feridas, dieta..."
-        />
-      </div>
-    </div>
-
-    <!-- BLOCOS DE TEMAS (GERADOS POR JS) -->
-    <section class="topics-section">
-      <div class="topics-grid" id="topicsGrid"></div>
-    </section>
-
-    <!-- DOWNLOAD DA CARTILHA COMPLETA -->
-    <section class="download-section">
-      <div class="download-card">
-        <div class="download-text">
-          <h2>Cartilha completa em PDF</h2>
-          <p>
-            Se preferir, você pode baixar a versão oficial da cartilha Programa
-            Cuidar+ em arquivo PDF para consultar, salvar ou compartilhar.
-          </p>
+  <div class="app">
+    <!-- HERO COM LOGO -->
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-logo-wrap">
+          <img src="testeira.png" alt="Programa Cuidar+" />
         </div>
-        <a
-          href="DocumentoCartilhaCuidarmais-combinado.pdf"
-          class="primary-button"
-          target="_blank"
-          rel="noopener"
-        >
-          <span>📥</span>
-          <span>Baixar cartilha completa</span>
-        </a>
       </div>
-    </section>
-  </main>
+    </header>
 
-  <!-- RODAPÉ COM LOGO DO HUGOL -->
-  <footer>
-    <div class="footer-inner">
-      <img
-        src="logohugol.png"
-        alt="Hospital Estadual de Urgências Governador Otávio Lage de Siqueira"
-        class="footer-logo"
-      />
-      <p class="footer-text">
-        Cartilha Programa Cuidar+ – Material informativo para pacientes e
-        cuidadores após a alta hospitalar.
-      </p>
-    </div>
-  </footer>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="page" role="main">
+      <div class="page-inner">
+        <!-- BUSCA -->
+        <section class="card search-card" aria-label="Buscar tema da cartilha">
+          <div class="search-wrapper">
+            <div class="search-shell">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <input
+                id="topicSearch"
+                class="search-input"
+                type="search"
+                placeholder="Busque um tema da cartilha (ex.: sonda, dieta, oxigênio, feridas, traqueostomia...)"
+                aria-label="Buscar tema da cartilha Cuidar+"
+                autocomplete="off" />
+            </div>
+          </div>
+        </section>
 
-  <!-- MODAL DE VISUALIZAÇÃO DAS PÁGINAS -->
-  <div class="page-modal" id="pageModal" aria-hidden="true">
-    <div class="page-modal-backdrop" id="pageModalBackdrop"></div>
-    <div class="page-modal-content">
-      <button
-        type="button"
-        class="page-modal-close"
-        id="pageModalClose"
-        aria-label="Fechar visualização"
-      >
-        ×
-      </button>
-      <div class="page-modal-images" id="pageModalImages"></div>
+        <!-- TEMAS EM GRID -->
+        <section class="card" aria-label="Lista de temas da cartilha">
+          <div class="topics" id="topicsRoot">
+
+            <!-- VISÃO GERAL -->
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">📘</span>
+                  Visão geral
+                </h3>
+                <span class="topic-group-counter">2 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="introdução programa cuidar mais">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-intro-p2"
+                    aria-label="Ver conteúdo da cartilha: Introdução: Programa Cuidar+, página 1">
+                    <span class="topic-badge">1</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Introdução: Programa Cuidar+</span>
+                      <span class="topic-page">Página 1</span>
+                    </span>
+                  </button>
+                  <div id="topic-intro-p2" class="topic-content" aria-hidden="true">
+                    <img
+                      class="topic-page-image"
+                      src="páginas/cuidarmais-p02.png"
+                      alt="Cartilha Cuidar+ - Introdução ao Programa Cuidar+ - página 1"
+                      loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="higienização das mãos higiene das mãos">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-higiene-p3"
+                    aria-label="Ver conteúdo da cartilha: Higienização das mãos, página 2">
+                    <span class="topic-badge">2</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Higienização das mãos</span>
+                      <span class="topic-page">Página 2</span>
+                    </span>
+                  </button>
+                  <div id="topic-higiene-p3" class="topic-content" aria-hidden="true">
+                    <img
+                      class="topic-page-image"
+                      src="páginas/cuidarmais-p03.png"
+                      alt="Cartilha Cuidar+ - Higienização das mãos - página 2"
+                      loading="lazy" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- NUTRIÇÃO DOMICILIAR -->
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">🍽️</span>
+                  Nutrição domiciliar
+                </h3>
+                <span class="topic-group-counter">6 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="nutrição domiciliar tipos de sonda orientações gerais">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-nutricao-p4-6"
+                    aria-label="Ver conteúdo da cartilha: Nutrição domiciliar: tipos de sonda e orientações gerais, páginas 3 a 5">
+                    <span class="topic-badge">3</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Nutrição domiciliar: tipos de sonda e orientações gerais</span>
+                      <span class="topic-page">Páginas 3 a 5</span>
+                    </span>
+                  </button>
+                  <div id="topic-nutricao-p4-6" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p04.png" alt="Cartilha Cuidar+ - Nutrição domiciliar - página 3" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p05.png" alt="Cartilha Cuidar+ - Nutrição domiciliar - página 4" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p06.png" alt="Cartilha Cuidar+ - Nutrição domiciliar - página 5" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="tipos de dieta industrializada artesanal mista">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-tipos-dieta-p7"
+                    aria-label="Ver conteúdo da cartilha: Tipos de dieta, página 6">
+                    <span class="topic-badge">4</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Tipos de dieta (industrializada, artesanal e mista)</span>
+                      <span class="topic-page">Página 6</span>
+                    </span>
+                  </button>
+                  <div id="topic-tipos-dieta-p7" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p07.png" alt="Cartilha Cuidar+ - Tipos de dieta - página 6" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="preparo da dieta higiene do cuidador local utensílios">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-preparo-dieta-p8-9"
+                    aria-label="Ver conteúdo da cartilha: Preparo da dieta, páginas 7 e 8">
+                    <span class="topic-badge">5</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Preparo da dieta: higiene do cuidador, local e utensílios</span>
+                      <span class="topic-page">Páginas 7 e 8</span>
+                    </span>
+                  </button>
+                  <div id="topic-preparo-dieta-p8-9" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p08.png" alt="Cartilha Cuidar+ - Preparo da dieta - página 7" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p09.png" alt="Cartilha Cuidar+ - Preparo da dieta - página 8" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="preparando guardando administrando a dieta e a água">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-preparando-dieta-p10-12"
+                    aria-label="Ver conteúdo da cartilha: Preparando, guardando e administrando a dieta e a água, páginas 9 a 11">
+                    <span class="topic-badge">6</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Preparando, guardando e administrando a dieta e a água</span>
+                      <span class="topic-page">Páginas 9 a 11</span>
+                    </span>
+                  </button>
+                  <div id="topic-preparando-dieta-p10-12" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p10.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 9" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p11.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 10" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p12.png" alt="Cartilha Cuidar+ - Preparando, guardando e administrando a dieta e a água - página 11" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="limpeza da sonda frascos equipos">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-limpeza-sonda-p13"
+                    aria-label="Ver conteúdo da cartilha: Limpeza da sonda, frascos e equipos, página 12">
+                    <span class="topic-badge">7</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Limpeza da sonda, frascos e equipos</span>
+                      <span class="topic-page">Página 12</span>
+                    </span>
+                  </button>
+                  <div id="topic-limpeza-sonda-p13" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p13.png" alt="Cartilha Cuidar+ - Limpeza da sonda, frascos e equipos - página 12" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="problemas comuns na nutrição sinais de alerta">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-problemas-nutricao-p14-15"
+                    aria-label="Ver conteúdo da cartilha: Problemas comuns na nutrição e sinais de alerta, páginas 13 e 14">
+                    <span class="topic-badge">8</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Problemas comuns na nutrição e sinais de alerta</span>
+                      <span class="topic-page">Páginas 13 e 14</span>
+                    </span>
+                  </button>
+                  <div id="topic-problemas-nutricao-p14-15" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p14.png" alt="Cartilha Cuidar+ - Problemas comuns na nutrição - página 13" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p15.png" alt="Cartilha Cuidar+ - Problemas comuns na nutrição - página 14" loading="lazy" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- CUIDADOS COM DISPOSITIVOS -->
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">🩺</span>
+                  Cuidados com dispositivos
+                </h3>
+                <span class="topic-group-counter">5 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="sonda vesical cuidados no dia a dia">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-sonda-vesical-p16"
+                    aria-label="Ver conteúdo da cartilha: Sonda vesical: cuidados no dia a dia, página 15">
+                    <span class="topic-badge">9</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Sonda vesical: cuidados no dia a dia</span>
+                      <span class="topic-page">Página 15</span>
+                    </span>
+                  </button>
+                  <div id="topic-sonda-vesical-p16" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p16.png" alt="Cartilha Cuidar+ - Sonda vesical: cuidados no dia a dia - página 15" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="colostomia estoma bolsa coletora pele ao redor">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-colostomia-p17-19"
+                    aria-label="Ver conteúdo da cartilha: Colostomia: estoma, bolsa coletora e pele ao redor, páginas 16 a 18">
+                    <span class="topic-badge">10</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Colostomia: estoma, bolsa coletora e pele ao redor</span>
+                      <span class="topic-page">Páginas 16 a 18</span>
+                    </span>
+                  </button>
+                  <div id="topic-colostomia-p17-19" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p17.png" alt="Cartilha Cuidar+ - Colostomia - página 16" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p18.png" alt="Cartilha Cuidar+ - Colostomia - página 17" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p19.png" alt="Cartilha Cuidar+ - Colostomia - página 18" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="traqueostomia cuidados com estoma e cânula">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-traqueostomia-p20-22"
+                    aria-label="Ver conteúdo da cartilha: Traqueostomia: cuidados com estoma e cânula, páginas 19 a 21">
+                    <span class="topic-badge">11</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Traqueostomia: cuidados com estoma e cânula</span>
+                      <span class="topic-page">Páginas 19 a 21</span>
+                    </span>
+                  </button>
+                  <div id="topic-traqueostomia-p20-22" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p20.png" alt="Cartilha Cuidar+ - Traqueostomia - página 19" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p21.png" alt="Cartilha Cuidar+ - Traqueostomia - página 20" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p22.png" alt="Cartilha Cuidar+ - Traqueostomia - página 21" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="aspiração traqueal quando e como fazer">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-aspiracao-p23-26"
+                    aria-label="Ver conteúdo da cartilha: Aspiração traqueal: quando e como fazer, páginas 22 a 25">
+                    <span class="topic-badge">12</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Aspiração traqueal: quando e como fazer</span>
+                      <span class="topic-page">Páginas 22 a 25</span>
+                    </span>
+                  </button>
+                  <div id="topic-aspiracao-p23-26" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p23.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 22" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p24.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 23" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p25.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 24" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p26.png" alt="Cartilha Cuidar+ - Aspiração traqueal - página 25" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="oxigenoterapia domiciliar uso do oxímetro de pulso">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-oxigenoterapia-p27-29"
+                    aria-label="Ver conteúdo da cartilha: Oxigenoterapia domiciliar e uso do oxímetro de pulso, páginas 26 a 28">
+                    <span class="topic-badge">13</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Oxigenoterapia domiciliar e uso do oxímetro de pulso</span>
+                      <span class="topic-page">Páginas 26 a 28</span>
+                    </span>
+                  </button>
+                  <div id="topic-oxigenoterapia-p27-29" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p27.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 26" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p28.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 27" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p29.png" alt="Cartilha Cuidar+ - Oxigenoterapia domiciliar - página 28" loading="lazy" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- PREVENÇÃO DE FERIDAS -->
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">🛡️</span>
+                  Prevenção de feridas
+                </h3>
+                <span class="topic-group-counter">1 tema</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="lesão por pressão o que é como prevenir">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-lesao-pressao-p30-34"
+                    aria-label="Ver conteúdo da cartilha: Lesão por pressão: o que é e como prevenir, páginas 29 a 33">
+                    <span class="topic-badge">14</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Lesão por pressão: o que é e como prevenir</span>
+                      <span class="topic-page">Páginas 29 a 33</span>
+                    </span>
+                  </button>
+                  <div id="topic-lesao-pressao-p30-34" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p30.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 29" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p31.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 30" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p32.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 31" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p33.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 32" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p34.png" alt="Cartilha Cuidar+ - Lesão por pressão - página 33" loading="lazy" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- SAÚDE MENTAL E CUIDADOR -->
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">💚</span>
+                  Saúde mental e cuidador
+                </h3>
+                <span class="topic-group-counter">2 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="cuidando de quem cuida cuidador família">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-cuidando-cuidador-p36"
+                    aria-label="Ver conteúdo da cartilha: Cuidando de quem cuida: cuidados com o cuidador, página 35">
+                    <span class="topic-badge">15</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Cuidando de quem cuida: cuidados com o cuidador</span>
+                      <span class="topic-page">Página 35</span>
+                    </span>
+                  </button>
+                  <div id="topic-cuidando-cuidador-p36" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p36.png" alt="Cartilha Cuidar+ - Cuidando de quem cuida - página 35" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="saúde mental paciente família após alta">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-saude-mental-p35"
+                    aria-label="Ver conteúdo da cartilha: Saúde mental do paciente e da família após a alta, página 34">
+                    <span class="topic-badge">16</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Saúde mental do paciente e da família após a alta</span>
+                      <span class="topic-page">Página 34</span>
+                    </span>
+                  </button>
+                  <div id="topic-saude-mental-p35" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p35.png" alt="Cartilha Cuidar+ - Saúde mental do paciente e da família - página 34" loading="lazy" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- SERVIÇO SOCIAL E REDE DE APOIO -->
+            <div class="topic-group collapsed">
+              <div class="topic-group-header" role="button" tabindex="0" aria-expanded="false">
+                <h3 class="topic-group-title">
+                  <span class="topic-group-title-emoji" aria-hidden="true">🤝</span>
+                  Serviço social e rede de apoio
+                </h3>
+                <span class="topic-group-counter">6 temas</span>
+              </div>
+              <ul class="topic-list">
+                <li class="topic-item" data-topic-item data-label="solicitação de insumos goiânia paço municipal">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-insumos-goiania-p38-39"
+                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: Goiânia (Paço Municipal), páginas 37 e 38">
+                    <span class="topic-badge">17</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Solicitação de insumos: Goiânia (Paço Municipal)</span>
+                      <span class="topic-page">Páginas 37 e 38</span>
+                    </span>
+                  </button>
+                  <div id="topic-insumos-goiania-p38-39" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p38.png" alt="Cartilha Cuidar+ - Solicitação de insumos: Goiânia (Paço Municipal) - página 37" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p39.png" alt="Cartilha Cuidar+ - Solicitação de insumos: Goiânia (Paço Municipal) - página 38" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="solicitação de insumos ovg">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-insumos-ovg-p40-41"
+                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: OVG, páginas 39 e 40">
+                    <span class="topic-badge">18</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Solicitação de insumos: OVG</span>
+                      <span class="topic-page">Páginas 39 e 40</span>
+                    </span>
+                  </button>
+                  <div id="topic-insumos-ovg-p40-41" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p40.png" alt="Cartilha Cuidar+ - Solicitação de insumos: OVG - página 39" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p41.png" alt="Cartilha Cuidar+ - Solicitação de insumos: OVG - página 40" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="solicitação de insumos demais municípios">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-insumos-municipios-p42-43"
+                    aria-label="Ver conteúdo da cartilha: Solicitação de insumos: demais municípios, páginas 41 e 42">
+                    <span class="topic-badge">19</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Solicitação de insumos: demais municípios</span>
+                      <span class="topic-page">Páginas 41 e 42</span>
+                    </span>
+                  </button>
+                  <div id="topic-insumos-municipios-p42-43" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p42.png" alt="Cartilha Cuidar+ - Solicitação de insumos: demais municípios - página 41" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p43.png" alt="Cartilha Cuidar+ - Solicitação de insumos: demais municípios - página 42" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="ventilação mecânica trilogy bipap home care">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-ventilacao-homecare-p43-44"
+                    aria-label="Ver conteúdo da cartilha: Ventilação mecânica (TRILOGY/BIPAP) e Home Care, páginas 42 e 43">
+                    <span class="topic-badge">20</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Ventilação mecânica (TRILOGY/BIPAP) e Home Care</span>
+                      <span class="topic-page">Páginas 42 e 43</span>
+                    </span>
+                  </button>
+                  <div id="topic-ventilacao-homecare-p43-44" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p43.png" alt="Cartilha Cuidar+ - Ventilação mecânica (TRILOGY/BIPAP) e Home Care - página 42" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p44.png" alt="Cartilha Cuidar+ - Ventilação mecânica (TRILOGY/BIPAP) e Home Care - página 43" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="serviço de apoio ao ostomizado sao">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-sao-p45-46"
+                    aria-label="Ver conteúdo da cartilha: Serviço de apoio ao ostomizado (SAO), páginas 44 e 45">
+                    <span class="topic-badge">21</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Serviço de apoio ao ostomizado (SAO)</span>
+                      <span class="topic-page">Páginas 44 e 45</span>
+                    </span>
+                  </button>
+                  <div id="topic-sao-p45-46" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p45.png" alt="Cartilha Cuidar+ - Serviço de apoio ao ostomizado - página 44" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p46.png" alt="Cartilha Cuidar+ - Serviço de apoio ao ostomizado - página 45" loading="lazy" />
+                  </div>
+                </li>
+
+                <li class="topic-item" data-topic-item data-label="serviço de atenção domiciliar sad">
+                  <button
+                    class="topic-link"
+                    type="button"
+                    data-content-id="topic-sad-p47-49"
+                    aria-label="Ver conteúdo da cartilha: Serviço de Atenção Domiciliar (SAD), páginas 46 a 48">
+                    <span class="topic-badge">22</span>
+                    <span class="topic-label">
+                      <span class="topic-title">Serviço de Atenção Domiciliar (SAD)</span>
+                      <span class="topic-page">Páginas 46 a 48</span>
+                    </span>
+                  </button>
+                  <div id="topic-sad-p47-49" class="topic-content" aria-hidden="true">
+                    <img class="topic-page-image" src="páginas/cuidarmais-p47.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 46" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p48.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 47" loading="lazy" />
+                    <img class="topic-page-image" src="páginas/cuidarmais-p49.png" alt="Cartilha Cuidar+ - Serviço de Atenção Domiciliar - página 48" loading="lazy" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- DOWNLOAD CARTILHA COMPLETA -->
+        <section class="download-section">
+          <div class="download-card">
+            <div class="download-title">Cartilha completa do Programa Cuidar+</div>
+            <p class="download-text">
+              Se quiser salvar no seu celular, computador ou enviar para alguém, faça o download da cartilha completa em PDF.
+            </p>
+            <a
+              class="download-btn"
+              href="DocumentoCartilhaCuidarmais-combinado.pdf"
+              target="_blank"
+              rel="noopener"
+              download
+              aria-label="Baixar cartilha completa do Programa Cuidar+, em PDF">
+              📄 Baixar cartilha completa (PDF)
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- MODAL PARA ZOOM DAS PÁGINAS -->
+    <div id="imageModal" class="image-modal" aria-hidden="true" role="dialog" aria-label="Visualização da página da cartilha">
+      <div class="image-modal-content">
+        <button id="imageModalClose" class="image-modal-close" type="button" aria-label="Fechar visualização">
+          ✕
+        </button>
+        <div id="imageModalBody" class="image-modal-body"></div>
+      </div>
     </div>
+
+    <!-- RODAPÉ HUGOL -->
+    <footer class="hugol-footer">
+      <div class="hugol-footer-inner">
+        <img src="logohugol.png" alt="Hospital Estadual de Urgências Governador Otávio Lage de Siqueira (Hugól)" />
+      </div>
+    </footer>
   </div>
 
   <script>
-    // -----------------------------
-    // DADOS DOS BLOCOS E TÓPICOS
-    // -----------------------------
+    const searchInput = document.getElementById("topicSearch");
+    const topicItems = document.querySelectorAll("[data-topic-item]");
+    const topicGroups = document.querySelectorAll(".topic-group");
+    const topicTitles = document.querySelectorAll(".topic-title");
+    const groupHeaders = document.querySelectorAll(".topic-group-header");
+    const searchCard = document.querySelector(".search-card");
+    const searchShell = document.querySelector(".search-shell");
+    const topicTriggers = document.querySelectorAll(".topic-link");
 
-    const topicGroups = [
-      {
-        id: "visao-geral",
-        title: "Visão geral",
-        icon: "📘",
-        topics: [
-          {
-            id: "introducao-programa",
-            title: "Introdução: Programa Cuidar+",
-            pageLabel: "Página 1",
-            pages: [2],
-          },
-          {
-            id: "higienizacao-maos",
-            title: "Higienização das mãos",
-            pageLabel: "Página 2",
-            pages: [3],
-          },
-        ],
-      },
-      {
-        id: "nutricao-domiciliar",
-        title: "Nutrição domiciliar",
-        icon: "🍽️",
-        topics: [
-          {
-            id: "tipos-sonda",
-            title: "Nutrição domiciliar: tipos de sonda e orientações gerais",
-            pageLabel: "Páginas 3 a 5",
-            pages: [4, 5, 6],
-          },
-          {
-            id: "tipos-dieta",
-            title: "Tipos de dieta industrializada, artesanal e mista",
-            pageLabel: "Página 6",
-            pages: [7],
-          },
-          {
-            id: "preparo-higiene-local",
-            title:
-              "Preparo da dieta: higiene do cuidador, local e utensílios",
-            pageLabel: "Páginas 7 e 8",
-            pages: [8, 9],
-          },
-          {
-            id: "preparando-guardando",
-            title:
-              "Preparando, guardando e administrando a dieta e a água",
-            pageLabel: "Páginas 9 a 11",
-            pages: [10, 11, 12],
-          },
-          {
-            id: "limpeza-sonda-frascos",
-            title: "Limpeza da sonda, frascos e equipos",
-            pageLabel: "Página 12",
-            pages: [13],
-          },
-          {
-            id: "problemas-comuns-nutricao",
-            title: "Problemas comuns na nutrição e sinais de alerta",
-            pageLabel: "Páginas 13 e 14",
-            pages: [14, 15],
-          },
-        ],
-      },
-      {
-        id: "dispositivos-oxigenio",
-        title: "Dispositivos e oxigênio",
-        icon: "🩺",
-        topics: [
-          {
-            id: "sonda-vesical",
-            title: "Sonda vesical: cuidados com o cateter e a bolsa",
-            pageLabel: "Página 15",
-            pages: [16],
-          },
-          {
-            id: "colostomia",
-            title: "Colostomia e cuidados com a bolsa coletora",
-            pageLabel: "Páginas 16 a 18",
-            pages: [17, 18, 19],
-          },
-          {
-            id: "traqueostomia",
-            title: "Traqueostomia: cuidados diários",
-            pageLabel: "Páginas 19 a 21",
-            pages: [20, 21, 22],
-          },
-          {
-            id: "aspiracao-traqueal",
-            title: "Aspiração traqueal: passo a passo",
-            pageLabel: "Páginas 22 a 25",
-            pages: [23, 24, 25, 26],
-          },
-          {
-            id: "oxigenoterapia",
-            title: "Oxigenoterapia domiciliar e uso do oxímetro de pulso",
-            pageLabel: "Páginas 26 a 28",
-            pages: [27, 28, 29],
-          },
-        ],
-      },
-      {
-        id: "pele-lesao",
-        title: "Pele e lesão por pressão",
-        icon: "🛏️",
-        topics: [
-          {
-            id: "lesao-pressao",
-            title: "Lesão por pressão e cuidados com a pele",
-            pageLabel: "Páginas 29 a 33",
-            pages: [30, 31, 32, 33, 34],
-          },
-        ],
-      },
-      {
-        id: "saude-mental",
-        title: "Saúde mental e cuidador",
-        icon: "🧠",
-        topics: [
-          {
-            id: "saude-mental-tratamento",
-            title: "Saúde mental durante o tratamento",
-            pageLabel: "Página 34",
-            pages: [35],
-          },
-          {
-            id: "cuidando-de-quem-cuida",
-            title: "Cuidando de quem cuida",
-            pageLabel: "Página 35",
-            pages: [36],
-          },
-          {
-            id: "gerencie-emocoes",
-            title: "Gerenciando emoções e sinais de alerta",
-            pageLabel: "Página 36",
-            pages: [37],
-          },
-        ],
-      },
-      {
-        id: "servico-social",
-        title: "Serviço social e redes de apoio",
-        icon: "🤝",
-        topics: [
-          {
-            id: "insumos-goiania",
-            title:
-              "Insumos básicos e medicamentos pelo SUS em Goiânia",
-            pageLabel: "Páginas 37 a 40",
-            pages: [38, 39, 40, 41],
-          },
-          {
-            id: "insumos-outros-municipios",
-            title: "Insumos de saúde para demais municípios",
-            pageLabel: "Páginas 41 e 42",
-            pages: [42, 43],
-          },
-          {
-            id: "fraldas-beneficios",
-            title: "Fraldas geriátricas e outros benefícios",
-            pageLabel: "Página 43",
-            pages: [44],
-          },
-          {
-            id: "sao",
-            title: "Serviço de apoio ao ostomizado (SAO)",
-            pageLabel: "Páginas 44 e 45",
-            pages: [45, 46],
-          },
-          {
-            id: "sad",
-            title: "Serviço de atenção domiciliar (SAD)",
-            pageLabel: "Páginas 46 a 48",
-            pages: [47, 48, 49],
-          },
-        ],
-      },
-    ];
+    const imageModal = document.getElementById("imageModal");
+    const imageModalBody = document.getElementById("imageModalBody");
+    const imageModalClose = document.getElementById("imageModalClose");
+    let lastFocusedTrigger = null;
 
-    // -----------------------------
-    // RENDERIZAÇÃO DOS BLOCOS
-    // -----------------------------
+    // Guardar título original para remover destaque da busca depois
+    topicTitles.forEach((title) => {
+      title.dataset.originalTitle = title.textContent;
+    });
 
-    const topicsGrid = document.getElementById("topicsGrid");
-
-    function pageToFileName(pageNumber) {
-      const num = String(pageNumber).padStart(2, "0");
-      return `paginas/cuidarmais-p${num}.png`;
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&");
     }
 
-    function renderTopics() {
-      topicsGrid.innerHTML = "";
+    /* FILTRO DE BUSCA */
+
+    function filtrarTopicos() {
+      const query = (searchInput.value || "").trim().toLowerCase();
+
+      topicItems.forEach((item) => {
+        const label = (item.getAttribute("data-label") || "").toLowerCase();
+        const matches = label.includes(query);
+        item.style.display = matches ? "" : "none";
+
+        const titleSpan = item.querySelector(".topic-title");
+        if (!titleSpan) return;
+
+        const original = titleSpan.dataset.originalTitle || titleSpan.textContent;
+
+        if (query && query.length >= 2 && matches) {
+          const regex = new RegExp("(" + escapeRegExp(query) + ")", "gi");
+          titleSpan.innerHTML = original.replace(regex, "<mark>$1</mark>");
+        } else {
+          titleSpan.textContent = original;
+        }
+      });
 
       topicGroups.forEach((group) => {
-        const groupEl = document.createElement("section");
-        groupEl.className = "topic-group";
-        groupEl.dataset.groupId = group.id;
+        const items = group.querySelectorAll("[data-topic-item]");
+        let hasVisible = false;
 
-        const headerEl = document.createElement("header");
-        headerEl.className = "topic-group-header";
-        headerEl.innerHTML = `
-          <div class="group-icon">${group.icon}</div>
-          <h2 class="group-title">${group.title}</h2>
-          <p class="group-subtitle">${group.topics.length} ${
-          group.topics.length === 1 ? "tema" : "temas"
-        }</p>
-        `;
-        groupEl.appendChild(headerEl);
-
-        const listEl = document.createElement("div");
-        listEl.className = "topic-list";
-
-        group.topics.forEach((topic, index) => {
-          const card = document.createElement("button");
-          card.type = "button";
-          card.className = "topic-card";
-          card.dataset.groupId = group.id;
-          card.dataset.topicId = topic.id;
-          card.dataset.search = (
-            group.title +
-            " " +
-            topic.title
-          ).toLowerCase();
-
-          card.innerHTML = `
-            <div class="topic-card-header">
-              <div class="topic-badge">${index + 1}</div>
-              <h3 class="topic-title">${topic.title}</h3>
-            </div>
-            <p class="topic-page">${topic.pageLabel}</p>
-          `;
-
-          card.addEventListener("click", () => {
-            openPageModal(topic.pages);
-          });
-
-          listEl.appendChild(card);
+        items.forEach((item) => {
+          if (item.style.display !== "none") {
+            hasVisible = true;
+          }
         });
 
-        groupEl.appendChild(listEl);
-        topicsGrid.appendChild(groupEl);
+        group.style.display = hasVisible ? "" : "none";
+
+        const header = group.querySelector(".topic-group-header");
+        if (!header) return;
+
+        if (query && query.length >= 2 && hasVisible) {
+          group.classList.remove("collapsed");
+          header.setAttribute("aria-expanded", "true");
+        }
       });
     }
 
-    renderTopics();
+    /* ACORDEÃO DOS BLOCOS */
 
-    // -----------------------------
-    // BUSCA / FILTRO
-    // -----------------------------
-
-    const searchInput = document.getElementById("searchInput");
-    const searchToggle = document.getElementById("searchToggle");
-
-    function filterTopics() {
-      const query = searchInput.value.trim().toLowerCase();
-
-      const cards = Array.from(
-        document.querySelectorAll(".topic-card")
-      );
-      const groups = Array.from(
-        document.querySelectorAll(".topic-group")
-      );
-
-      cards.forEach((card) => {
-        const text = card.dataset.search || "";
-        const matches = !query || text.includes(query);
-        card.classList.toggle("hidden", !matches);
-      });
-
-      groups.forEach((group) => {
-        const visibleCards = group.querySelectorAll(
-          ".topic-card:not(.hidden)"
-        );
-        group.classList.toggle("hidden", visibleCards.length === 0);
-      });
+    function toggleGroup(header) {
+      const group = header.closest(".topic-group");
+      const expanded = header.getAttribute("aria-expanded") === "true";
+      header.setAttribute("aria-expanded", String(!expanded));
+      group.classList.toggle("collapsed", expanded);
     }
 
-    searchInput.addEventListener("input", filterTopics);
-
-    // Comportamento da barra de busca: vira só a lupa ao rolar
-    let collapsed = false;
-
-    function handleScroll() {
-      const shouldCollapse = window.scrollY > 160;
-      if (shouldCollapse !== collapsed) {
-        collapsed = shouldCollapse;
-        document.body.classList.toggle(
-          "search-collapsed",
-          collapsed
-        );
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    searchToggle.addEventListener("click", () => {
-      if (collapsed) {
-        document.body.classList.remove("search-collapsed");
-        collapsed = false;
-      }
-      searchInput.focus();
+    groupHeaders.forEach((header) => {
+      header.addEventListener("click", () => toggleGroup(header));
+      header.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleGroup(header);
+        }
+      });
     });
 
-    // -----------------------------
-    // MODAL DE PÁGINA
-    // -----------------------------
+    /* MODAL DE IMAGENS */
 
-    const pageModal = document.getElementById("pageModal");
-    const pageModalImages = document.getElementById("pageModalImages");
-    const pageModalClose = document.getElementById("pageModalClose");
-    const pageModalBackdrop = document.getElementById("pageModalBackdrop");
+    function openModalFromTrigger(trigger) {
+      const contentId = trigger.getAttribute("data-content-id");
+      if (!contentId) return;
+      const sourceContent = document.getElementById(contentId);
+      if (!sourceContent) return;
 
-    function openPageModal(pages) {
-      pageModalImages.innerHTML = "";
+      imageModalBody.innerHTML = sourceContent.innerHTML;
+      imageModal.classList.add("open");
+      imageModal.setAttribute("aria-hidden", "false");
+      lastFocusedTrigger = trigger;
 
-      pages.forEach((pageNumber) => {
-        const img = document.createElement("img");
-        img.src = pageToFileName(pageNumber);
-        img.alt = `Página ${pageNumber} da cartilha Programa Cuidar+`;
-        img.loading = "lazy";
-        pageModalImages.appendChild(img);
-      });
-
-      pageModal.classList.add("open");
       document.body.style.overflow = "hidden";
-      pageModal.setAttribute("aria-hidden", "false");
     }
 
-    function closePageModal() {
-      pageModal.classList.remove("open");
+    function closeModal() {
+      if (!imageModal.classList.contains("open")) return;
+      imageModal.classList.remove("open");
+      imageModal.setAttribute("aria-hidden", "true");
+      imageModalBody.innerHTML = "";
       document.body.style.overflow = "";
-      pageModal.setAttribute("aria-hidden", "true");
-      pageModalImages.innerHTML = "";
+
+      if (lastFocusedTrigger) {
+        try {
+          lastFocusedTrigger.focus();
+        } catch (e) {}
+      }
     }
 
-    pageModalClose.addEventListener("click", closePageModal);
-    pageModalBackdrop.addEventListener("click", closePageModal);
+    topicTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => openModalFromTrigger(trigger));
+    });
+
+    imageModalClose.addEventListener("click", closeModal);
+
+    imageModal.addEventListener("click", (event) => {
+      if (event.target === imageModal) {
+        closeModal();
+      }
+    });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && pageModal.classList.contains("open")) {
-        closePageModal();
+      if (event.key === "Escape") {
+        closeModal();
       }
     });
+
+    /* BUSCA: eventos */
+
+    if (searchInput) {
+      searchInput.addEventListener("input", filtrarTopicos);
+
+      searchInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          const visibles = Array.from(topicItems).filter(
+            (item) => item.style.display !== "none"
+          );
+
+          if (visibles.length === 1) {
+            event.preventDefault();
+            const trigger = visibles[0].querySelector(".topic-link");
+            if (trigger) {
+              openModalFromTrigger(trigger);
+            }
+          }
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        try {
+          searchInput.focus();
+        } catch (e) {}
+      });
+    }
+
+    /* COMPORTAMENTO DA BARRA DE BUSCA (LUPA AO DESCER) */
+
+    if (searchCard && searchShell && searchInput) {
+      const SCROLL_THRESHOLD = 140;
+
+      function updateSearchCompactState() {
+        if (window.scrollY > SCROLL_THRESHOLD) {
+          searchCard.classList.add("compact");
+        } else {
+          searchCard.classList.remove("compact");
+          searchCard.classList.remove("expanded");
+        }
+      }
+
+      window.addEventListener("scroll", updateSearchCompactState);
+
+      searchShell.addEventListener("click", (event) => {
+        if (!searchCard.classList.contains("compact")) return;
+        event.stopPropagation();
+        searchCard.classList.toggle("expanded");
+
+        if (searchCard.classList.contains("expanded")) {
+          setTimeout(() => {
+            try {
+              searchInput.focus();
+            } catch (e) {}
+          }, 80);
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (
+          !searchCard.classList.contains("compact") ||
+          !searchCard.classList.contains("expanded")
+        ) {
+          return;
+        }
+        const isInside = searchCard.contains(event.target);
+        if (!isInside) {
+          searchCard.classList.remove("expanded");
+        }
+      });
+
+      updateSearchCompactState();
+    }
+
+    // estado inicial da lista
+    filtrarTopicos();
   </script>
 </body>
 </html>
