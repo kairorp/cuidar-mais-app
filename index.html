@@ -1,900 +1,1038 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Programa Cuidar Mais - Cartilha</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programa Cuidar+: cuidados em casa após a alta</title>
 
-    <style>
-      :root {
-        --bg-body: #f5f7fa;
-        --bg-card: #ffffff;
-        --primary: #0e4945;
-        --primary-soft: #e0f0ee;
-        --accent: #0076d6;
-        --text-main: #222222;
-        --text-muted: #666666;
-        --border-soft: #dde3ea;
-        --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
-        --radius-lg: 16px;
-        --radius-xl: 24px;
-      }
+  <!-- Fonte Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
 
-      * {
-        box-sizing: border-box;
-      }
+  <style>
+    :root {
+      --bg1: #0093e9;
+      --bg2: #00c0b9;
+      --card-bg: #ffffff;
+      --card-soft: #f5f7ff;
+      --border-soft: #dbe4ff;
+      --accent: #0ea5e9;
+      --accent-strong: #0369a1;
+      --accent-soft: rgba(14, 165, 233, 0.12);
+      --text-main: #0f172a;
+      --text-soft: #64748b;
+      --shadow-soft: 0 14px 32px rgba(15, 23, 42, 0.25);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+      --t-fast: 0.18s ease-out;
+      --t-med: 0.25s ease;
+    }
 
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-        background: radial-gradient(circle at top, #e0f4ff 0, #f5f7fa 40%, #f5f7fa 100%);
-        color: var(--text-main);
-      }
+    * {
+      box-sizing: border-box;
+    }
 
-      .page {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 32px 16px;
-      }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: var(--text-main);
+    }
 
-      .container {
-        width: 100%;
-        max-width: 1100px;
-        background: var(--bg-card);
-        border-radius: 28px;
-        box-shadow: var(--shadow-soft);
-        padding: 28px 24px 28px;
-        display: grid;
-        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
-        gap: 32px;
-      }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-      @media (max-width: 900px) {
-        .container {
-          grid-template-columns: minmax(0, 1fr);
-          padding: 20px 18px 22px;
-        }
-      }
+    /* TESTEIRA (logo do programa) */
 
-      /* Cabeçalho com testeira e logo */
+    header.hero {
+      max-width: 1200px;
+      margin: 16px auto 4px;
+      padding: 0 16px;
+      text-align: center;
+    }
 
-      .header {
-        grid-column: 1 / -1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--border-soft);
-        margin-bottom: 10px;
-      }
+    .hero-logo {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      display: inline-block;
+      filter: drop-shadow(0 4px 16px rgba(15, 23, 42, 0.35));
+    }
 
-      .header-main {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .header-banner {
-        max-width: 520px;
-        width: 100%;
-        height: auto;
-        border-radius: 16px;
-        object-fit: cover;
-      }
-
-      .header-logo {
-        max-width: 240px;
-        height: auto;
-      }
-
-      .header-title-block {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-
-      .header-title {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: var(--primary);
-      }
-
-      .header-subtitle {
-        font-size: 0.95rem;
-        color: var(--text-muted);
-      }
-
-      @media (max-width: 900px) {
-        .header {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .header-main {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .header-banner {
-          max-width: 100%;
-        }
-
-        .header-logo {
-          max-width: 180px;
-        }
-      }
-
-      /* Coluna esquerda - apresentação */
-
-      .intro {
-        padding-right: 8px;
-        border-right: 1px solid var(--border-soft);
-      }
-
-      @media (max-width: 900px) {
-        .intro {
-          border-right: none;
-          border-bottom: 1px solid var(--border-soft);
-          padding-bottom: 16px;
-          margin-bottom: 10px;
-        }
-      }
-
-      .intro-title {
-        font-size: 1.7rem;
-        margin: 0 0 8px;
-        color: var(--primary);
-      }
-
-      .intro-text {
-        font-size: 0.98rem;
-        line-height: 1.5;
-        margin-bottom: 10px;
-        color: var(--text-main);
-      }
-
-      .intro-highlight {
-        background: var(--primary-soft);
-        border-radius: var(--radius-lg);
-        padding: 10px 12px;
-        font-size: 0.92rem;
-        color: var(--primary);
-        margin-bottom: 10px;
-      }
-
-      .pdf-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 8px 12px;
-        border-radius: 999px;
-        background: #f0f6ff;
-        color: var(--accent);
-        font-size: 0.9rem;
-        text-decoration: none;
-        font-weight: 600;
-        border: 1px solid #c3daf8;
-      }
-
-      .pdf-link span.icon {
-        font-size: 1rem;
-      }
-
-      .pdf-link:hover {
-        background: #e2eeff;
-      }
-
-      .info-list {
+    @media (max-width: 480px) {
+      header.hero {
         margin-top: 12px;
-        padding-left: 16px;
-        font-size: 0.92rem;
-        color: var(--text-muted);
       }
-
-      .info-list li {
-        margin-bottom: 4px;
+      .hero-logo {
+        max-width: 280px;
       }
+    }
 
-      /* Coluna direita - temas */
+    /* BLOCO CENTRAL CLARO */
 
-      .themes {
-        padding-left: 8px;
-      }
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 8px auto 24px;
+      padding: 18px 18px 28px;
+      background: radial-gradient(
+        circle at top,
+        #fafcff 0,
+        #eef3ff 45%,
+        #dde7ff 100%
+      );
+      border-radius: 32px;
+      box-shadow: 0 22px 48px rgba(15, 23, 42, 0.3);
+    }
 
-      .themes-title {
-        font-size: 1.1rem;
-        margin: 0 0 6px;
-        color: var(--primary);
-      }
-
-      .themes-subtitle {
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        margin-bottom: 12px;
-      }
-
-      .theme-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      @media (max-width: 600px) {
-        .theme-grid {
-          grid-template-columns: minmax(0, 1fr);
-        }
-      }
-
-      .theme-card {
-        border: none;
-        background: #f7fafc;
-        border-radius: 18px;
-        padding: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        cursor: pointer;
-        text-align: left;
-        transition: transform 0.12s ease, box-shadow 0.12s ease,
-          background 0.12s ease;
-      }
-
-      .theme-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
-        background: #eef3f9;
-      }
-
-      .theme-image-wrapper {
-        border-radius: 14px;
-        overflow: hidden;
-        aspect-ratio: 16 / 9;
-        background: #d9e2ec;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .theme-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .theme-label {
-        margin-top: 6px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--text-main);
-      }
-
-      .theme-caption {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-      }
-
-      /* Modal de tema */
-
-      .modal {
-        position: fixed;
-        inset: 0;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 50;
-      }
-
-      .modal.is-open {
-        display: flex;
-      }
-
-      .modal-backdrop {
-        position: absolute;
-        inset: 0;
-        background: rgba(15, 23, 42, 0.48);
-      }
-
-      .modal-content {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 880px;
-        background: var(--bg-card);
+    @media (max-width: 640px) {
+      main {
+        margin: 8px 10px 20px;
+        padding: 14px 12px 24px;
         border-radius: 24px;
-        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
-        padding: 18px 18px 18px;
-        display: flex;
+        box-shadow: 0 16px 34px rgba(15, 23, 42, 0.3);
+      }
+    }
+
+    /* BUSCA – pill com ícone */
+
+    .search-wrapper {
+      max-width: 680px;
+      margin: 0 auto 20px;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      background: #ffffff;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .search-toggle {
+      border: none;
+      outline: none;
+      cursor: default;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e0f2ff, #ffffff);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.25);
+      color: #0369a1;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-weight: 500;
+      min-width: 0;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-soft);
+    }
+
+    /* GRID DE BLOCOS */
+
+    .topics-section {
+      margin-top: 4px;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (min-width: 1100px) {
+      .topics-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .topic-group {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--radius-xl);
+      padding: 14px 14px 16px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform var(--t-med), box-shadow var(--t-med),
+        background var(--t-med);
+    }
+
+    .topic-group:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 48px rgba(15, 23, 42, 0.35);
+      background: #ffffff;
+    }
+
+    .topic-group.hidden {
+      display: none;
+    }
+
+    .topic-group-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+
+    .group-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: var(--accent-soft);
+      margin-bottom: 4px;
+    }
+
+    .group-title {
+      margin: 0;
+      font-size: 1.12rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: var(--text-main);
+    }
+
+    .group-count {
+      margin: 0;
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--text-soft);
+    }
+
+    .group-toggle-icon {
+      margin-top: 2px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      transition: transform var(--t-fast), color var(--t-fast);
+    }
+
+    .topic-group.expanded .group-toggle-icon {
+      transform: rotate(180deg);
+      color: var(--accent-strong);
+    }
+
+    .topic-list {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .topic-group.expanded .topic-list {
+      display: flex;
+    }
+
+    .topic-card {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: var(--card-soft);
+      padding: 11px 12px;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      cursor: pointer;
+      transition: background var(--t-fast), border-color var(--t-fast),
+        box-shadow var(--t-fast), transform var(--t-fast);
+      box-shadow: 0 0 0 rgba(15, 23, 42, 0);
+    }
+
+    .topic-card:hover {
+      background: #ffffff;
+      border-color: rgba(59, 130, 246, 0.6);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .topic-card.hidden {
+      display: none;
+    }
+
+    .topic-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topic-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      flex-shrink: 0;
+    }
+
+    .topic-title {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .topic-page {
+      margin: 3px 0 0;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+
+    /* DOWNLOAD DA CARTILHA – texto escuro */
+
+    .download-section {
+      margin-top: 26px;
+    }
+
+    .download-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: var(--radius-xl);
+      padding: 16px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      color: var(--text-main);
+    }
+
+    .download-text {
+      max-width: 640px;
+    }
+
+    .download-text h2 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .download-text p {
+      margin: 0;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+
+    .primary-button {
+      border-radius: var(--radius-pill);
+      border: none;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.6);
+      transition: box-shadow var(--t-fast), transform var(--t-fast);
+      white-space: nowrap;
+    }
+
+    .primary-button span:first-child {
+      font-size: 1rem;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    @media (max-width: 640px) {
+      .download-card {
         flex-direction: column;
-        gap: 12px;
+        align-items: flex-start;
       }
 
-      @media (max-width: 700px) {
-        .modal-content {
-          margin: 0 10px;
-          padding: 14px;
-          border-radius: 18px;
-        }
+      .primary-button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* RODAPÉ – assinatura */
+
+    footer {
+      width: 100%;
+      padding: 10px 16px 24px;
+      margin-top: 4px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-logo {
+      max-width: 240px;
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.75));
+    }
+
+    .footer-text {
+      margin: 0;
+      color: #e2f3ff;
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 480px) {
+      .footer-logo {
+        max-width: 200px;
+      }
+    }
+
+    /* MODAL DE IMAGEM + VÍDEO */
+
+    .page-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 60;
+    }
+
+    .page-modal.open {
+      display: block;
+    }
+
+    .page-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .page-modal-content {
+      position: relative;
+      max-width: min(900px, 100% - 32px);
+      margin: 22px auto;
+      max-height: calc(100vh - 48px);
+      background: #f5f7fb;
+      border-radius: 26px;
+      padding: 16px 16px 18px;
+      box-shadow: 0 28px 68px rgba(0, 0, 0, 0.6);
+      overflow-y: auto;
+    }
+
+    .page-modal-close {
+      position: sticky;
+      top: 0;
+      margin-left: auto;
+      border: none;
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      z-index: 2;
+    }
+
+    .page-modal-images {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .page-modal-images img {
+      width: 100%;
+      border-radius: 18px;
+      display: block;
+      background: #e2e8f0;
+    }
+
+    @media (max-width: 640px) {
+      .page-modal-content {
+        margin: 16px auto;
+        max-height: calc(100vh - 32px);
+        padding: 12px 10px 14px;
+        border-radius: 22px;
       }
 
-      .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 4px;
-      }
-
-      .modal-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--primary);
-      }
-
-      .modal-close {
-        border: none;
-        background: #edf2f7;
-        border-radius: 999px;
+      .page-modal-close {
         width: 32px;
         height: 32px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 1.1rem;
-        color: var(--text-muted);
       }
 
-      .modal-close:hover {
-        background: #e2e8f0;
+      .page-modal-images img {
+        border-radius: 14px;
       }
+    }
 
-      .modal-body {
-        display: grid;
-        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
-        gap: 14px;
-      }
+    /* BARRA DE VÍDEO NO MODAL */
 
-      @media (max-width: 820px) {
-        .modal-body {
-          grid-template-columns: minmax(0, 1fr);
-        }
-      }
+    .page-modal-video-wrapper {
+      margin-top: 8px;
+      margin-bottom: 12px;
+      display: none;
+    }
 
-      .modal-image-wrapper {
-        border-radius: 16px;
-        overflow: hidden;
-        background: #eef2f7;
-        aspect-ratio: 9 / 11;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    .page-modal-video-card {
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      border-radius: 20px;
+      padding: 12px 14px 14px;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.7);
+      color: #e5f2ff;
+    }
 
-      .modal-image {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
+    .page-modal-video-header h3 {
+      margin: 4px 0 4px;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
 
-      .video-panel {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
+    .page-modal-video-header p {
+      margin: 0;
+      font-size: 0.78rem;
+      color: #bfdbfe;
+    }
 
-      .video-bar {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 12px;
-        border-radius: 18px;
-        background: linear-gradient(135deg, #0e4945, #0b726a);
-        color: #ffffff;
-        cursor: pointer;
-      }
+    .page-modal-video-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: rgba(59, 130, 246, 0.16);
+      color: #e0f2fe;
+    }
 
-      .video-thumb {
-        width: 72px;
-        height: 46px;
-        border-radius: 12px;
-        background: radial-gradient(circle at 30% 20%, #ffffffaa, #0b3a37);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-      }
+    .page-modal-video-player {
+      margin-top: 8px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #020617;
+    }
 
-      .video-thumb::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.1),
-            rgba(0, 0, 0, 0.65)
-          ),
-          repeating-linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0.12) 0,
-            rgba(255, 255, 255, 0.12) 2px,
-            transparent 2px,
-            transparent 4px
-          );
-        mix-blend-mode: screen;
-        opacity: 0.6;
-      }
+    .page-modal-video-player video {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+  </style>
+</head>
 
-      .video-play-symbol {
-        position: relative;
-        z-index: 1;
-        width: 22px;
-        height: 22px;
-        border-radius: 999px;
-        border: 2px solid #ffffff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+<body>
+  <!-- TESTEIRA COM LOGO -->
+  <header class="hero">
+    <img
+      src="testeira.png"
+      alt="Programa Cuidar+: cuidados em casa após a alta"
+      class="hero-logo"
+    />
+  </header>
 
-      .video-play-symbol span {
-        display: block;
-        margin-left: 1px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 6px 0 6px 10px;
-        border-color: transparent transparent transparent #ffffff;
-      }
-
-      .video-text-main {
-        font-size: 0.95rem;
-        font-weight: 600;
-      }
-
-      .video-text-sub {
-        font-size: 0.78rem;
-        opacity: 0.92;
-      }
-
-      .video-player-wrapper {
-        border-radius: 16px;
-        overflow: hidden;
-        background: #000000;
-        border: 1px solid #1f2933;
-      }
-
-      .video-player {
-        width: 100%;
-        display: block;
-        max-height: 260px;
-      }
-
-      .modal-note {
-        font-size: 0.78rem;
-        color: var(--text-muted);
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="page">
-      <div class="container">
-        <!-- Cabeçalho com testeira e logo -->
-        <header class="header">
-          <div class="header-main">
-            <!-- Ajuste o src para a sua testeira -->
-            <img
-              src="images/testeira-cuidar-mais.jpg"
-              alt="Programa Cuidar Mais"
-              class="header-banner"
-            />
-
-            <div class="header-title-block">
-              <h1 class="header-title">Programa Cuidar Mais</h1>
-              <p class="header-subtitle">
-                Orientações para o cuidado em casa, depois da alta hospitalar.
-              </p>
-            </div>
-          </div>
-
-          <!-- Ajuste o src para o logo do Hugol -->
-          <img
-            src="images/logo-hugol.png"
-            alt="Hospital Estadual de Urgências Governador Otávio Lage de Siqueira"
-            class="header-logo"
-          />
-        </header>
-
-        <!-- Coluna esquerda: apresentação -->
-        <section class="intro">
-          <h2 class="intro-title">Você não está sozinho</h2>
-
-          <p class="intro-text">
-            Esta cartilha do Programa Cuidar Mais foi preparada para apoiar
-            você, o paciente e quem cuida no dia a dia, depois da alta
-            hospitalar.
-          </p>
-
-          <p class="intro-text">
-            Aqui você encontra orientações simples, em linguagem clara, sobre
-            alimentação por sonda e dieta, cuidados com traqueostomia, oxigênio
-            e aparelhos, prevenção de feridas e lesão por pressão, saúde mental
-            e rede de apoio.
-          </p>
-
-          <div class="intro-highlight">
-            Na versão digital, você pode buscar palavras como
-            <strong>sonda</strong>, <strong>feridas</strong> ou
-            <strong>oxigênio</strong> e ir direto para a parte que precisa.
-          </div>
-
-          <a
-            class="pdf-link"
-            href="cartilha-cuidar-mais.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="icon">📄</span>
-            <span>Cartilha completa em PDF</span>
-          </a>
-
-          <ul class="info-list">
-            <li>Material gratuito para uso do paciente e da família.</li>
-            <li>Pode ser acessado no celular, tablet ou computador.</li>
-            <li>Em caso de dúvida, retorne a esta cartilha sempre que precisar.</li>
-          </ul>
-        </section>
-
-        <!-- Coluna direita: temas da cartilha -->
-        <section class="themes">
-          <h3 class="themes-title">Escolha um tema para visualizar</h3>
-          <p class="themes-subtitle">
-            Toque em um dos cartões para abrir a página correspondente da
-            cartilha. Em alguns temas você também pode assistir a um vídeo
-            explicativo.
-          </p>
-
-          <div class="theme-grid">
-            <!-- Tema: Introdução (com vídeo configurado) -->
-            <button class="theme-card" data-theme="introducao">
-              <div class="theme-image-wrapper">
-                <img
-                  src="images/introducao.jpg"
-                  alt="Introdução"
-                  class="theme-image"
-                />
-              </div>
-              <div>
-                <div class="theme-label">Introdução</div>
-                <div class="theme-caption">
-                  Como usar a cartilha e o Programa Cuidar Mais.
-                </div>
-              </div>
-            </button>
-
-            <!-- Alimentação por sonda e dieta -->
-            <button class="theme-card" data-theme="sonda">
-              <div class="theme-image-wrapper">
-                <img
-                  src="images/sonda-dieta.jpg"
-                  alt="Alimentação por sonda e dieta"
-                  class="theme-image"
-                />
-              </div>
-              <div>
-                <div class="theme-label">Alimentação por sonda e dieta</div>
-                <div class="theme-caption">
-                  Passo a passo, higiene e formas de administração.
-                </div>
-              </div>
-            </button>
-
-            <!-- Traqueostomia -->
-            <button class="theme-card" data-theme="traqueostomia">
-              <div class="theme-image-wrapper">
-                <img
-                  src="images/traqueostomia.jpg"
-                  alt="Cuidados com traqueostomia"
-                  class="theme-image"
-                />
-              </div>
-              <div>
-                <div class="theme-label">Cuidados com traqueostomia</div>
-                <div class="theme-caption">
-                  Limpeza, troca de curativo e sinais de alerta.
-                </div>
-              </div>
-            </button>
-
-            <!-- Oxigênio e aparelhos -->
-            <button class="theme-card" data-theme="oxigenio">
-              <div class="theme-image-wrapper">
-                <img
-                  src="images/oxigenio-aparelhos.jpg"
-                  alt="Oxigênio e aparelhos"
-                  class="theme-image"
-                />
-              </div>
-              <div>
-                <div class="theme-label">Oxigênio e aparelhos</div>
-                <div class="theme-caption">
-                  Uso seguro do oxigênio e equipamentos em casa.
-                </div>
-              </div>
-            </button>
-
-            <!-- Prevenção de feridas e lesão por pressão -->
-            <button class="theme-card" data-theme="feridas">
-              <div class="theme-image-wrapper">
-                <img
-                  src="images/feridas-lesao-pressao.jpg"
-                  alt="Prevenção de feridas e lesão por pressão"
-                  class="theme-image"
-                />
-              </div>
-              <div>
-                <div class="theme-label">
-                  Prevenção de feridas e lesão por pressão
-                </div>
-                <div class="theme-caption">
-                  Posicionamento, higiene da pele e cuidados diários.
-                </div>
-              </div>
-            </button>
-
-            <!-- Saúde mental de quem cuida e de quem é cuidado -->
-            <button class="theme-card" data-theme="saude-mental">
-              <div class="theme-image-wrapper">
-                <img
-                  src="images/saude-mental.jpg"
-                  alt="Saúde mental"
-                  class="theme-image"
-                />
-              </div>
-              <div>
-                <div class="theme-label">Saúde mental</div>
-                <div class="theme-caption">
-                  Cuidando das emoções do paciente e da família.
-                </div>
-              </div>
-            </button>
-
-            <!-- Serviço social e rede de apoio -->
-            <button class="theme-card" data-theme="rede-apoio">
-              <div class="theme-image-wrapper">
-                <img
-                  src="images/rede-apoio.jpg"
-                  alt="Serviço social e rede de apoio"
-                  class="theme-image"
-                />
-              </div>
-              <div>
-                <div class="theme-label">Serviço social e rede de apoio</div>
-                <div class="theme-caption">
-                  Benefícios, direitos e onde buscar ajuda.
-                </div>
-              </div>
-            </button>
-          </div>
-        </section>
+  <!-- BLOCO CENTRAL -->
+  <main>
+    <!-- BUSCA -->
+    <section class="search-wrapper">
+      <div class="search-container">
+        <button
+          type="button"
+          class="search-toggle"
+          aria-hidden="true"
+          tabindex="-1"
+        >
+          🔍
+        </button>
+        <input
+          id="searchInput"
+          class="search-input"
+          type="search"
+          placeholder="Busque um tema da cartilha (ex.: sonda, dieta, oxigênio, feridas...)"
+        />
       </div>
-    </div>
+    </section>
 
-    <!-- Modal de visualização do tema e vídeo -->
-    <div class="modal" id="themeModal" aria-hidden="true">
-      <div class="modal-backdrop"></div>
+    <!-- BLOCOS DE TEMAS -->
+    <section class="topics-section">
+      <div class="topics-grid" id="topicsGrid"></div>
+    </section>
 
-      <div class="modal-content" role="dialog" aria-modal="true">
-        <div class="modal-header">
-          <h4 class="modal-title" id="modalTitle">Tema</h4>
-          <button class="modal-close" type="button" id="modalCloseBtn">
-            ×
-          </button>
+    <!-- DOWNLOAD DA CARTILHA COMPLETA -->
+    <section class="download-section">
+      <div class="download-card">
+        <div class="download-text">
+          <h2>Cartilha completa em PDF</h2>
+          <p>
+            Baixe a versão oficial da cartilha Programa Cuidar+ em PDF para
+            salvar, imprimir ou compartilhar com pacientes e cuidadores.
+          </p>
         </div>
+        <a
+          href="DocumentoCartilhaCuidarmais-combinado.pdf"
+          class="primary-button"
+          target="_blank"
+          rel="noopener"
+        >
+          <span>📥</span>
+          <span>Baixar cartilha completa</span>
+        </a>
+      </div>
+    </section>
+  </main>
 
-        <div class="modal-body">
-          <div class="modal-image-wrapper">
-            <img
-              src=""
-              alt=""
-              class="modal-image"
-              id="modalImage"
-            />
-          </div>
+  <!-- ASSINATURA HUGOL -->
+  <footer>
+    <div class="footer-inner">
+      <img
+        src="logohugol.png"
+        alt="Hospital Estadual de Urgências Governador Otávio Lage de Siqueira"
+        class="footer-logo"
+      />
+      <p class="footer-text">
+        Programa Cuidar+: material informativo para cuidados em casa após a alta
+        hospitalar.
+      </p>
+    </div>
+  </footer>
 
-          <div class="video-panel">
-            <!-- Barra estilizada de vídeo -->
-            <div class="video-bar" id="videoBar">
-              <div class="video-thumb">
-                <div class="video-play-symbol">
-                  <span></span>
-                </div>
-              </div>
-              <div>
-                <div class="video-text-main" id="videoTitle">
-                  Vídeo do tema
-                </div>
-                <div class="video-text-sub" id="videoSubtitle">
-                  Toque para assistir ao vídeo com orientações deste tema.
-                </div>
-              </div>
+  <!-- MODAL PARA VISUALIZAR PÁGINAS E VÍDEO -->
+  <div class="page-modal" id="pageModal" aria-hidden="true">
+    <div class="page-modal-backdrop" id="pageModalBackdrop"></div>
+    <div class="page-modal-content">
+      <button
+        type="button"
+        class="page-modal-close"
+        id="pageModalClose"
+        aria-label="Fechar visualização"
+      >
+        ×
+      </button>
+
+      <!-- barra de vídeo -->
+      <div class="page-modal-video-wrapper" id="pageModalVideoWrapper"></div>
+
+      <!-- imagens das páginas -->
+      <div class="page-modal-images" id="pageModalImages"></div>
+    </div>
+  </div>
+
+  <script>
+    // DESLOCAMENTO ENTRE NÚMERO DA PÁGINA E NOME DO ARQUIVO DE IMAGEM
+    // Se você notar que sempre está abrindo 1 página à frente ou atrás,
+    // ajuste este valor para +1 ou -1.
+    const IMAGE_OFFSET = 0;
+
+    // MAPA DE TEMAS E PÁGINAS (PÁGINAS = ORDEM LÓGICA DO PDF)
+    const topicGroups = [
+      {
+        id: "visao-geral",
+        title: "Visão geral",
+        icon: "📘",
+        topics: [
+          {
+            id: "introducao-programa",
+            title: "Introdução: Programa Cuidar+",
+            pages: [2],
+            videoFile: "videos/introducao.mp4"
+          },
+          {
+            id: "higienizacao-maos",
+            title: "Higienização das mãos",
+            pages: [3],
+          },
+        ],
+      },
+      {
+        id: "nutricao-domiciliar",
+        title: "Nutrição domiciliar",
+        icon: "🍽️",
+        topics: [
+          {
+            id: "nutricao-visao-geral",
+            title: "Nutrição domiciliar: visão geral da alimentação por sonda",
+            pages: [4],
+          },
+          {
+            id: "tipos-sonda",
+            title: "Tipos de sonda e orientações gerais",
+            pages: [5, 6],
+          },
+          {
+            id: "tipos-dieta",
+            title: "Tipos de dieta industrializada, artesanal e mista",
+            pages: [7],
+          },
+          {
+            id: "preparo-higiene-local",
+            title: "Preparo da dieta: higiene, local e utensílios",
+            pages: [8, 9],
+          },
+          {
+            id: "preparando-guardando",
+            title: "Preparando, guardando e administrando a dieta e a água",
+            pages: [10, 11, 12],
+          },
+          {
+            id: "limpeza-sonda-frascos",
+            title: "Limpeza da sonda, frascos e equipos",
+            pages: [13],
+          },
+          {
+            id: "problemas-comuns-nutricao",
+            title: "Problemas comuns na nutrição e sinais de alerta",
+            pages: [14, 15],
+          },
+        ],
+      },
+      {
+        id: "dispositivos-oxigenio",
+        title: "Dispositivos e oxigênio",
+        icon: "🩺",
+        topics: [
+          {
+            id: "sonda-vesical",
+            title: "Sonda vesical: cuidados com o cateter e a bolsa",
+            pages: [16],
+          },
+          {
+            id: "colostomia",
+            title: "Colostomia e cuidados com a bolsa coletora e a pele",
+            pages: [17, 18, 19],
+          },
+          {
+            id: "traqueostomia",
+            title: "Traqueostomia: cuidados diários, estoma e cânula",
+            pages: [20, 21, 22],
+          },
+          {
+            id: "aspiracao-traqueal",
+            title: "Aspiração traqueal: materiais, passo a passo e após o procedimento",
+            pages: [23, 24, 25, 26],
+          },
+          {
+            id: "oxigenoterapia",
+            title: "Oxigenoterapia domiciliar e uso do oxímetro de pulso",
+            pages: [27, 28, 29],
+          },
+        ],
+      },
+      {
+        id: "pele-lesao",
+        title: "Pele e lesão por pressão",
+        icon: "🛏️",
+        topics: [
+          {
+            id: "lesao-pressao",
+            title: "Lesão por pressão: prevenção e cuidados com a pele",
+            pages: [30, 31, 32, 33, 34],
+          },
+        ],
+      },
+      {
+        id: "saude-mental",
+        title: "Saúde mental e cuidador",
+        icon: "🧠",
+        topics: [
+          {
+            id: "saude-mental-tratamento",
+            title: "Saúde mental durante o tratamento",
+            pages: [35],
+          },
+          {
+            id: "cuidando-de-quem-cuida",
+            title: "Cuidando de quem cuida",
+            pages: [36],
+          },
+          {
+            id: "gerenciando-emocoes",
+            title: "Gerenciando emoções e sinais de alerta",
+            pages: [37],
+          },
+        ],
+      },
+      {
+        id: "servico-social",
+        title: "Serviço social e redes de apoio",
+        icon: "🤝",
+        topics: [
+          {
+            id: "insumos-goiania",
+            title: "Insumos básicos e medicamentos pelo SUS em Goiânia",
+            pages: [38, 39, 40, 41],
+          },
+          {
+            id: "insumos-outros-municipios",
+            title: "Insumos de saúde para demais municípios",
+            pages: [42],
+          },
+          {
+            id: "fraldas-beneficios",
+            title: "Fraldas geriátricas e outros benefícios",
+            pages: [43, 44],
+          },
+          {
+            id: "sao",
+            title: "Serviço de apoio ao ostomizado (SAO)",
+            pages: [45, 46],
+          },
+          {
+            id: "sad",
+            title: "Serviço de atenção domiciliar (SAD)",
+            pages: [47, 48, 49],
+          },
+        ],
+      },
+    ];
+
+    function pageNumberToFile(page) {
+      const fileIndex = page + IMAGE_OFFSET;
+      const num = String(fileIndex).padStart(2, "0");
+      return `paginas/cuidarmais-p${num}.png`;
+    }
+
+    function buildPageLabel(pages) {
+      if (!pages || pages.length === 0) return "";
+      if (pages.length === 1) return `Página ${pages[0]}`;
+
+      const sorted = [...pages].sort((a, b) => a - b);
+      const min = sorted[0];
+      const max = sorted[sorted.length - 1];
+      const isContiguous = max - min + 1 === sorted.length;
+
+      if (isContiguous) {
+        return `Páginas ${min} a ${max}`;
+      }
+
+      return `Páginas ${sorted.join(", ")}`;
+    }
+
+    const topicsGrid = document.getElementById("topicsGrid");
+
+    function renderTopics() {
+      topicsGrid.innerHTML = "";
+
+      topicGroups.forEach((group) => {
+        const groupEl = document.createElement("section");
+        groupEl.className = "topic-group";
+        groupEl.dataset.groupId = group.id;
+
+        const headerEl = document.createElement("header");
+        headerEl.className = "topic-group-header";
+        headerEl.innerHTML = `
+          <div class="group-icon">${group.icon}</div>
+          <h2 class="group-title">${group.title}</h2>
+          <p class="group-count">${group.topics.length} ${
+            group.topics.length === 1 ? "tema" : "temas"
+          }</p>
+          <span class="group-toggle-icon" aria-hidden="true">⌄</span>
+        `;
+
+        headerEl.addEventListener("click", () => {
+          groupEl.classList.toggle("expanded");
+        });
+
+        const listEl = document.createElement("div");
+        listEl.className = "topic-list";
+
+        group.topics.forEach((topic, index) => {
+          const card = document.createElement("button");
+          card.type = "button";
+          card.className = "topic-card";
+          card.dataset.groupId = group.id;
+          card.dataset.topicId = topic.id;
+          card.dataset.search = (
+            group.title +
+            " " +
+            topic.title
+          ).toLowerCase();
+
+          const pageLabel = buildPageLabel(topic.pages);
+
+          card.innerHTML = `
+            <div class="topic-card-header">
+              <div class="topic-badge">${index + 1}</div>
+              <h3 class="topic-title">${topic.title}</h3>
             </div>
+            <p class="topic-page">${pageLabel}</p>
+          `;
 
-            <!-- Player de vídeo -->
-            <div class="video-player-wrapper">
-              <video
-                id="themeVideo"
-                class="video-player"
-                controls
-                preload="metadata"
-              >
-                <source id="themeVideoSource" src="" type="video/mp4" />
-                Seu navegador não suporta a reprodução de vídeo.
+          card.addEventListener("click", () => {
+            openPageModal(topic);
+          });
+
+          listEl.appendChild(card);
+        });
+
+        groupEl.appendChild(headerEl);
+        groupEl.appendChild(listEl);
+        topicsGrid.appendChild(groupEl);
+      });
+    }
+
+    renderTopics();
+
+    // BUSCA
+
+    const searchInput = document.getElementById("searchInput");
+
+    function filterTopics() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      const cards = Array.from(
+        document.querySelectorAll(".topic-card")
+      );
+      const groups = Array.from(
+        document.querySelectorAll(".topic-group")
+      );
+
+      cards.forEach((card) => {
+        const searchText = card.dataset.search || "";
+        const matches = !query || searchText.includes(query);
+        card.classList.toggle("hidden", !matches);
+      });
+
+      groups.forEach((group) => {
+        const visibleCards = group.querySelectorAll(
+          ".topic-card:not(.hidden)"
+        );
+        const hasVisible = visibleCards.length > 0;
+        group.classList.toggle("hidden", !hasVisible);
+
+        if (query && hasVisible) {
+          group.classList.add("expanded");
+        }
+      });
+    }
+
+    searchInput.addEventListener("input", filterTopics);
+
+    // MODAL DE PÁGINAS + VÍDEO
+
+    const pageModal = document.getElementById("pageModal");
+    const pageModalImages = document.getElementById("pageModalImages");
+    const pageModalClose = document.getElementById("pageModalClose");
+    const pageModalBackdrop = document.getElementById("pageModalBackdrop");
+    const pageModalVideoWrapper =
+      document.getElementById("pageModalVideoWrapper");
+
+    function openPageModal(topic) {
+      pageModalImages.innerHTML = "";
+      pageModalVideoWrapper.innerHTML = "";
+
+      if (topic.videoFile) {
+        pageModalVideoWrapper.style.display = "block";
+        pageModalVideoWrapper.innerHTML = `
+          <div class="page-modal-video-card">
+            <div class="page-modal-video-header">
+              <span class="page-modal-video-pill">🎥 Vídeo explicativo</span>
+              <h3>${topic.title}</h3>
+              <p>Assista a um vídeo curto com orientações sobre este assunto.</p>
+            </div>
+            <div class="page-modal-video-player">
+              <video controls preload="metadata">
+                <source src="${topic.videoFile}" type="video/mp4" />
+                Seu navegador não suporta o elemento de vídeo.
               </video>
             </div>
-
-            <p class="modal-note">
-              Em caso de dúvida, consulte também a cartilha em PDF e siga sempre
-              as orientações da equipe de saúde que acompanha o paciente.
-            </p>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      // Configurações dos temas: imagem e vídeo
-      // Ajuste os caminhos conforme o nome dos arquivos na sua pasta
-      const THEMES = {
-        introducao: {
-          title: "Introdução",
-          image: "images/introducao.jpg",
-          video: "videos/introducao.mp4",
-          videoTitle: "Introdução ao Programa Cuidar Mais",
-          videoSubtitle:
-            "Assista primeiro para entender como usar esta cartilha no dia a dia.",
-        },
-        sonda: {
-          title: "Alimentação por sonda e dieta",
-          image: "images/sonda-dieta.jpg",
-          video: "videos/sonda-dieta.mp4",
-          videoTitle: "Alimentação por sonda e dieta",
-          videoSubtitle:
-            "Cuidados básicos, higiene e passo a passo para usar a sonda com segurança.",
-        },
-        traqueostomia: {
-          title: "Cuidados com traqueostomia",
-          image: "images/traqueostomia.jpg",
-          video: "videos/traqueostomia.mp4",
-          videoTitle: "Cuidados com traqueostomia em casa",
-          videoSubtitle:
-            "Orientações para limpeza, troca de curativo e sinais de alerta.",
-        },
-        oxigenio: {
-          title: "Oxigênio e aparelhos",
-          image: "images/oxigenio-aparelhos.jpg",
-          video: "videos/oxigenio-aparelhos.mp4",
-          videoTitle: "Uso de oxigênio e aparelhos no domicílio",
-          videoSubtitle:
-            "Dicas de segurança e manuseio correto dos equipamentos.",
-        },
-        feridas: {
-          title: "Prevenção de feridas e lesão por pressão",
-          image: "images/feridas-lesao-pressao.jpg",
-          video: "videos/feridas-lesao-pressao.mp4",
-          videoTitle: "Prevenção de feridas e lesão por pressão",
-          videoSubtitle:
-            "Como evitar machucados e cuidar da pele do paciente em casa.",
-        },
-        "saude-mental": {
-          title: "Saúde mental",
-          image: "images/saude-mental.jpg",
-          video: "videos/saude-mental.mp4",
-          videoTitle: "Saúde mental de quem cuida e de quem é cuidado",
-          videoSubtitle:
-            "Cuidando das emoções, do descanso e do bem-estar da família.",
-        },
-        "rede-apoio": {
-          title: "Serviço social e rede de apoio",
-          image: "images/rede-apoio.jpg",
-          video: "videos/rede-apoio.mp4",
-          videoTitle: "Serviço social e rede de apoio",
-          videoSubtitle:
-            "Informações sobre benefícios, direitos e onde buscar ajuda.",
-        },
-      };
-
-      const modal = document.getElementById("themeModal");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalImage = document.getElementById("modalImage");
-      const modalCloseBtn = document.getElementById("modalCloseBtn");
-      const videoBar = document.getElementById("videoBar");
-      const videoTitle = document.getElementById("videoTitle");
-      const videoSubtitle = document.getElementById("videoSubtitle");
-      const themeVideo = document.getElementById("themeVideo");
-      const themeVideoSource = document.getElementById("themeVideoSource");
-
-      let currentThemeKey = null;
-
-      function openModal(themeKey) {
-        const theme = THEMES[themeKey];
-        if (!theme) return;
-
-        currentThemeKey = themeKey;
-
-        modalTitle.textContent = theme.title;
-        modalImage.src = theme.image;
-        modalImage.alt = theme.title;
-
-        if (theme.video) {
-          themeVideoSource.src = theme.video;
-          videoTitle.textContent = theme.videoTitle || "Vídeo do tema";
-          videoSubtitle.textContent =
-            theme.videoSubtitle ||
-            "Toque para assistir ao vídeo com orientações deste tema.";
-          themeVideo.load();
-        } else {
-          themeVideoSource.src = "";
-          themeVideo.load();
-          videoTitle.textContent = "Vídeo não disponível";
-          videoSubtitle.textContent =
-            "Em breve este tema também terá um vídeo explicativo.";
-        }
-
-        modal.classList.add("is-open");
-        modal.setAttribute("aria-hidden", "false");
+        `;
+      } else {
+        pageModalVideoWrapper.style.display = "none";
       }
 
-      function closeModal() {
-        modal.classList.remove("is-open");
-        modal.setAttribute("aria-hidden", "true");
+      topic.pages.forEach((page) => {
+        const img = document.createElement("img");
+        img.src = pageNumberToFile(page);
+        img.alt = `Página ${page} da cartilha Programa Cuidar+`;
+        img.loading = "lazy";
+        pageModalImages.appendChild(img);
+      });
 
-        // Pausa o vídeo ao fechar
-        if (!themeVideo.paused) {
-          themeVideo.pause();
-        }
+      pageModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      pageModal.setAttribute("aria-hidden", "false");
+    }
 
-        currentThemeKey = null;
+    function closePageModal() {
+      pageModal.classList.remove("open");
+      document.body.style.overflow = "";
+      pageModal.setAttribute("aria-hidden", "true");
+      pageModalImages.innerHTML = "";
+      pageModalVideoWrapper.innerHTML = "";
+      pageModalVideoWrapper.style.display = "none";
+    }
+
+    pageModalClose.addEventListener("click", closePageModal);
+    pageModalBackdrop.addEventListener("click", closePageModal);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && pageModal.classList.contains("open")) {
+        closePageModal();
       }
-
-      document.querySelectorAll(".theme-card").forEach((card) => {
-        card.addEventListener("click", () => {
-          const themeKey = card.getAttribute("data-theme");
-          openModal(themeKey);
-        });
-      });
-
-      // Fechar modal nos botões e na área escura
-      modalCloseBtn.addEventListener("click", closeModal);
-
-      modal.addEventListener("click", (event) => {
-        if (event.target.classList.contains("modal-backdrop")) {
-          closeModal();
-        }
-      });
-
-      // Barra de vídeo inicia ou pausa o vídeo
-      videoBar.addEventListener("click", () => {
-        if (!themeVideo.src) return;
-
-        if (themeVideo.paused) {
-          themeVideo.play();
-        } else {
-          themeVideo.pause();
-        }
-      });
-
-      // Fechar com ESC
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && modal.classList.contains("is-open")) {
-          closeModal();
-        }
-      });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
