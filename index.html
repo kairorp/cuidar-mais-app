@@ -681,9 +681,10 @@
 
   <script>
     // DESLOCAMENTO ENTRE NÚMERO DA PÁGINA E NOME DO ARQUIVO DE IMAGEM
-    // Se você notar que sempre está abrindo 1 página à frente ou atrás,
-    // ajuste este valor para +1 ou -1.
-    const IMAGE_OFFSET = 0;
+    // Aqui está ajustado para -1 porque a capa (página 1 do PDF) não virou PNG.
+    // Ex.: página 2 (Introdução) -> cuidarmais-p01.png
+    //      página 3 (Higienização das mãos) -> cuidarmais-p02.png
+    const IMAGE_OFFSET = -1;
 
     // MAPA DE TEMAS E PÁGINAS (PÁGINAS = ORDEM LÓGICA DO PDF)
     const topicGroups = [
