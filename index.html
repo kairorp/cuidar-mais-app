@@ -165,13 +165,13 @@
 
     .topics-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 colunas no mobile */
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
     }
 
     @media (min-width: 1100px) {
       .topics-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 colunas no desktop */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
@@ -680,7 +680,12 @@
   </div>
 
   <script>
-    // MAPA DE TEMAS E PÁGINAS – ALINHADO COM O CONTEÚDO REAL DA CARTILHA
+    // DESLOCAMENTO ENTRE NÚMERO DA PÁGINA E NOME DO ARQUIVO DE IMAGEM
+    // Se você notar que sempre está abrindo 1 página à frente ou atrás,
+    // ajuste este valor para +1 ou -1.
+    const IMAGE_OFFSET = 0;
+
+    // MAPA DE TEMAS E PÁGINAS (PÁGINAS = ORDEM LÓGICA DO PDF)
     const topicGroups = [
       {
         id: "visao-geral",
@@ -690,7 +695,7 @@
           {
             id: "introducao-programa",
             title: "Introdução: Programa Cuidar+",
-            pages: [2], // Introdução (PDF página 2 / interna 01)
+            pages: [2],
             videoFile: "videos/introducao.mp4"
           },
           {
@@ -713,7 +718,7 @@
           {
             id: "tipos-sonda",
             title: "Tipos de sonda e orientações gerais",
-            pages: [5, 6], // SNE/SNG + Gastrostomia
+            pages: [5, 6],
           },
           {
             id: "tipos-dieta",
@@ -843,7 +848,8 @@
     ];
 
     function pageNumberToFile(page) {
-      const num = String(page).padStart(2, "0");
+      const fileIndex = page + IMAGE_OFFSET;
+      const num = String(fileIndex).padStart(2, "0");
       return `paginas/cuidarmais-p${num}.png`;
     }
 
