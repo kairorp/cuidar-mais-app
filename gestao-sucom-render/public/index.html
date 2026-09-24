@@ -30,16 +30,24 @@
   </section>
 
   <main id="appView" class="app hidden">
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">HUGOL · SUCOM</p>
+    <header class="topbar visual-header">
+      <div class="brand-copy">
+        <p class="eyebrow eyebrow-header">HUGOL · SUCOM</p>
         <h1>Gestão SUCOM</h1>
         <p class="subtitle">Central executiva de demandas</p>
+      </div>
+      <div class="comms-visual" aria-hidden="true">
+        <span class="bubble bubble-a"></span>
+        <span class="bubble bubble-b"></span>
+        <span class="signal-line line-a"></span>
+        <span class="signal-line line-b"></span>
+        <span class="signal-dot dot-a"></span>
+        <span class="signal-dot dot-b"></span>
       </div>
       <div class="top-actions">
         <div class="sync-pill"><span class="dot"></span><span id="lastSync">Carregando…</span></div>
         <button id="refreshBtn" class="btn btn-secondary">Atualizar</button>
-        <button id="logoutBtn" class="btn btn-ghost">Sair</button>
+        <button id="logoutBtn" class="btn btn-ghost btn-ghost-on-dark">Sair</button>
       </div>
     </header>
 
@@ -71,26 +79,17 @@
         <div id="workloadList" class="workload-list"></div>
       </article>
 
-      <article class="panel">
+      <article class="panel pipe-panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">DISTRIBUIÇÃO</p><h2>Demandas por pipe</h2></div>
+          <div><p class="eyebrow">FRENTES DA COMUNICAÇÃO</p><h2>Onde as demandas estão</h2></div>
           <span class="panel-note">somente ativas</span>
         </div>
-        <div id="pipeBars" class="compact-bars"></div>
+        <div id="pipeBars" class="pipe-grid"></div>
       </article>
     </section>
-
-    <section class="panel phase-panel">
-      <div class="panel-heading">
-        <div><p class="eyebrow">FLUXO</p><h2>Distribuição por fase</h2></div>
-        <span class="panel-note">onde o trabalho está concentrado</span>
-      </div>
-      <div id="phaseChips" class="phase-chips"></div>
-    </section>
-
     <section class="panel demands-panel">
       <div class="panel-heading table-heading">
-        <div><p class="eyebrow">OPERAÇÃO</p><h2>Demandas ativas</h2></div>
+        <div><p class="eyebrow">PAUTA EM MOVIMENTO</p><h2>Demandas ativas</h2></div>
         <span id="filteredCount" class="panel-note"></span>
       </div>
       <div class="filters">
