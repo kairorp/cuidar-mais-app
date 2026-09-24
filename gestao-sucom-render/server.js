@@ -354,7 +354,7 @@ app.get("/api/dashboard", requireAuth, async (req, res) => {
   }
 });
 
-app.get("*", (_req, res) => res.sendFile(new URL("./public/index.html", import.meta.url).pathname));
+app.use((_req, res) => res.sendFile(new URL("./public/index.html", import.meta.url).pathname));
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Gestão SUCOM ativo na porta ${PORT}`);
