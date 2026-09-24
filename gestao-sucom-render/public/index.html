@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Gestão SUCOM</title>
+  <meta name="description" content="Central executiva de demandas SUCOM" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <section id="loginView" class="login-shell">
+    <div class="login-card">
+      <div class="brand-mark">GS</div>
+      <div>
+        <p class="eyebrow">HUGOL · SUCOM</p>
+        <h1>Gestão SUCOM</h1>
+        <p class="muted">Central executiva de demandas</p>
+      </div>
+      <form id="loginForm">
+        <label for="password">Senha de acesso</label>
+        <input id="password" type="password" autocomplete="current-password" required />
+        <button class="btn btn-primary" type="submit">Entrar</button>
+        <p id="loginError" class="form-error hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <main id="appView" class="app hidden">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">HUGOL · SUCOM</p>
+        <h1>Gestão SUCOM</h1>
+        <p class="subtitle">Central executiva de demandas</p>
+      </div>
+      <div class="top-actions">
+        <div class="sync-pill"><span class="dot"></span><span id="lastSync">Carregando…</span></div>
+        <button id="refreshBtn" class="btn btn-secondary">Atualizar</button>
+        <button id="logoutBtn" class="btn btn-ghost">Sair</button>
+      </div>
+    </header>
+
+    <section class="attention-hero">
+      <div class="attention-title-row">
+        <div>
+          <p class="eyebrow eyebrow-light">PRIORIDADE EXECUTIVA</p>
+          <h2>O que precisa da minha atenção agora</h2>
+          <p>Somente demandas abertas com atraso, vencimento iminente ou sem responsável.</p>
+        </div>
+        <div class="attention-count"><strong id="attentionCount">0</strong><span>itens</span></div>
+      </div>
+      <div id="attentionList" class="attention-list"></div>
+    </section>
+
+    <section class="kpi-grid">
+      <article class="kpi-card"><span>Demandas abertas</span><strong id="kpiActive">—</strong><small>trabalho em andamento</small></article>
+      <article class="kpi-card danger"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>overdue, late ou expired</small></article>
+      <article class="kpi-card warning"><span>Vencem em 7 dias</span><strong id="kpiDueSoon">—</strong><small>acompanhamento próximo</small></article>
+      <article class="kpi-card"><span>Sem responsável</span><strong id="kpiUnassigned">—</strong><small>precisam de definição</small></article>
+    </section>
+
+    <section class="two-col">
+      <article class="panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">CAPACIDADE</p><h2>Carga por responsável</h2></div>
+          <span class="panel-note">abertas atribuídas</span>
+        </div>
+        <div id="workloadList" class="workload-list"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">DISTRIBUIÇÃO</p><h2>Demandas por pipe</h2></div>
+          <span class="panel-note">somente ativas</span>
+        </div>
+        <div id="pipeBars" class="compact-bars"></div>
+      </article>
+    </section>
+
+    <section class="panel phase-panel">
+      <div class="panel-heading">
+        <div><p class="eyebrow">FLUXO</p><h2>Distribuição por fase</h2></div>
+        <span class="panel-note">onde o trabalho está concentrado</span>
+      </div>
+      <div id="phaseChips" class="phase-chips"></div>
+    </section>
+
+    <section class="panel demands-panel">
+      <div class="panel-heading table-heading">
+        <div><p class="eyebrow">OPERAÇÃO</p><h2>Demandas ativas</h2></div>
+        <span id="filteredCount" class="panel-note"></span>
+      </div>
+      <div class="filters">
+        <input id="searchInput" type="search" placeholder="Buscar demanda..." />
+        <select id="pipeFilter"><option value="">Todos os pipes</option></select>
+        <select id="phaseFilter"><option value="">Todas as fases</option></select>
+        <select id="personFilter"><option value="">Todos os responsáveis</option></select>
+        <select id="statusFilter">
+          <option value="">Todas as situações</option>
+          <option value="attention">Precisa de atenção</option>
+          <option value="overdue">Atrasada</option>
+          <option value="dueSoon">Vence em 7 dias</option>
+          <option value="unassigned">Sem responsável</option>
+        </select>
+      </div>
+      <div id="warnings" class="warnings hidden"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Demanda</th><th>Pipe / fase</th><th>Responsável</th><th>Prazo</th><th>Situação</th></tr></thead>
+          <tbody id="demandsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
