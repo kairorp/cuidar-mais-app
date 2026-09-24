@@ -27,3 +27,83 @@ label{font-size:13px;font-weight:700}.login-card input,.filters input,.filters s
 .warnings{background:#fffaeb;color:#7a2e0e;border:1px solid #fedf89;border-radius:13px;padding:12px;margin:8px 0 14px;font-size:12px}.toast{position:fixed;right:22px;bottom:22px;background:#101828;color:#fff;border-radius:13px;padding:12px 15px;box-shadow:var(--shadow);font-size:12px;z-index:10}
 @media(max-width:1050px){.attention-list{grid-template-columns:repeat(2,1fr)}.kpi-grid{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.filters{grid-template-columns:repeat(2,1fr)}.filters input{grid-column:1/-1}}
 @media(max-width:680px){.app{padding:22px 15px 50px}.topbar{align-items:flex-start;flex-direction:column}.top-actions{width:100%}.attention-title-row{flex-direction:column}.attention-list{grid-template-columns:1fr}.kpi-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.workload-row{grid-template-columns:110px 1fr 42px}.attention-hero,.panel{border-radius:18px}}
+
+/* Refinamento visual: linguagem de comunicação */
+.visual-header{
+  position:relative;overflow:hidden;min-height:170px;padding:28px 30px;border-radius:28px;
+  background:
+    radial-gradient(circle at 78% 18%,rgba(255,255,255,.18),transparent 24%),
+    linear-gradient(135deg,#0f376f 0%,#1452a3 58%,#3479d4 100%);
+  color:#fff;box-shadow:0 20px 50px rgba(18,63,135,.18);align-items:center
+}
+.visual-header .brand-copy{position:relative;z-index:2}
+.visual-header h1{font-size:40px;letter-spacing:-.035em;margin-bottom:4px}
+.visual-header .subtitle{color:#dceaff}
+.eyebrow-header{color:#a9ccff}
+.visual-header .top-actions{position:relative;z-index:3;align-self:flex-start}
+.visual-header .sync-pill{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#eaf3ff;backdrop-filter:blur(12px)}
+.visual-header .btn-secondary{background:#fff;color:#174b93}
+.btn-ghost-on-dark{color:#e7f0ff}
+.comms-visual{position:absolute;right:250px;top:0;width:330px;height:180px;opacity:.9;pointer-events:none}
+.bubble{position:absolute;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);backdrop-filter:blur(5px);border-radius:28px}
+.bubble-a{width:150px;height:92px;right:34px;top:27px;transform:rotate(-8deg)}
+.bubble-b{width:108px;height:70px;right:142px;top:73px;transform:rotate(10deg)}
+.signal-line{position:absolute;height:2px;background:rgba(255,255,255,.35);border-radius:4px;transform-origin:left center}
+.line-a{width:125px;right:62px;top:82px;transform:rotate(22deg)}
+.line-b{width:96px;right:116px;top:108px;transform:rotate(-18deg)}
+.signal-dot{position:absolute;width:12px;height:12px;border:3px solid rgba(255,255,255,.75);border-radius:50%;background:#2a69bd}
+.dot-a{right:64px;top:77px}.dot-b{right:201px;top:115px}
+
+.attention-hero{position:relative;overflow:hidden;padding:30px}
+.attention-hero:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-75px;bottom:-120px;background:rgba(255,255,255,.07)}
+.attention-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+.attention-item{position:relative;padding:16px 17px 16px 20px}
+.attention-item:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:4px;border-radius:6px;background:#ffd3d7}
+.attention-item strong{font-size:15px}
+
+.kpi-card{position:relative;overflow:hidden;min-height:132px;padding:21px 22px}
+.kpi-card:before{content:"";position:absolute;left:0;top:0;width:100%;height:4px;background:#1e5fb8}
+.kpi-card.danger:before{background:var(--red)}
+.kpi-card.warning:before{background:#e7902e}
+.kpi-card strong{font-size:42px;letter-spacing:-.04em}
+.kpi-card span{font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.kpi-card:after{content:"";position:absolute;right:-16px;bottom:-24px;width:86px;height:86px;border-radius:50%;background:#eff5ff}
+.kpi-card.danger:after{background:#fff0f1}.kpi-card.warning:after{background:#fff7e8}
+
+.two-col{grid-template-columns:1.1fr .9fr}
+.workload-list{gap:10px}
+.workload-row{grid-template-columns:42px minmax(120px,180px) 1fr 55px;background:#fbfcfe;border:1px solid #eef2f6;border-radius:15px;padding:10px 11px}
+.workload-row:before{content:attr(data-initials);width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#eaf2ff;color:#174b93;font-weight:800;font-size:11px}
+.workload-row.top{background:#fff7f7;border-color:#f8d3d6}
+.workload-row.top:before{background:#fce2e4;color:#9e1e28}
+.workload-name strong{font-size:12px}.workload-name span{font-size:10px}
+.bar-track{height:8px}
+.pipe-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pipe-tile{position:relative;min-height:108px;padding:14px;border-radius:16px;border:1px solid #e8edf4;background:linear-gradient(145deg,#fbfdff,#f4f8fd);overflow:hidden}
+.pipe-tile:after{content:"";position:absolute;width:70px;height:70px;border-radius:50%;right:-24px;bottom:-30px;background:#e7f0ff}
+.pipe-tile strong{display:block;font-size:25px;letter-spacing:-.03em;margin-bottom:2px;color:#174b93;position:relative;z-index:2}
+.pipe-tile span{display:block;font-size:11px;line-height:1.35;color:#475467;font-weight:700;position:relative;z-index:2}
+.pipe-tile .mini-meter{height:5px;background:#e8edf4;border-radius:99px;overflow:hidden;margin-top:12px;position:relative;z-index:2}
+.pipe-tile .mini-meter i{display:block;height:100%;border-radius:99px;background:#2c70cf}
+
+.demands-panel{padding-top:24px}
+.table-wrap{border-radius:14px;border:1px solid #edf0f4;overflow:auto}
+table thead{background:#f8fafc}
+tbody tr:hover{background:#fbfdff}
+
+@media(max-width:1050px){
+  .comms-visual{right:150px;opacity:.55}
+  .pipe-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:780px){
+  .visual-header{align-items:flex-start;flex-direction:column}
+  .comms-visual{right:-50px;opacity:.35}
+  .attention-list{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .visual-header{min-height:190px;padding:24px 20px}
+  .visual-header h1{font-size:32px}
+  .kpi-card strong{font-size:34px}
+  .workload-row{grid-template-columns:36px 105px 1fr 42px}
+  .pipe-grid{grid-template-columns:1fr}
+}
