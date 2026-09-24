@@ -356,6 +356,25 @@ app.get("/api/dashboard", requireAuth, async (req, res) => {
 
 app.use((_req, res) => res.sendFile(new URL("./public/index.html", import.meta.url).pathname));
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, "0.0.0.0", async () => {
   console.log(`Gestão SUCOM ativo na porta ${PORT}`);
+  if (!process.env.PIPEFY_CLIENT_SECRET) {
+    console.log("[startup-check] PIPEFY_CLIENT_SECRET ausente; validação adiada.");
+    return;
+  }
+  try {
+    const snapshot = await getDashboard(true);
+    console.log("[startup-check] Pipefy OK", JSON.stringify({
+      active: snapshot.kpis.active,
+      attention: snapshot.kpis.attention,
+      overdue: snapshot.kpis.overdue,
+      dueSoon: snapshot.kpis.dueSoon,
+      unassigned: snapshot.kpis.unassigned,
+      pipes: snapshot.distributions.pipes.map(p => ({ name: p.name, active: p.count })),
+      topWorkload: snapshot.workload.slice(0, 5).map(p => ({ name: p.name, active: p.count, attention: p.attention })),
+      warnings: snapshot.warnings,
+    }));
+  } catch (err) {
+    console.error("[startup-check] Pipefy FALHOU:", safeError(err));
+  }
 });
