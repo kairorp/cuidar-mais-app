@@ -62,18 +62,22 @@ function render(d){
       </div>
     </a>`).join("") : '<div class="attention-item"><strong>Nenhuma demanda crítica neste momento.</strong><div class="attention-meta">Tudo sob controle.</div></div>';
 
-  $("workloadList").innerHTML=d.workload.length ? d.workload.map((p,i)=>`
-    <div class="workload-row ${i<3?"top":""}">
+  $("workloadList").innerHTML=d.workload.length ? d.workload.map((p,i)=>{
+    const initials=p.name.split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join("").toUpperCase();
+    return `
+    <div class="workload-row ${i<3?"top":""}" data-initials="${esc(initials)}">
       <div class="workload-name"><strong>#${p.rank} · ${esc(p.name)}</strong><span>${p.attention} exigindo atenção</span></div>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.max(4,p.percentOfMax)}%"></div></div>
       <div class="load-value">${p.count}<small>${p.percentOfMax}%</small></div>
-    </div>`).join("") : '<p class="muted">Nenhuma demanda atribuída.</p>';
+    </div>`}).join("") : '<p class="muted">Nenhuma demanda atribuída.</p>';
 
   const maxPipe=Math.max(1,...d.distributions.pipes.map(x=>x.count));
   $("pipeBars").innerHTML=d.distributions.pipes.map(x=>`
-    <div class="compact-row"><span class="compact-label">${esc(x.name)}</span><div class="compact-bar"><i style="width:${Math.round(x.count/maxPipe*100)}%"></i></div><strong>${x.count}</strong></div>`).join("");
-
-  $("phaseChips").innerHTML=d.distributions.phases.map(x=>`<span class="phase-chip">${esc(x.name)} <strong>${x.count}</strong></span>`).join("");
+    <div class="pipe-tile">
+      <strong>${x.count}</strong>
+      <span>${esc(x.name)}</span>
+      <div class="mini-meter"><i style="width:${Math.round(x.count/maxPipe*100)}%"></i></div>
+    </div>`).join("");
 
   if(d.warnings?.length){ $("warnings").innerHTML=d.warnings.map(w=>`<div>${esc(w)}</div>`).join(""); $("warnings").classList.remove("hidden"); }
   else $("warnings").classList.add("hidden");
