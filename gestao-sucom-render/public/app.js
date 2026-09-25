@@ -63,12 +63,11 @@ function render(d){
     </a>`).join("") : '<div class="attention-item"><strong>Nenhuma demanda crítica neste momento.</strong><div class="attention-meta">Tudo sob controle.</div></div>';
 
   $("workloadList").innerHTML=d.workload.length ? d.workload.map((p,i)=>{
-    const initials=p.name.split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join("").toUpperCase();
     return `
-    <div class="workload-row ${i<3?"top":""}" data-initials="${esc(initials)}">
-      <div class="workload-name"><strong>#${p.rank} · ${esc(p.name)}</strong><span>${p.attention} exigindo atenção</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(4,p.percentOfMax)}%"></div></div>
-      <div class="load-value">${p.count}<small>${p.percentOfMax}%</small></div>
+    <div class="workload-row ${i<3?"top":""}">
+      <div class="workload-name"><strong>${p.rank}. ${esc(p.name)}</strong><span>${p.attention} exigindo atenção</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,p.percentOfMax))}%"></div></div>
+      <div class="load-value">${p.count}<small>${p.percentOfMax}% da maior carga</small></div>
     </div>`}).join("") : '<p class="muted">Nenhuma demanda atribuída.</p>';
 
   const maxPipe=Math.max(1,...d.distributions.pipes.map(x=>x.count));
@@ -82,7 +81,7 @@ function render(d){
   if(d.warnings?.length){ $("warnings").innerHTML=d.warnings.map(w=>`<div>${esc(w)}</div>`).join(""); $("warnings").classList.remove("hidden"); }
   else $("warnings").classList.add("hidden");
 
-  fillSelect($("pipeFilter"),d.distributions.pipes,"Todos os pipes");
+  fillSelect($("pipeFilter"),d.distributions.pipes,"Todas as frentes");
   fillSelect($("phaseFilter"),d.distributions.phases,"Todas as fases");
   fillSelect($("personFilter"),d.workload.map(x=>({id:x.id,name:x.name})),"Todos os responsáveis");
   applyFilters();
@@ -128,4 +127,12 @@ function renderTable(){
 }
 
 ["searchInput","pipeFilter","phaseFilter","personFilter","statusFilter"].forEach(id=>$(id).addEventListener(id==="searchInput"?"input":"change",applyFilters));
+$("viewAttentionBtn").addEventListener("click",()=>{
+  if(!state.data)return;
+  ["searchInput","pipeFilter","phaseFilter","personFilter"].forEach(id=>$(id).value="");
+  $("statusFilter").value="attention";
+  applyFilters();
+  $("demandsSection").scrollIntoView({block:"start"});
+  $("statusFilter").focus({preventScroll:true});
+});
 init();

@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
   <title>Gestão SUCOM</title>
-  <meta name="description" content="Central executiva de demandas SUCOM" />
+  <meta name="description" content="Comunicação em foco. Prioridades em dia. SUCOM" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20260924-clean" />
 </head>
 <body>
   <section id="loginView" class="login-shell">
@@ -18,7 +18,7 @@
       <div>
         <p class="eyebrow">HUGOL · SUCOM</p>
         <h1>Gestão SUCOM</h1>
-        <p class="muted">Central executiva de demandas</p>
+        <p class="muted">Comunicação em foco. Prioridades em dia.</p>
       </div>
       <form id="loginForm">
         <label for="password">Senha de acesso</label>
@@ -30,42 +30,35 @@
   </section>
 
   <main id="appView" class="app hidden">
-    <header class="topbar visual-header">
+    <header class="topbar">
       <div class="brand-copy">
         <p class="eyebrow eyebrow-header">HUGOL · SUCOM</p>
         <h1>Gestão SUCOM</h1>
-        <p class="subtitle">Central executiva de demandas</p>
-      </div>
-      <div class="comms-visual" aria-hidden="true">
-        <span class="bubble bubble-a"></span>
-        <span class="bubble bubble-b"></span>
-        <span class="signal-line line-a"></span>
-        <span class="signal-line line-b"></span>
-        <span class="signal-dot dot-a"></span>
-        <span class="signal-dot dot-b"></span>
+        <p class="subtitle">Comunicação em foco. Prioridades em dia.</p>
       </div>
       <div class="top-actions">
-        <div class="sync-pill"><span class="dot"></span><span id="lastSync">Carregando…</span></div>
+        <div class="sync-pill"><span id="lastSync">Carregando…</span></div>
         <button id="refreshBtn" class="btn btn-secondary">Atualizar</button>
-        <button id="logoutBtn" class="btn btn-ghost btn-ghost-on-dark">Sair</button>
+        <button id="logoutBtn" class="btn btn-ghost">Sair</button>
       </div>
     </header>
 
     <section class="attention-hero">
       <div class="attention-title-row">
         <div>
-          <p class="eyebrow eyebrow-light">PRIORIDADE EXECUTIVA</p>
-          <h2>O que precisa da minha atenção agora</h2>
-          <p>Somente demandas abertas com atraso, vencimento iminente ou sem responsável.</p>
+          <p class="eyebrow eyebrow-light">PRIORIDADES</p>
+          <h2>Precisa de atenção agora</h2>
+          <p>Atrasos, prazos próximos e demandas sem responsável.</p>
         </div>
         <div class="attention-count"><strong id="attentionCount">0</strong><span>itens</span></div>
       </div>
-      <div id="attentionList" class="attention-list"></div>
+      <div id="attentionList" class="attention-list" tabindex="0" role="region" aria-label="Demandas prioritárias"></div>
+      <div class="attention-footer"><button id="viewAttentionBtn" class="text-button">Ver todas as prioridades →</button></div>
     </section>
 
     <section class="kpi-grid">
       <article class="kpi-card"><span>Demandas abertas</span><strong id="kpiActive">—</strong><small>trabalho em andamento</small></article>
-      <article class="kpi-card danger"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>overdue, late ou expired</small></article>
+      <article class="kpi-card danger"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>precisam de encaminhamento</small></article>
       <article class="kpi-card warning"><span>Vencem em 7 dias</span><strong id="kpiDueSoon">—</strong><small>acompanhamento próximo</small></article>
       <article class="kpi-card"><span>Sem responsável</span><strong id="kpiUnassigned">—</strong><small>precisam de definição</small></article>
     </section>
@@ -73,31 +66,32 @@
     <section class="two-col">
       <article class="panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">CAPACIDADE</p><h2>Carga por responsável</h2></div>
+          <div><p class="eyebrow">EQUIPE</p><h2>Carga por responsável</h2></div>
           <span class="panel-note">abertas atribuídas</span>
         </div>
-        <div id="workloadList" class="workload-list"></div>
+        <div id="workloadList" class="workload-list" tabindex="0" role="region" aria-label="Carga por responsável"></div>
+        <p class="chart-note">Barras proporcionais à maior carga da equipe. Uma demanda pode ter mais de um responsável.</p>
       </article>
 
       <article class="panel pipe-panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">FRENTES DA COMUNICAÇÃO</p><h2>Onde as demandas estão</h2></div>
+          <div><p class="eyebrow">FRENTES</p><h2>Frentes da comunicação</h2></div>
           <span class="panel-note">somente ativas</span>
         </div>
         <div id="pipeBars" class="pipe-grid"></div>
       </article>
     </section>
-    <section class="panel demands-panel">
+    <section id="demandsSection" class="panel demands-panel">
       <div class="panel-heading table-heading">
-        <div><p class="eyebrow">PAUTA EM MOVIMENTO</p><h2>Demandas ativas</h2></div>
+        <div><p class="eyebrow">PAUTA</p><h2>Demandas ativas</h2></div>
         <span id="filteredCount" class="panel-note"></span>
       </div>
       <div class="filters">
-        <input id="searchInput" type="search" placeholder="Buscar demanda..." />
-        <select id="pipeFilter"><option value="">Todos os pipes</option></select>
-        <select id="phaseFilter"><option value="">Todas as fases</option></select>
-        <select id="personFilter"><option value="">Todos os responsáveis</option></select>
-        <select id="statusFilter">
+        <input id="searchInput" aria-label="Buscar demanda" type="search" placeholder="Buscar demanda..." />
+        <select id="pipeFilter" aria-label="Filtrar por frente"><option value="">Todas as frentes</option></select>
+        <select id="phaseFilter" aria-label="Filtrar por fase"><option value="">Todas as fases</option></select>
+        <select id="personFilter" aria-label="Filtrar por responsável"><option value="">Todos os responsáveis</option></select>
+        <select id="statusFilter" aria-label="Filtrar por situação">
           <option value="">Todas as situações</option>
           <option value="attention">Precisa de atenção</option>
           <option value="overdue">Atrasada</option>
@@ -108,7 +102,7 @@
       <div id="warnings" class="warnings hidden"></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Demanda</th><th>Pipe / fase</th><th>Responsável</th><th>Prazo</th><th>Situação</th></tr></thead>
+          <thead><tr><th>Demanda</th><th>Frente / fase</th><th>Responsável</th><th>Prazo</th><th>Situação</th></tr></thead>
           <tbody id="demandsBody"></tbody>
         </table>
       </div>
@@ -116,6 +110,6 @@
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="/app.js" defer></script>
+  <script src="/app.js?v=20260924-clean" defer></script>
 </body>
 </html>

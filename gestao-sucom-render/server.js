@@ -3,7 +3,12 @@ import crypto from "node:crypto";
 
 const app = express();
 app.use(express.json({ limit: "64kb" }));
-app.use(express.static("public", { maxAge: "1h", etag: true }));
+app.use(express.static("public", {
+  maxAge: "1h", etag: true,
+  setHeaders(res, path) {
+    if (path.endsWith(".html")) res.setHeader("Cache-Control", "no-cache");
+  },
+}));
 
 const PORT = process.env.PORT || 10000;
 const PIPEFY_CLIENT_ID = process.env.PIPEFY_CLIENT_ID || "cAgQJc_xj4pxiBz-yM86t8umUc6ywOANmsFdwXvP5QU";
