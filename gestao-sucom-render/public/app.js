@@ -8,7 +8,7 @@ function daysUntil(v){ if(!v)return null; const d=new Date(v); if(Number.isNaN(d
 function reasons(card){ const r=[]; if(card.overdue||card.late||card.expired)r.push("Atrasada"); const d=daysUntil(card.dueDate); if(d!==null&&d>=0&&d<=2)r.push(d===0?"Vence hoje":`Vence em ${d} dia${d===1?"":"s"}`); if(!card.assignees.length)r.push("Sem responsável"); return r; }
 
 async function api(path, opts={}){
-  const res=await fetch(path,{credentials:"same-origin",headers:{"Content-Type":"application/json",...(opts.headers||{})},...opts});
+  const res=await fetch(path,{...opts,credentials:"same-origin",headers:{"Content-Type":"application/json",...(opts.headers||{})}});
   const data=await res.json().catch(()=>({}));
   if(res.status===401 && path!=="/api/login"){ showLogin(); throw new Error("Sessão expirada."); }
   if(!res.ok) throw new Error(data.error||"Falha na solicitação.");
@@ -16,7 +16,7 @@ async function api(path, opts={}){
 }
 
 function showLogin(){ $("loginView").classList.remove("hidden"); $("appView").classList.add("hidden"); }
-function showApp(){ $("loginView").classList.add("hidden"); $("appView").classList.remove("hidden"); }
+function showApp(){ $("loginView").classList.add("hidden"); $("appView").classList.remove("hidden"); loadAnalysisStatus(); }
 
 $("loginForm").addEventListener("submit",async e=>{
   e.preventDefault(); $("loginError").classList.add("hidden");
@@ -134,5 +134,50 @@ $("viewAttentionBtn").addEventListener("click",()=>{
   applyFilters();
   $("demandsSection").scrollIntoView({block:"start"});
   $("statusFilter").focus({preventScroll:true});
+});
+let analysisRunning=false;
+function analysisDate(value){return new Date(value).toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo",dateStyle:"short",timeStyle:"short"});}
+async function loadAnalysisStatus(){
+  try{
+    const info=await api("/api/insights");
+    $("analyzeBtn").disabled=!info.configured||analysisRunning;
+    $("analysisStatus").textContent=info.configured
+      ? "Pronto para analisar. A leitura é feita ao clicar; análises recentes são reaproveitadas por 15 minutos."
+      : "A área está pronta. A análise por IA aguarda ativação do serviço de inteligência artificial.";
+    if(info.latest)renderAnalysis(info.latest);
+  }catch(err){$("analysisStatus").textContent=err.message;}
+}
+function renderAnalysis(report){
+  const group=(key,title)=>`<section class="analysis-group"><h3>${title}</h3>${report[key].length
+    ?`<div class="analysis-items">${report[key].map(item=>`<article class="analysis-item">
+      <span class="analysis-label ${item.certeza==="hipotese"?"hypothesis":""}">${item.certeza==="hipotese"?"Hipótese para validar":"Base nos cards"}</span>
+      <h4>${esc(item.titulo)}</h4>
+      <p><strong>Decisão:</strong> ${esc(item.decisao)}</p>
+      <p class="evidence"><strong>Por quê:</strong> ${esc(item.evidencia)}</p>
+      <p><strong>Sugestão:</strong> ${esc(item.sugestao)}</p>
+      ${item.confirmar?`<p class="evidence"><strong>Antes de decidir:</strong> ${esc(item.confirmar)}</p>`:""}
+      <div class="analysis-links">${item.cards.map(c=>`<a href="https://app.pipefy.com/open-cards/${encodeURIComponent(c.id)}" target="_blank" rel="noopener noreferrer">${esc(c.title)} ↗</a>`).join("")}</div>
+    </article>`).join("")}</div>`:'<p class="analysis-empty">Sem recomendação adicional sustentada pelos cards nesta análise.</p>'}</section>`;
+  $("analysisReport").innerHTML=`<p class="analysis-summary">${esc(report.resumo)}</p>
+    <p class="analysis-date">Análise de ${analysisDate(report.generatedAt)} · ${report.activeCards} demandas abertas · ${report.pipes} frentes · dados coletados em ${analysisDate(report.synchronizedAt)}</p>
+    ${group("hoje","Decidir hoje")}${group("gargalos","Destravar entregas")}${group("organizacao","Reorganizar demandas")}
+    <details class="analysis-limits"><summary>Limites desta análise</summary><ul>${report.limitacoes.map(l=>`<li>${esc(l)}</li>`).join("")}</ul></details>`;
+  $("analysisReport").classList.remove("hidden");
+  const today=new Intl.DateTimeFormat("en-CA",{timeZone:"America/Sao_Paulo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+  if(report.referenceDate!==today)$("analysisStatus").textContent="Esta análise é de outro dia. Gere uma nova antes de definir as prioridades de hoje.";
+}
+$("analyzeBtn").addEventListener("click",async()=>{
+  if(analysisRunning)return;
+  analysisRunning=true; const btn=$("analyzeBtn");btn.disabled=true;btn.textContent="Analisando…";
+  $("analysisError").classList.add("hidden");
+  $("analysisStatus").textContent="Lendo as demandas abertas e preparando sugestões. Isso pode levar cerca de um minuto.";
+  try{
+    const data=await api("/api/insights",{method:"POST",headers:{"X-Sucom-Analysis":"read-only"},body:"{}"});
+    renderAnalysis(data.report);
+    $("analysisStatus").textContent=data.report.cached?"Exibindo a análise recente, sem uma nova chamada à IA.":"Análise concluída. Confira os cards e decida os próximos passos.";
+  }catch(err){
+    $("analysisError").textContent=err.message;$("analysisError").classList.remove("hidden");
+    $("analysisStatus").textContent="Não foi possível concluir uma nova análise. Nenhuma demanda foi alterada.";
+  }finally{analysisRunning=false;btn.disabled=false;btn.textContent="Analisar cenário";}
 });
 init();

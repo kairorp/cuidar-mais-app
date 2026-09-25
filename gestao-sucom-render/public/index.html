@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20260924-clean" />
+  <link rel="stylesheet" href="/styles.css?v=20260925-advisor" />
 </head>
 <body>
   <section id="loginView" class="login-shell">
@@ -63,6 +63,18 @@
       <article class="kpi-card"><span>Sem responsável</span><strong id="kpiUnassigned">—</strong><small>precisam de definição</small></article>
     </section>
 
+    <section class="panel advisor-panel" aria-labelledby="advisorTitle">
+      <div class="panel-heading">
+        <div><p class="eyebrow">APOIO À GESTÃO · IA</p><h2 id="advisorTitle">O que decidir hoje</h2>
+          <p class="advisor-intro">Prioridades, gargalos e sugestões a partir das demandas abertas. Você decide os próximos passos.</p></div>
+        <button id="analyzeBtn" class="btn btn-primary" disabled>Analisar cenário</button>
+      </div>
+      <p id="analysisStatus" class="analysis-status" role="status" aria-live="polite">Verificando disponibilidade da análise…</p>
+      <div id="analysisError" class="form-error hidden" role="alert"></div>
+      <div id="analysisReport" class="hidden" aria-live="polite"></div>
+      <p class="chart-note">Somente leitura. A análise considera campos, comentários recentes e histórico de fases. Nenhum card é alterado.</p>
+    </section>
+
     <section class="two-col">
       <article class="panel">
         <div class="panel-heading">
@@ -110,6 +122,6 @@
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="/app.js?v=20260924-clean" defer></script>
+  <script src="/app.js?v=20260925-advisor" defer></script>
 </body>
 </html>

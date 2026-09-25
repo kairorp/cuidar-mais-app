@@ -1,5 +1,6 @@
 import express from "express";
 import crypto from "node:crypto";
+import { ANALYSIS_QUERY_FIELDS, createAdvisor } from "./insights.js";
 
 const app = express();
 app.use(express.json({ limit: "64kb" }));
@@ -24,6 +25,7 @@ const CACHE_MS = 60_000;
 let tokenCache = null;
 let tokenInflight = null;
 let dashboardCache = null;
+let advisoryReadCheck = { ready: false, checkedPipes: 0 };
 
 function envReady() {
   return Boolean(process.env.PIPEFY_CLIENT_SECRET && process.env.ADMIN_PASSWORD && process.env.SESSION_SECRET);
@@ -99,6 +101,7 @@ async function getToken() {
   tokenInflight = (async () => {
     const response = await fetch(TOKEN_URL, {
       method: "POST",
+      signal: AbortSignal.timeout(20000),
       headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" },
       body: new URLSearchParams({
         grant_type: "client_credentials",
@@ -117,9 +120,12 @@ async function getToken() {
 }
 
 async function gql(query, variables) {
+  // Enforce read-only access independently of the account permissions.
+  if (!/^\s*query\b/.test(query)) throw new Error("A integração aceita somente consultas.");
   let token = await getToken();
   let response = await fetch(GRAPHQL_URL, {
     method: "POST",
+    signal: AbortSignal.timeout(20000),
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({ query, variables }),
   });
@@ -128,6 +134,7 @@ async function gql(query, variables) {
     token = await getToken();
     response = await fetch(GRAPHQL_URL, {
       method: "POST",
+      signal: AbortSignal.timeout(20000),
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({ query, variables }),
     });
@@ -177,13 +184,15 @@ async function fetchPipes() {
   return PIPE_IDS.map(id => index.get(id) || { id, name: `Pipe ${id}` });
 }
 
-async function fetchActiveCardsForPipe(pipe) {
+const DETAILED_CARDS_QUERY = ACTIVE_CARDS_QUERY.replace("updated_at", `updated_at ${ANALYSIS_QUERY_FIELDS}`);
+
+async function fetchActiveCardsForPipe(pipe, detailed = false) {
   const out = [];
   let after = null;
   let pages = 0;
   while (pages < 100) {
     pages += 1;
-    const data = await gql(ACTIVE_CARDS_QUERY, { pipeId: pipe.id, first: PAGE_SIZE, after });
+    const data = await gql(detailed ? DETAILED_CARDS_QUERY : ACTIVE_CARDS_QUERY, { pipeId: pipe.id, first: PAGE_SIZE, after });
     const connection = data.cards;
     if (!connection) throw new Error(`Sem retorno ao consultar ${pipe.name}.`);
     for (const edge of connection.edges || []) {
@@ -194,6 +203,8 @@ async function fetchActiveCardsForPipe(pipe) {
         title: c.title || "(sem título)",
         url: c.url || null,
         done: false,
+        ...(detailed ? { fields: c.fields || [], comments: c.comments || [],
+          phaseAge: c.current_phase_age, phasesHistory: c.phases_history || [] } : {}),
         dueDate: c.due_date || null,
         overdue: Boolean(c.overdue),
         late: Boolean(c.late),
@@ -207,6 +218,7 @@ async function fetchActiveCardsForPipe(pipe) {
     }
     if (!connection.pageInfo?.hasNextPage || !connection.pageInfo?.endCursor) break;
     after = connection.pageInfo.endCursor;
+    if (pages === 100) throw new Error("Limite de páginas atingido; leitura incompleta.");
   }
   return out;
 }
@@ -333,6 +345,30 @@ async function getDashboard(force = false) {
   return data;
 }
 
+async function getAnalysisSnapshot() {
+  const pipes = await fetchPipes();
+  if (pipes.length !== PIPE_IDS.length) throw new Error("Nem todos os pipes estão acessíveis para análise.");
+  const results = await mapLimit(pipes, 2, pipe => fetchActiveCardsForPipe(pipe, true));
+  return buildSnapshot(pipes, results.flat(), []);
+}
+const advisor = createAdvisor({ getSnapshot: getAnalysisSnapshot });
+app.get("/api/insights", requireAuth, (_req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+  res.json({ ok: true, ...advisor.status() });
+});
+app.post("/api/insights", requireAuth, async (req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+  // Only the same-origin UI can initiate a potentially billable analysis.
+  if (req.headers["x-sucom-analysis"] !== "read-only" || req.headers["sec-fetch-site"] === "cross-site") {
+    return res.status(403).json({ ok: false, error: "Solicitação não autorizada." });
+  }
+  try { res.json({ ok: true, report: await advisor.analyze() }); }
+  catch (err) {
+    console.error("[analysis] Failed", err.status || 502);
+    res.status(err.status || 502).json({ ok: false, error: err.status ? err.message : "Não foi possível ler todos os cards. Atualize os dados e tente novamente." });
+  }
+});
+
 app.get("/api/health", async (_req, res) => {
   const base = {
     ok: true,
@@ -340,6 +376,10 @@ app.get("/api/health", async (_req, res) => {
     pipefyConfigured: Boolean(process.env.PIPEFY_CLIENT_SECRET),
     adminConfigured: Boolean(process.env.ADMIN_PASSWORD && process.env.SESSION_SECRET),
     expectedPipes: PIPE_IDS.length,
+    release: "2026-09-25-advisor-v1",
+    aiConfigured: Boolean(process.env.OPENAI_API_KEY) && process.env.AI_ENABLED !== "false",
+    aiReadOnly: true,
+    advisoryReadCheck,
   };
   if (!process.env.PIPEFY_CLIENT_SECRET) return res.status(503).json({ ...base, ok: false });
   try {
@@ -361,8 +401,8 @@ app.get("/api/dashboard", requireAuth, async (req, res) => {
 
 app.use((_req, res) => res.sendFile(new URL("./public/index.html", import.meta.url).pathname));
 
-app.listen(PORT, "0.0.0.0", async () => {
-  console.log(`Gestão SUCOM ativo na porta ${PORT}`);
+const server = app.listen(PORT, "0.0.0.0", async () => {
+  console.log(`Gestão SUCOM ativo na porta ${server.address().port}`);
   if (!process.env.PIPEFY_CLIENT_SECRET) {
     console.log("[startup-check] PIPEFY_CLIENT_SECRET ausente; validação adiada.");
     return;
@@ -379,6 +419,13 @@ app.listen(PORT, "0.0.0.0", async () => {
       topWorkload: snapshot.workload.slice(0, 5).map(p => ({ name: p.name, active: p.count, attention: p.attention })),
       warnings: snapshot.warnings,
     }));
+    const accessChecks = await mapLimit(snapshot.distributions.pipes, 2, async pipe => {
+      const data = await gql(DETAILED_CARDS_QUERY, {pipeId:pipe.id,first:1,after:null});
+      if (!data.cards) throw new Error("Leitura detalhada indisponível.");
+      return {pipeId:pipe.id, available:true};
+    });
+    advisoryReadCheck = {ready:accessChecks.length === PIPE_IDS.length, checkedPipes:accessChecks.length};
+    console.log("[advisory-read-check]", JSON.stringify({...advisoryReadCheck,aiConfigured:advisor.status().configured}));
   } catch (err) {
     console.error("[startup-check] Pipefy FALHOU:", safeError(err));
   }
