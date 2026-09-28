@@ -15,7 +15,7 @@ async function api(path, opts={}){
   return data;
 }
 
-function showLogin(){ $("loginView").classList.remove("hidden"); $("appView").classList.add("hidden"); }
+function showLogin(){ document.querySelectorAll("dialog[open]").forEach(d=>d.close());  $("loginView").classList.remove("hidden"); $("appView").classList.add("hidden"); }
 function showApp(){ $("loginView").classList.add("hidden"); $("appView").classList.remove("hidden"); loadAnalysisStatus(); }
 
 $("loginForm").addEventListener("submit",async e=>{
@@ -126,7 +126,7 @@ $("viewAttentionBtn").addEventListener("click",()=>{
   ["searchInput","pipeFilter","phaseFilter","personFilter"].forEach(id=>$(id).value="");
   $("statusFilter").value="attention";
   applyFilters();
-  $("demandsSection").scrollIntoView({block:"start"});
+  openDetail("demandsDialog");
   $("statusFilter").focus({preventScroll:true});
 });
 let analysisRunning=false;
@@ -174,4 +174,9 @@ $("analyzeBtn").addEventListener("click",async()=>{
     $("analysisStatus").textContent="Não foi possível concluir uma nova análise. Nenhuma demanda foi alterada.";
   }finally{analysisRunning=false;btn.disabled=false;btn.textContent="Analisar cenário";}
 });
+function openDetail(id){ const dialog=$(id); if(!dialog.open)dialog.showModal(); }
+$("openDemandsBtn").addEventListener("click",()=>openDetail("demandsDialog"));
+$("openAdvisorBtn").addEventListener("click",()=>openDetail("advisorDialog"));
+document.querySelectorAll('[data-close-dialog]').forEach(btn=>btn.addEventListener('click',()=>btn.closest('dialog').close()));
+document.querySelectorAll('.detail-dialog').forEach(dialog=>dialog.addEventListener('click',e=>{if(e.target===dialog){const box=dialog.getBoundingClientRect();if(e.clientX<box.left||e.clientX>box.right||e.clientY<box.top||e.clientY>box.bottom)dialog.close();}}));
 init();

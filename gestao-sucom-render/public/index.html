@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20260928-photos" />
+  <link rel="stylesheet" href="/styles.css?v=20260928-horizontal" />
 </head>
 <body>
   <section id="loginView" class="login-shell">
@@ -38,11 +38,21 @@
       </div>
       <div class="top-actions">
         <div class="sync-pill"><span id="lastSync">Carregando…</span></div>
+        <button id="openDemandsBtn" class="btn btn-primary">Ver demandas</button>
+        <button id="openAdvisorBtn" class="btn btn-outline">O que decidir hoje</button>
         <button id="refreshBtn" class="btn btn-secondary">Atualizar</button>
         <button id="logoutBtn" class="btn btn-ghost">Sair</button>
       </div>
     </header>
 
+    <section class="kpi-grid">
+      <article class="kpi-card"><span>Demandas abertas</span><strong id="kpiActive">—</strong><small>trabalho em andamento</small></article>
+      <article class="kpi-card danger"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>precisam de encaminhamento</small></article>
+      <article class="kpi-card warning"><span>Vencem em 7 dias</span><strong id="kpiDueSoon">—</strong><small>acompanhamento próximo</small></article>
+      <article class="kpi-card"><span>Sem responsável</span><strong id="kpiUnassigned">—</strong><small>precisam de definição</small></article>
+    </section>
+
+    <section class="overview-grid">
     <section class="attention-hero">
       <div class="attention-title-row">
         <div>
@@ -56,14 +66,26 @@
       <div class="attention-footer"><button id="viewAttentionBtn" class="text-button">Ver todas as prioridades →</button></div>
     </section>
 
-    <section class="kpi-grid">
-      <article class="kpi-card"><span>Demandas abertas</span><strong id="kpiActive">—</strong><small>trabalho em andamento</small></article>
-      <article class="kpi-card danger"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>precisam de encaminhamento</small></article>
-      <article class="kpi-card warning"><span>Vencem em 7 dias</span><strong id="kpiDueSoon">—</strong><small>acompanhamento próximo</small></article>
-      <article class="kpi-card"><span>Sem responsável</span><strong id="kpiUnassigned">—</strong><small>precisam de definição</small></article>
-    </section>
 
-    <section class="panel advisor-panel" aria-labelledby="advisorTitle">
+      <article class="panel team-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">EQUIPE</p><h2>Carga por responsável</h2></div>
+          <span class="panel-note">abertas atribuídas</span>
+        </div>
+        <div class="team-content"><div id="workloadChart" class="workload-chart"></div>
+        <div id="workloadList" class="workload-list" tabindex="0" role="region" aria-label="Carga por responsável"></div></div>
+        <p class="chart-note">Fatias: atribuições por pessoa; demandas compartilhadas contam para cada responsável. Centro: total de demandas abertas. Volume não mede esforço.</p>
+      </article>
+
+      <article class="panel pipe-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">FRENTES</p><h2>Frentes da comunicação</h2></div>
+          <span class="panel-note">somente ativas</span>
+        </div>
+        <div id="pipeBars" class="pipe-grid"></div>
+      </article>
+    </section>
+<dialog id="advisorDialog" class="detail-dialog advisor-dialog" aria-labelledby="advisorTitle"><div class="dialog-toolbar"><span>APOIO À GESTÃO</span><button class="btn btn-ghost" data-close-dialog>Fechar ×</button></div>    <section class="panel advisor-panel" aria-labelledby="advisorTitle">
       <div class="panel-heading">
         <div><p class="eyebrow">APOIO À GESTÃO · IA</p><h2 id="advisorTitle">O que decidir hoje</h2>
           <p class="advisor-intro">Prioridades, gargalos e sugestões a partir das demandas abertas. Você decide os próximos passos.</p></div>
@@ -75,28 +97,10 @@
       <p class="chart-note">Somente leitura. A análise considera campos, comentários recentes e histórico de fases. Nenhum card é alterado.</p>
     </section>
 
-    <section class="two-col">
-      <article class="panel">
-        <div class="panel-heading">
-          <div><p class="eyebrow">EQUIPE</p><h2>Carga por responsável</h2></div>
-          <span class="panel-note">abertas atribuídas</span>
-        </div>
-        <div id="workloadChart" class="workload-chart"></div>
-        <div id="workloadList" class="workload-list" tabindex="0" role="region" aria-label="Carga por responsável"></div>
-        <p class="chart-note">Fatias e percentuais representam as atribuições: uma demanda com dois responsáveis conta para ambos. O centro mostra o total de demandas abertas, incluindo as sem responsável. Volume não representa esforço.</p>
-      </article>
-
-      <article class="panel pipe-panel">
-        <div class="panel-heading">
-          <div><p class="eyebrow">FRENTES</p><h2>Frentes da comunicação</h2></div>
-          <span class="panel-note">somente ativas</span>
-        </div>
-        <div id="pipeBars" class="pipe-grid"></div>
-      </article>
-    </section>
-    <section id="demandsSection" class="panel demands-panel">
+</dialog>
+<dialog id="demandsDialog" class="detail-dialog demands-dialog" aria-labelledby="demandsTitle"><div class="dialog-toolbar"><span>PAUTA COMPLETA</span><button class="btn btn-ghost" data-close-dialog>Fechar ×</button></div>    <section id="demandsSection" class="panel demands-panel">
       <div class="panel-heading table-heading">
-        <div><p class="eyebrow">PAUTA</p><h2>Demandas ativas</h2></div>
+        <div><p class="eyebrow">PAUTA</p><h2 id="demandsTitle">Demandas ativas</h2></div>
         <span id="filteredCount" class="panel-note"></span>
       </div>
       <div class="filters">
@@ -120,10 +124,11 @@
         </table>
       </div>
     </section>
+</dialog>
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="/workload.js?v=20260928-photos"></script>
-  <script src="/app.js?v=20260928-photos" defer></script>
+  <script src="/workload.js?v=20260928-horizontal"></script>
+  <script src="/app.js?v=20260928-horizontal" defer></script>
 </body>
 </html>
