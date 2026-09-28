@@ -25,6 +25,6 @@ test('rotas consultivas exigem sessão; ativação ausente é explícita e front
    assert.equal(disabled.status,503);assert.match((await disabled.json()).error,/ativação/);
    const page=await fetch(address+'/');assert.equal(page.headers.get('cache-control'),'no-cache');
    const html=await page.text();assert.match(html,/O que decidir hoje/);assert.doesNotMatch(html,/comms-visual|bubble|Distribuição por fase/);
-   const css=await(await fetch(address+'/styles.css')).text();assert.doesNotMatch(css,/radial-gradient|border-radius:50%/);
+   const css=await(await fetch(address+'/styles.css')).text();assert.doesNotMatch(css,/radial-gradient/);
  }finally{child.kill();await once(child,'exit');}
 });

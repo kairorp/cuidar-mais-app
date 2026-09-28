@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20260925-red-focus" />
+  <link rel="stylesheet" href="/styles.css?v=20260928-photos" />
 </head>
 <body>
   <section id="loginView" class="login-shell">
@@ -81,8 +81,9 @@
           <div><p class="eyebrow">EQUIPE</p><h2>Carga por responsável</h2></div>
           <span class="panel-note">abertas atribuídas</span>
         </div>
+        <div id="workloadChart" class="workload-chart"></div>
         <div id="workloadList" class="workload-list" tabindex="0" role="region" aria-label="Carga por responsável"></div>
-        <p class="chart-note">Barras proporcionais à maior carga da equipe. Uma demanda pode ter mais de um responsável.</p>
+        <p class="chart-note">Fatias e percentuais representam as atribuições: uma demanda com dois responsáveis conta para ambos. O centro mostra o total de demandas abertas, incluindo as sem responsável. Volume não representa esforço.</p>
       </article>
 
       <article class="panel pipe-panel">
@@ -122,6 +123,7 @@
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="/app.js?v=20260925-red-focus" defer></script>
+  <script src="/workload.js?v=20260928-photos"></script>
+  <script src="/app.js?v=20260928-photos" defer></script>
 </body>
 </html>

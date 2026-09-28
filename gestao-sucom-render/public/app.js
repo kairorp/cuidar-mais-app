@@ -62,13 +62,7 @@ function render(d){
       </div>
     </a>`).join("") : '<div class="attention-item"><strong>Nenhuma demanda crítica neste momento.</strong><div class="attention-meta">Tudo sob controle.</div></div>';
 
-  $("workloadList").innerHTML=d.workload.length ? d.workload.map((p,i)=>{
-    return `
-    <div class="workload-row ${i<3?"top":""}">
-      <div class="workload-name"><strong>${p.rank}. ${esc(p.name)}</strong><span>${p.attention} exigindo atenção</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,p.percentOfMax))}%"></div></div>
-      <div class="load-value">${p.count}<small>${p.percentOfMax}% da maior carga</small></div>
-    </div>`}).join("") : '<p class="muted">Nenhuma demanda atribuída.</p>';
+  renderWorkload(d);
 
   const maxPipe=Math.max(1,...d.distributions.pipes.map(x=>x.count));
   $("pipeBars").innerHTML=d.distributions.pipes.map(x=>`

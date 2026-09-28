@@ -136,3 +136,29 @@ tbody tr:hover { background:#fafbfd; }
 .analysis-limits li { margin:5px 0; }
 .analysis-empty { font-size:12px; color:var(--muted); }
 @media(max-width:700px) { .analysis-items { grid-template-columns:1fr; } .advisor-panel .panel-heading { align-items:flex-start; } }
+
+/* Distribuição de demandas e identificação dos responsáveis */
+.workload-chart { display:grid; justify-items:center; }
+.workload-donut { position:relative; width:min(300px,100%); }
+.workload-donut svg { display:block; width:100%; overflow:visible; }
+.workload-slice { cursor:pointer; transition:opacity .15s,stroke-width .15s; pointer-events:stroke; }
+.workload-slice.dimmed { opacity:.3; }
+.workload-slice.selected,.workload-slice:focus-visible { stroke-width:49; outline:none; filter:drop-shadow(0 2px 3px #18263d30); }
+.donut-center { position:absolute; inset:29%; display:flex; flex-direction:column; justify-content:center; align-items:center; pointer-events:none; text-align:center; }
+.donut-center strong { font-size:45px; line-height:1.15; letter-spacing:-.055em; color:var(--ink); }
+.donut-center span { font-size:11px; color:var(--muted); line-height:1.5; }
+.workload-detail { min-height:82px; width:100%; display:flex; align-items:center; justify-content:center; gap:12px; padding:10px 0 18px; }
+.workload-detail strong { display:block; font-size:13px; overflow-wrap:anywhere; }
+.workload-detail div>span { display:block; font-size:11px; color:var(--muted); margin-top:5px; line-height:1.5; }
+.workload-hint { max-width:280px; font-size:11px; color:var(--muted); text-align:center; line-height:1.6; }
+.person-avatar { position:relative; flex-shrink:0; display:grid; place-items:center; width:38px; height:38px; border-radius:50%; overflow:hidden; background:#edf1f8; color:var(--blue); font-size:12px; font-weight:800; }
+.person-avatar img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.workload-detail .person-avatar { width:48px; height:48px; }
+.person-row { display:flex; align-items:center; gap:12px; width:100%; padding:12px 10px; text-align:left; border:0; border-bottom:1px solid var(--line); border-left:4px solid var(--person-color); background:transparent; color:var(--ink); cursor:pointer; }
+.person-row:hover,.person-row.selected { background:#f0f4fb; }
+.person-info { flex:1; min-width:0; }
+.person-info strong { display:block; font-size:12px; overflow-wrap:anywhere; }
+.person-info small { display:block; font-size:10px; color:var(--muted); margin-top:5px; }
+.person-count { font-size:22px; font-weight:800; text-align:right; }
+.person-count small { display:block; font-size:10px; font-weight:500; color:var(--muted); }
+.workload-list { max-height:340px; overflow:auto; scrollbar-width:thin; }

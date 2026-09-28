@@ -169,7 +169,7 @@ const ACTIVE_CARDS_QUERY = `
           createdAt
           current_phase { id name }
           pipe { id name }
-          assignees { id name email }
+          assignees { id name email avatarUrl }
         }
       }
       pageInfo { hasNextPage endCursor }
@@ -213,7 +213,7 @@ async function fetchActiveCardsForPipe(pipe, detailed = false) {
         createdAt: c.createdAt || null,
         phase: c.current_phase ? { id: String(c.current_phase.id), name: c.current_phase.name } : null,
         pipe: c.pipe ? { id: String(c.pipe.id), name: c.pipe.name } : pipe,
-        assignees: (c.assignees || []).map(a => ({ id: String(a.id), name: a.name, email: a.email || null })),
+        assignees: (c.assignees || []).map(a => ({ id: String(a.id), name: a.name, email: a.email || null, avatarUrl: a.avatarUrl || null })),
       });
     }
     if (!connection.pageInfo?.hasNextPage || !connection.pageInfo?.endCursor) break;
@@ -274,7 +274,7 @@ function buildSnapshot(pipes, cards, warnings) {
   const workloadMap = new Map();
   for (const card of active) {
     for (const person of card.assignees) {
-      const current = workloadMap.get(person.id) || { id: person.id, name: person.name, email: person.email, count: 0, attention: 0 };
+      const current = workloadMap.get(person.id) || { id: person.id, name: person.name, email: person.email, avatarUrl: person.avatarUrl || null, count: 0, attention: 0 };
       current.count += 1;
       if (attentionReasons(card).length) current.attention += 1;
       workloadMap.set(person.id, current);
