@@ -245,3 +245,18 @@ tbody tr:hover { background:#fafbfd; }
   .team-content .workload-hint { font-size:10px; }
   .overview-grid .attention-title-row p:not(.eyebrow) { display:none; }
 }
+
+/* Atalhos de consulta e apresentação */
+button.kpi-card { background:transparent; border:0; border-radius:0; text-align:left; color:var(--ink); cursor:pointer; }
+button.kpi-card:hover { background:var(--blue-soft); }
+button.kpi-card:focus-visible { outline-offset:-4px; }
+button.pipe-tile { background:transparent; border:0; border-bottom:1px solid var(--line); border-radius:0; text-align:left; color:var(--ink); cursor:pointer; }
+button.pipe-tile:hover { background:var(--blue-soft); }
+button.pipe-tile:focus-visible { outline-offset:-4px; }
+.person-demands { border:0; background:transparent; color:var(--blue); font:inherit; font-size:11px; font-weight:800; padding:5px 0; cursor:pointer; }
+.person-demands:hover { text-decoration:underline; }
+#presentationStatus { display:block; color:var(--blue); font-size:9px; margin-top:4px; }
+.presentation-mode #presentationBtn { background:var(--ink); color:white; border-color:var(--ink); }
+.presentation-mode .topbar .subtitle { display:none; }
+@media(min-width:1100px) { .top-actions { justify-content:flex-end; } .topbar .brand-copy { flex-shrink:0; } }
+@media(min-width:1100px) and (max-width:1280px) { .top-actions { max-width:700px; } .top-actions .sync-pill { flex-basis:100%; text-align:right; } }

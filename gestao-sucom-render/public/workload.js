@@ -24,7 +24,7 @@ function renderWorkload(data) {
     const p=people[index];if(!p)return;
     chart.querySelectorAll('.workload-slice').forEach(el=>{el.classList.toggle('selected',Number(el.dataset.person)===index);el.classList.toggle('dimmed',Number(el.dataset.person)!==index);});
     list.querySelectorAll('.person-row').forEach(el=>el.classList.toggle('selected',Number(el.dataset.person)===index));
-    document.getElementById('workloadDetail').innerHTML=`${workloadAvatar(p)}<div><strong>${esc(p.name)}</strong><span>${p.count} demandas abertas · ${p.attention} precisam de atenção</span></div>`;
+    document.getElementById('workloadDetail').innerHTML=`${workloadAvatar(p)}<div><strong>${esc(p.name)}</strong><span>${p.count} demandas abertas · ${p.attention} precisam de atenção</span><button type="button" class="person-demands" data-demand-person="${esc(p.id)}">Ver demandas →</button></div>`;
     images(document.getElementById('workloadDetail'));
   }
   function reset(){chart.querySelectorAll('.workload-slice').forEach(el=>el.classList.remove('selected','dimmed'));list.querySelectorAll('.person-row').forEach(el=>el.classList.remove('selected'));document.getElementById('workloadDetail').innerHTML='<span class="workload-hint">Passe o mouse, toque em uma fatia ou selecione um responsável.</span>';}

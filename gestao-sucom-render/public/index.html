@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20260928-horizontal" />
+  <link rel="stylesheet" href="/styles.css?v=20260929-actions" />
 </head>
 <body>
   <section id="loginView" class="login-shell">
@@ -37,19 +37,20 @@
         <p class="subtitle">Comunicação em foco. Prioridades em dia.</p>
       </div>
       <div class="top-actions">
-        <div class="sync-pill"><span id="lastSync">Carregando…</span></div>
+        <div class="sync-pill"><span id="lastSync">Carregando…</span><span id="presentationStatus" class="hidden">Atualização automática · 2 min</span></div>
         <button id="openDemandsBtn" class="btn btn-primary">Ver demandas</button>
         <button id="openAdvisorBtn" class="btn btn-outline">O que decidir hoje</button>
+        <button id="presentationBtn" class="btn btn-outline" aria-pressed="false">Apresentar</button>
         <button id="refreshBtn" class="btn btn-secondary">Atualizar</button>
         <button id="logoutBtn" class="btn btn-ghost">Sair</button>
       </div>
     </header>
 
     <section class="kpi-grid">
-      <article class="kpi-card"><span>Demandas abertas</span><strong id="kpiActive">—</strong><small>trabalho em andamento</small></article>
-      <article class="kpi-card danger"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>precisam de encaminhamento</small></article>
-      <article class="kpi-card warning"><span>Vencem em 7 dias</span><strong id="kpiDueSoon">—</strong><small>acompanhamento próximo</small></article>
-      <article class="kpi-card"><span>Sem responsável</span><strong id="kpiUnassigned">—</strong><small>precisam de definição</small></article>
+      <button type="button" class="kpi-card" data-demand-status=""><span>Demandas abertas</span><strong id="kpiActive">—</strong><small>trabalho em andamento</small></button>
+      <button type="button" class="kpi-card danger" data-demand-status="overdue"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>precisam de encaminhamento</small></button>
+      <button type="button" class="kpi-card warning" data-demand-status="dueSoon"><span>Vencem em 7 dias</span><strong id="kpiDueSoon">—</strong><small>acompanhamento próximo</small></button>
+      <button type="button" class="kpi-card" data-demand-status="unassigned"><span>Sem responsável</span><strong id="kpiUnassigned">—</strong><small>precisam de definição</small></button>
     </section>
 
     <section class="overview-grid">
@@ -128,7 +129,7 @@
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="/workload.js?v=20260928-horizontal"></script>
-  <script src="/app.js?v=20260928-horizontal" defer></script>
+  <script src="/workload.js?v=20260929-actions"></script>
+  <script src="/app.js?v=20260929-actions" defer></script>
 </body>
 </html>

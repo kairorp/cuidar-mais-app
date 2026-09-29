@@ -1,3 +1,7 @@
+let dashboardLoading=false;
+let presentationTimer=null;
+let presentationActive=false;
+let presentationUsedFullscreen=false;
 let state = { data: null, filtered: [] };
 const $ = id => document.getElementById(id);
 
@@ -15,7 +19,7 @@ async function api(path, opts={}){
   return data;
 }
 
-function showLogin(){ document.querySelectorAll("dialog[open]").forEach(d=>d.close());  $("loginView").classList.remove("hidden"); $("appView").classList.add("hidden"); }
+function showLogin(){ stopPresentation(); document.querySelectorAll("dialog[open]").forEach(d=>d.close());  $("loginView").classList.remove("hidden"); $("appView").classList.add("hidden"); }
 function showApp(){ $("loginView").classList.add("hidden"); $("appView").classList.remove("hidden"); loadAnalysisStatus(); }
 
 $("loginForm").addEventListener("submit",async e=>{
@@ -35,17 +39,20 @@ async function init(){
   }catch{ showLogin(); }
 }
 
-async function loadDashboard(force){
+async function loadDashboard(force, quiet=false){
+  if(dashboardLoading)return;
+  dashboardLoading=true;
   const btn=$("refreshBtn"); btn.disabled=true; btn.textContent="Atualizando…";
   try{
     const data=await api("/api/dashboard"+(force?"?force=1":""));
     state.data=data; render(data);
-    if(force) toast("Dados atualizados com o Pipefy.");
-  }catch(err){ toast(err.message); }
-  finally{ btn.disabled=false; btn.textContent="Atualizar"; }
+    if(force && !quiet) toast("Dados atualizados com o Pipefy.");
+  }catch(err){ toast(err.message); if(presentationActive)$("presentationStatus").textContent="Falha na atualização · nova tentativa em 2 min"; }
+  finally{ dashboardLoading=false; btn.disabled=false; btn.textContent="Atualizar"; }
 }
 
 function render(d){
+  if(presentationActive)$("presentationStatus").textContent="Atualização automática · 2 min";
   $("lastSync").textContent="Atualizado "+new Date(d.synchronizedAt).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
   $("attentionCount").textContent=d.kpis.attention;
   $("kpiActive").textContent=d.kpis.active;
@@ -66,11 +73,11 @@ function render(d){
 
   const maxPipe=Math.max(1,...d.distributions.pipes.map(x=>x.count));
   $("pipeBars").innerHTML=d.distributions.pipes.map(x=>`
-    <div class="pipe-tile">
+    <button type="button" class="pipe-tile" data-demand-pipe="${esc(x.id)}" aria-label="Ver demandas de ${esc(x.name)}">
       <strong>${x.count}</strong>
       <span>${esc(x.name)}</span>
       <div class="mini-meter"><i style="width:${Math.round(x.count/maxPipe*100)}%"></i></div>
-    </div>`).join("");
+    </button>`).join("");
 
   if(d.warnings?.length){ $("warnings").innerHTML=d.warnings.map(w=>`<div>${esc(w)}</div>`).join(""); $("warnings").classList.remove("hidden"); }
   else $("warnings").classList.add("hidden");
@@ -121,14 +128,43 @@ function renderTable(){
 }
 
 ["searchInput","pipeFilter","phaseFilter","personFilter","statusFilter"].forEach(id=>$(id).addEventListener(id==="searchInput"?"input":"change",applyFilters));
-$("viewAttentionBtn").addEventListener("click",()=>{
+function openFilteredDemands({status="",pipe="",person=""}={}){
   if(!state.data)return;
-  ["searchInput","pipeFilter","phaseFilter","personFilter"].forEach(id=>$(id).value="");
-  $("statusFilter").value="attention";
-  applyFilters();
-  openDetail("demandsDialog");
-  $("statusFilter").focus({preventScroll:true});
+  $("searchInput").value=""; $("phaseFilter").value="";
+  $("statusFilter").value=status; $("pipeFilter").value=pipe; $("personFilter").value=person;
+  applyFilters(); openDetail("demandsDialog");
+}
+$("viewAttentionBtn").addEventListener("click",()=>openFilteredDemands({status:"attention"}));
+document.querySelectorAll('[data-demand-status]').forEach(btn=>btn.addEventListener('click',()=>openFilteredDemands({status:btn.dataset.demandStatus})));
+$("pipeBars").addEventListener('click',e=>{const btn=e.target.closest('[data-demand-pipe]');if(btn)openFilteredDemands({pipe:btn.dataset.demandPipe});});
+$("workloadChart").addEventListener('click',e=>{const btn=e.target.closest('[data-demand-person]');if(btn)openFilteredDemands({person:btn.dataset.demandPerson});});
+function stopPresentation(){
+  const exit=presentationUsedFullscreen;
+  presentationActive=false;presentationUsedFullscreen=false;
+  clearInterval(presentationTimer);presentationTimer=null;
+  document.body.classList.remove('presentation-mode');
+  $("presentationBtn").textContent="Apresentar";$("presentationBtn").setAttribute('aria-pressed','false');
+  $("presentationStatus").classList.add('hidden');
+  if(exit && document.fullscreenElement)document.exitFullscreen().catch(()=>{});
+}
+$("presentationBtn").addEventListener('click',async()=>{
+  if(presentationActive){stopPresentation();return;}
+  presentationActive=true;
+  document.body.classList.add('presentation-mode');
+  $("presentationBtn").textContent="Sair da apresentação";$("presentationBtn").setAttribute('aria-pressed','true');
+  $("presentationStatus").textContent="Atualização automática · 2 min";$("presentationStatus").classList.remove('hidden');
+  if(document.documentElement.requestFullscreen){
+    try{await document.documentElement.requestFullscreen();presentationUsedFullscreen=true;}
+    catch{toast("Apresentação ativa nesta janela. Tela cheia indisponível no navegador.");}
+  }
+  if(!presentationActive)return;
+  loadDashboard(true,true);
+  presentationTimer=setInterval(()=>{
+    if(!document.hidden && !document.querySelector('dialog[open]'))loadDashboard(true,true);
+  },120000);
 });
+document.addEventListener('fullscreenchange',()=>{if(presentationUsedFullscreen && !document.fullscreenElement)stopPresentation();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape' && presentationActive && !document.querySelector('dialog[open]'))stopPresentation();});
 let analysisRunning=false;
 function analysisDate(value){return new Date(value).toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo",dateStyle:"short",timeStyle:"short"});}
 async function loadAnalysisStatus(){
