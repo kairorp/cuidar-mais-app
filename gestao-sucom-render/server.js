@@ -2,6 +2,8 @@ import express from "express";
 import crypto from "node:crypto";
 import { ANALYSIS_QUERY_FIELDS, createAdvisor } from "./insights.js";
 
+import { classifyCard } from "./card-status.js";
+
 const app = express();
 app.use(express.json({ limit: "64kb" }));
 app.use(express.static("public", {
@@ -236,39 +238,18 @@ async function mapLimit(items, limit, fn) {
   return result;
 }
 
-function localDay(dateLike) {
-  if (!dateLike) return null;
-  const d = new Date(dateLike);
-  return Number.isNaN(d.getTime()) ? null : d;
-}
-
-function dueInDays(dueDate) {
-  const d = localDay(dueDate);
-  if (!d) return null;
-  return Math.ceil((d.getTime() - Date.now()) / 86_400_000);
-}
-
-function attentionReasons(card) {
-  const reasons = [];
-  if (card.overdue || card.late || card.expired) reasons.push("Atrasada");
-  const days = dueInDays(card.dueDate);
-  if (days !== null && days >= 0 && days <= 2) reasons.push(days === 0 ? "Vence hoje" : `Vence em ${days} dia${days === 1 ? "" : "s"}`);
-  if (!card.assignees.length) reasons.push("Sem responsável");
-  return reasons;
-}
-
 function buildSnapshot(pipes, cards, warnings) {
-  const active = cards.filter(c => !c.done);
+  const now = new Date();
+  const active = cards.filter(c => !c.done).map(c => classifyCard(c, now));
   active.sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
 
   const attention = active
-    .map(card => ({ ...card, attentionReasons: attentionReasons(card) }))
     .filter(card => card.attentionReasons.length)
     .sort((a, b) => {
-      const aa = Number(a.overdue || a.late || a.expired);
-      const bb = Number(b.overdue || b.late || b.expired);
+      const aa = Number(a.overdue);
+      const bb = Number(b.overdue);
       if (aa !== bb) return bb - aa;
-      return (dueInDays(a.dueDate) ?? 9999) - (dueInDays(b.dueDate) ?? 9999);
+      return (a.dueDays ?? 9999) - (b.dueDays ?? 9999);
     });
 
   const workloadMap = new Map();
@@ -276,7 +257,7 @@ function buildSnapshot(pipes, cards, warnings) {
     for (const person of card.assignees) {
       const current = workloadMap.get(person.id) || { id: person.id, name: person.name, email: person.email, avatarUrl: person.avatarUrl || null, count: 0, attention: 0 };
       current.count += 1;
-      if (attentionReasons(card).length) current.attention += 1;
+      if (card.attentionReasons.length) current.attention += 1;
       workloadMap.set(person.id, current);
     }
   }
@@ -302,11 +283,8 @@ function buildSnapshot(pipes, cards, warnings) {
   }
   const byPhase = [...phaseMap.values()].sort((a, b) => b.count - a.count);
 
-  const overdue = active.filter(c => c.overdue || c.late || c.expired).length;
-  const dueSoon = active.filter(c => {
-    const d = dueInDays(c.dueDate);
-    return d !== null && d >= 0 && d <= 7;
-  }).length;
+  const overdue = active.filter(c => c.overdue).length;
+  const dueSoon = active.filter(c => c.dueSoon).length;
   const unassigned = active.filter(c => !c.assignees.length).length;
 
   return {
@@ -409,6 +387,7 @@ const server = app.listen(PORT, "0.0.0.0", async () => {
   }
   try {
     const snapshot = await getDashboard(true);
+    console.log("[deadline-check]", JSON.stringify({suspended:snapshot.cards.filter(c=>c.suspended).length, overdue:snapshot.kpis.overdue, phaseFlagsWithoutOverdue:snapshot.cards.filter(c=>!c.overdue&&(c.late||c.expired)).length}));
     console.log("[startup-check] Pipefy OK", JSON.stringify({
       active: snapshot.kpis.active,
       attention: snapshot.kpis.attention,

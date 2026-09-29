@@ -8,8 +8,7 @@ const $ = id => document.getElementById(id);
 function toast(message){ const el=$("toast"); el.textContent=message; el.classList.remove("hidden"); setTimeout(()=>el.classList.add("hidden"),2800); }
 function esc(v){ return String(v??"").replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[s])); }
 function fmtDate(v){ if(!v)return "Sem prazo"; const d=new Date(v); return Number.isNaN(d)? "Sem prazo": d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit",year:"2-digit"}); }
-function daysUntil(v){ if(!v)return null; const d=new Date(v); if(Number.isNaN(d))return null; return Math.ceil((d-Date.now())/86400000); }
-function reasons(card){ const r=[]; if(card.overdue||card.late||card.expired)r.push("Atrasada"); const d=daysUntil(card.dueDate); if(d!==null&&d>=0&&d<=2)r.push(d===0?"Vence hoje":`Vence em ${d} dia${d===1?"":"s"}`); if(!card.assignees.length)r.push("Sem responsável"); return r; }
+function reasons(card){ return card.attentionReasons || []; }
 
 async function api(path, opts={}){
   const res=await fetch(path,{...opts,credentials:"same-origin",headers:{"Content-Type":"application/json",...(opts.headers||{})}});
@@ -104,8 +103,9 @@ function applyFilters(){
     if(phase && c.phase?.id!==phase)return false;
     if(person && !c.assignees.some(a=>a.id===person))return false;
     if(status==="attention" && !reasons(c).length)return false;
-    if(status==="overdue" && !(c.overdue||c.late||c.expired))return false;
-    if(status==="dueSoon"){const d=daysUntil(c.dueDate); if(!(d!==null&&d>=0&&d<=7))return false;}
+    if(status==="overdue" && !c.overdue)return false;
+    if(status==="dueSoon" && !c.dueSoon)return false;
+    if(status==="suspended" && !c.suspended)return false;
     if(status==="unassigned" && c.assignees.length)return false;
     return true;
   });
@@ -115,13 +115,13 @@ function applyFilters(){
 function renderTable(){
   $("filteredCount").textContent=`${state.filtered.length} de ${state.data.cards.length} abertas`;
   $("demandsBody").innerHTML=state.filtered.map(c=>{
-    const rs=reasons(c), delayed=c.overdue||c.late||c.expired;
-    const status=delayed?'<span class="status-badge red">Atrasada</span>':rs.length?'<span class="status-badge amber">Atenção</span>':'<span class="status-badge">Em andamento</span>';
+    const rs=reasons(c), delayed=c.overdue;
+    const status=c.suspended?'<span class="status-badge">Suspensa</span>':delayed?'<span class="status-badge red">Atrasada</span>':rs.length?'<span class="status-badge amber">Atenção</span>':'<span class="status-badge">Em andamento</span>';
     return `<tr>
       <td><a href="${esc(c.url||"#")}" target="_blank" rel="noopener">${esc(c.title)}</a><span class="subtext">Atualizada ${c.updatedAt?new Date(c.updatedAt).toLocaleDateString("pt-BR"):"—"}</span></td>
       <td><strong>${esc(c.pipe.name)}</strong><span class="subtext">${esc(c.phase?.name||"Sem fase")}</span></td>
       <td>${c.assignees.length?c.assignees.map(a=>esc(a.name)).join(", "):'<span class="status-badge amber">Sem responsável</span>'}</td>
-      <td>${fmtDate(c.dueDate)}</td>
+      <td>${fmtDate(c.dueDateDay ? c.dueDateDay+"T12:00:00" : c.dueDate)}</td>
       <td>${status}</td>
     </tr>`;
   }).join("") || '<tr><td colspan="5" class="muted">Nenhuma demanda encontrada com estes filtros.</td></tr>';

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20260929-actions" />
+  <link rel="stylesheet" href="/styles.css?v=20260929-deadlines" />
 </head>
 <body>
   <section id="loginView" class="login-shell">
@@ -48,7 +48,7 @@
 
     <section class="kpi-grid">
       <button type="button" class="kpi-card" data-demand-status=""><span>Demandas abertas</span><strong id="kpiActive">—</strong><small>trabalho em andamento</small></button>
-      <button type="button" class="kpi-card danger" data-demand-status="overdue"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>precisam de encaminhamento</small></button>
+      <button type="button" class="kpi-card danger" data-demand-status="overdue"><span>Atrasadas</span><strong id="kpiOverdue">—</strong><small>vencimento anterior a hoje · exceto suspensas</small></button>
       <button type="button" class="kpi-card warning" data-demand-status="dueSoon"><span>Vencem em 7 dias</span><strong id="kpiDueSoon">—</strong><small>acompanhamento próximo</small></button>
       <button type="button" class="kpi-card" data-demand-status="unassigned"><span>Sem responsável</span><strong id="kpiUnassigned">—</strong><small>precisam de definição</small></button>
     </section>
@@ -112,6 +112,7 @@
         <select id="statusFilter" aria-label="Filtrar por situação">
           <option value="">Todas as situações</option>
           <option value="attention">Precisa de atenção</option>
+          <option value="suspended">Suspensa</option>
           <option value="overdue">Atrasada</option>
           <option value="dueSoon">Vence em 7 dias</option>
           <option value="unassigned">Sem responsável</option>
@@ -129,7 +130,7 @@
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="/workload.js?v=20260929-actions"></script>
-  <script src="/app.js?v=20260929-actions" defer></script>
+  <script src="/workload.js?v=20260929-deadlines"></script>
+  <script src="/app.js?v=20260929-deadlines" defer></script>
 </body>
 </html>
