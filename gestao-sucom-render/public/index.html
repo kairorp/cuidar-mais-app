@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20261004-challenge" />
+  <link rel="stylesheet" href="/styles.css?v=20261004-compare2" />
 </head>
 <body>
   <section id="loginView" class="login-shell">
@@ -141,14 +141,14 @@
     <p id="challengeStatus" role="status" aria-live="polite">Escolha as datas para consultar. A primeira leitura inclui os cards concluídos e pode demorar.</p>
     <div id="challengePeople" class="challenge-people"></div>
     <div id="challengeResults"></div>
-    <details class="analysis-limits"><summary>Como o percentual é calculado</summary><p>Entregues no prazo ÷ (entregues no prazo + concluídas com atraso + vencidas abertas) × 100. Abertas que vencem hoje ou depois não reduzem a pontuação. Sem entregas avaliáveis, aparece “Sem base”. Datas seguem o horário de Brasília.</p><p>Um card conta para um responsável principal. Em cards compartilhados, selecione o principal na conferência; os demais são apoios. Suspensas, canceladas e registros incompletos aguardam conferência. Exclusões e ajustes de prazo exigem justificativa. A conclusão usa a data informada pelo Pipefy, sem verificar aprovação de qualidade. Reaberturas não geram contagem duplicada.</p><p>Consultas antigas usam o estado atual dos cards, não reconstituem a situação naquele dia. Antes de uma disputa oficial, será necessário registrar e preservar as regras, prazos e responsáveis no servidor.</p></details>
+    <details class="analysis-limits"><summary>Como o percentual é calculado</summary><p>A conta usa dois grupos: em dia e fora do prazo. O percentual mostra quantas das demandas avaliadas foram entregues em dia. Exemplo: 8 em dia entre 10 avaliadas = 80%. Demandas abertas que vencem hoje ou depois ficam aguardando e não reduzem a pontuação. Datas seguem o horário de Brasília.</p><p>Um card conta para um responsável principal. Em cards compartilhados, selecione o principal na conferência; os demais são apoios. Suspensas, canceladas e registros incompletos aguardam conferência. Exclusões e ajustes de prazo exigem justificativa. A conclusão usa a data informada pelo Pipefy, sem verificar aprovação de qualidade. Reaberturas não geram contagem duplicada.</p><p>Consultas antigas usam o estado atual dos cards, não reconstituem a situação naquele dia. Antes de uma disputa oficial, será necessário registrar e preservar as regras, prazos e responsáveis no servidor.</p></details>
   </section>
 </dialog>
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="/workload.js?v=20261004-challenge"></script>
-  <script src="/app.js?v=20261004-challenge" defer></script>
-  <script type="module" src="/challenge.js?v=20261004-challenge"></script>
+  <script src="/workload.js?v=20261004-compare2"></script>
+  <script src="/app.js?v=20261004-compare2" defer></script>
+  <script type="module" src="/challenge.js?v=20261004-compare2"></script>
 </body>
 </html>

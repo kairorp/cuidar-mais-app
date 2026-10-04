@@ -19,13 +19,14 @@ export function ownerOf(card, override) {
 export function calculate(cards, people, {start, end, overrides={}, now=new Date()}={}) {
   if(!day(start)||!day(end)||start>end) throw new Error('Escolha uma data inicial e final válidas.');
   const today=day(now), rows=[], seen=new Set();
-  const stats=people.map(p=>({...p,onTime:0,late:0,overdue:0,upcoming:0,dueSoon:0,support:0,pending:0,excluded:0,total:0,denominator:0,score:null}));
+  const stats=people.map(p=>({...p,onTime:0,late:0,overdue:0,upcoming:0,dueSoon:0,support:0,matched:0,pending:0,excluded:0,total:0,denominator:0,score:null}));
   const lookup=new Map(stats.map(p=>[p.id,p]));
   for(const card of cards){
     if(seen.has(card.id))continue;seen.add(card.id);
     if(!card.assignees?.some(p=>lookup.has(p.id)))continue;
     const rule=overrides[card.id] || {}, due=day(rule.dueDate || card.dueDate), completed=day(card.finishedAt);
     if(due && (due<start||due>end))continue;
+    for(const person of card.assignees)if(lookup.has(person.id))lookup.get(person.id).matched++;
     const ownerId=ownerOf(card,rule), owner=lookup.get(ownerId);
     const phase=normalize(card.phase?.name);
     let status;
@@ -34,7 +35,12 @@ export function calculate(cards, people, {start, end, overrides={}, now=new Date
     else if(card.done)status=completed<=due?'onTime':'late';
     else status=due<today?'overdue':'upcoming';
     const dueSoon=status==='upcoming' && (Date.parse(due)-Date.parse(today))/86400000<=7;
-    const row={...card,ownerId,due,completed,status,dueSoon,reason:rule.reason || '',referenceAdjusted:Boolean(rule.dueDate)};
+    const pendingReasons=[];
+    if(!due)pendingReasons.push('Sem vencimento informado');
+    if(!ownerId)pendingReasons.push('Definir responsável principal');
+    if(/\b(suspens[ao]s?|suspendid[ao]s?|cancelad[ao]s?)\b/.test(phase))pendingReasons.push('Suspensa ou cancelada: conferir exclusão');
+    if(card.done && (!completed || completed>today))pendingReasons.push('Conferir data de conclusão');
+    const row={...card,ownerId,due,completed,status,dueSoon,pendingReasons,reason:rule.reason || '',referenceAdjusted:Boolean(rule.dueDate)};
     rows.push(row);
     if(owner){
       owner.total++;owner[status]++;if(dueSoon)owner.dueSoon++;
