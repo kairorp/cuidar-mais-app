@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=20260929-deadlines" />
+  <link rel="stylesheet" href="/styles.css?v=20261004-challenge" />
 </head>
 <body>
   <section id="loginView" class="login-shell">
@@ -39,6 +39,7 @@
       <div class="top-actions">
         <div class="sync-pill"><span id="lastSync">Carregando…</span><span id="presentationStatus" class="hidden">Atualização automática · 2 min</span></div>
         <button id="openDemandsBtn" class="btn btn-primary">Ver demandas</button>
+        <button id="openChallengeBtn" class="btn btn-outline">Desafio da equipe</button>
         <button id="openAdvisorBtn" class="btn btn-outline">O que decidir hoje</button>
         <button id="presentationBtn" class="btn btn-outline" aria-pressed="false">Apresentar</button>
         <button id="refreshBtn" class="btn btn-secondary">Atualizar</button>
@@ -127,10 +128,27 @@
       </div>
     </section>
 </dialog>
+<dialog id="challengeDialog" class="detail-dialog demands-dialog" aria-labelledby="challengeTitle">
+  <div class="dialog-toolbar"><span>ENTREGAS E PRAZOS · TESTE</span><button class="btn btn-ghost" data-close-dialog>Fechar ×</button></div>
+  <section class="panel challenge-panel">
+    <div class="panel-heading"><div><p class="eyebrow">CONSULTA POR PERÍODO</p><h2 id="challengeTitle">Desafio da equipe</h2><p class="advisor-intro">Cumprimento dos prazos de Klysman, Gabriel e Jéssica. Apoios aparecem separados.</p></div></div>
+    <p class="challenge-notice">Simulação para testar as regras, sem vencedor oficial. Usa o vencimento atual do Pipefy, salvo ajustes de referência feitos aqui. Não recupera o prazo original nem os responsáveis históricos. Conferências ficam somente neste navegador e não alteram o Pipefy.</p>
+    <form id="challengeForm" class="challenge-filters">
+      <label>Vencimento a partir de<input id="challengeStart" type="date" required></label>
+      <label>Vencimento até<input id="challengeEnd" type="date" required></label>
+      <button class="btn btn-primary" id="challengeLoad" type="submit">Consultar período</button>
+    </form>
+    <p id="challengeStatus" role="status" aria-live="polite">Escolha as datas para consultar. A primeira leitura inclui os cards concluídos e pode demorar.</p>
+    <div id="challengePeople" class="challenge-people"></div>
+    <div id="challengeResults"></div>
+    <details class="analysis-limits"><summary>Como o percentual é calculado</summary><p>Entregues no prazo ÷ (entregues no prazo + concluídas com atraso + vencidas abertas) × 100. Abertas que vencem hoje ou depois não reduzem a pontuação. Sem entregas avaliáveis, aparece “Sem base”. Datas seguem o horário de Brasília.</p><p>Um card conta para um responsável principal. Em cards compartilhados, selecione o principal na conferência; os demais são apoios. Suspensas, canceladas e registros incompletos aguardam conferência. Exclusões e ajustes de prazo exigem justificativa. A conclusão usa a data informada pelo Pipefy, sem verificar aprovação de qualidade. Reaberturas não geram contagem duplicada.</p><p>Consultas antigas usam o estado atual dos cards, não reconstituem a situação naquele dia. Antes de uma disputa oficial, será necessário registrar e preservar as regras, prazos e responsáveis no servidor.</p></details>
+  </section>
+</dialog>
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="/workload.js?v=20260929-deadlines"></script>
-  <script src="/app.js?v=20260929-deadlines" defer></script>
+  <script src="/workload.js?v=20261004-challenge"></script>
+  <script src="/app.js?v=20261004-challenge" defer></script>
+  <script type="module" src="/challenge.js?v=20261004-challenge"></script>
 </body>
 </html>

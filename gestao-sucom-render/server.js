@@ -347,6 +347,59 @@ app.post("/api/insights", requireAuth, async (req, res) => {
   }
 });
 
+// Separate, authenticated historical read for the challenge. Never enters dashboard KPIs.
+const CHALLENGE_QUERY = ACTIVE_CARDS_QUERY
+  .replace('query ActiveCards', 'query ChallengeCards')
+  .replace('include_done: false', 'include_done: true')
+  .replace('updated_at', 'updated_at finished_at fields { name value }');
+let challengeJob = { status: 'idle' };
+let challengeInflight = null;
+async function loadChallengeCards() {
+  const pipes = await fetchPipes();
+  // fetchPipes has fallbacks for the dashboard; require all real pipes here.
+  const accessible = await gql(PIPE_QUERY, {ids: PIPE_IDS});
+  if((accessible.pipes || []).filter(Boolean).length !== PIPE_IDS.length) throw new Error('Acesso incompleto aos pipes.');
+  let count=0;
+  const results = await mapLimit(pipes, 2, async pipe => {
+    const cards=[];let after=null;const cursors=new Set();
+    for(let page=0;page<200;page++) {
+      const data=await gql(CHALLENGE_QUERY,{pipeId:pipe.id,first:PAGE_SIZE,after});
+      if(!data.cards)throw new Error('Leitura histórica incompleta.');
+      for(const {node:c} of data.cards.edges || [])cards.push({
+        id:String(c.id),title:c.title || '(sem título)',done:Boolean(c.done),
+        dueDate:c.due_date || null,finishedAt:c.finished_at || null,
+        phase:c.current_phase,pipe,fields:c.fields || [],
+        assignees:(c.assignees || []).map(a=>({id:String(a.id),name:a.name,avatarUrl:a.avatarUrl || null}))
+      });
+      challengeJob.readCards=count+cards.length;
+      if(!data.cards.pageInfo?.hasNextPage){count+=cards.length;challengeJob.readCards=count;return cards;}
+      const cursor=data.cards.pageInfo.endCursor;
+      if(!cursor || cursors.has(cursor))throw new Error('Paginação histórica incompleta.');
+      cursors.add(cursor);after=cursor;
+    }
+    throw new Error('Leitura histórica excedeu o limite. Nenhum resultado parcial foi calculado.');
+  });
+  const cards=[...new Map(results.flat().map(c=>[c.id,c])).values()];
+  console.log('[challenge-read-check]',JSON.stringify({pipes:pipes.length,cards:cards.length,finished:cards.filter(c=>c.done).length}));
+  return {cards,pipes:pipes.length,synchronizedAt:new Date().toISOString()};
+}
+app.get('/api/challenge',requireAuth,(_req,res)=>{
+  res.setHeader('Cache-Control','no-store');
+  if(challengeJob.status==='ready')return res.json({ok:true,status:'ready',...challengeJob.data});
+  res.json({ok:true,status:challengeJob.status,readCards:challengeJob.readCards || 0,error:challengeJob.error || null});
+});
+app.post('/api/challenge',requireAuth,(req,res)=>{
+  res.setHeader('Cache-Control','no-store');
+  if(req.headers['x-sucom-analysis']!=='read-only' || req.headers['sec-fetch-site']==='cross-site')return res.status(403).json({ok:false,error:'Solicitação não autorizada.'});
+  if(!challengeInflight && !(challengeJob.status==='ready' && Date.now()-challengeJob.at<60000)){
+    challengeJob={status:'loading',readCards:0};
+    challengeInflight=loadChallengeCards().then(data=>{challengeJob={status:'ready',data,at:Date.now()};})
+      .catch(err=>{console.error('[challenge] Failed:',safeError(err));challengeJob={status:'error',error:'Não foi possível ler todos os pipes. Tente novamente; nenhum resultado parcial será exibido.'};})
+      .finally(()=>{challengeInflight=null;});
+  }
+  res.status(202).json({ok:true,status:challengeJob.status});
+});
+
 app.get("/api/health", async (_req, res) => {
   const base = {
     ok: true,
@@ -354,7 +407,7 @@ app.get("/api/health", async (_req, res) => {
     pipefyConfigured: Boolean(process.env.PIPEFY_CLIENT_SECRET),
     adminConfigured: Boolean(process.env.ADMIN_PASSWORD && process.env.SESSION_SECRET),
     expectedPipes: PIPE_IDS.length,
-    release: "2026-09-25-advisor-v1",
+    release: "2026-10-04-challenge-trial",
     aiConfigured: Boolean(process.env.OPENAI_API_KEY) && process.env.AI_ENABLED !== "false",
     aiReadOnly: true,
     advisoryReadCheck,
@@ -400,10 +453,13 @@ const server = app.listen(PORT, "0.0.0.0", async () => {
     }));
     const accessChecks = await mapLimit(snapshot.distributions.pipes, 2, async pipe => {
       const data = await gql(DETAILED_CARDS_QUERY, {pipeId:pipe.id,first:1,after:null});
+      const trial = await gql(CHALLENGE_QUERY, {pipeId:pipe.id,first:1,after:null});
+      if (!trial.cards) throw new Error("Leitura do desafio indisponível.");
       if (!data.cards) throw new Error("Leitura detalhada indisponível.");
       return {pipeId:pipe.id, available:true};
     });
     advisoryReadCheck = {ready:accessChecks.length === PIPE_IDS.length, checkedPipes:accessChecks.length};
+    console.log("[challenge-schema-check]", JSON.stringify({checkedPipes:accessChecks.length,ready:true}));
     console.log("[advisory-read-check]", JSON.stringify({...advisoryReadCheck,aiConfigured:advisor.status().configured}));
   } catch (err) {
     console.error("[startup-check] Pipefy FALHOU:", safeError(err));

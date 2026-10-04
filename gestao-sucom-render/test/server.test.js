@@ -16,9 +16,13 @@ test('rotas consultivas exigem sessão; ativação ausente é explícita e front
  });
  try{
    assert.equal((await fetch(address+'/api/insights')).status,401);
+   assert.equal((await fetch(address+'/api/challenge')).status,401);
+   assert.equal((await fetch(address+'/api/challenge',{method:'POST'})).status,401);
    const login=await fetch(address+'/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password})});
    assert.equal(login.status,200);const cookie=login.headers.get('set-cookie').split(';')[0];
    const status=await (await fetch(address+'/api/insights',{headers:{cookie}})).json();
+   assert.equal((await fetch(address+'/api/challenge',{method:'POST',headers:{cookie}})).status,403);
+   assert.equal((await (await fetch(address+'/api/challenge',{headers:{cookie}})).json()).status,'idle');
    assert.equal(status.configured,false);assert.equal(status.readOnly,true);assert.equal(status.latest,null);
    assert.equal((await fetch(address+'/api/insights',{method:'POST',headers:{cookie}})).status,403);
    const disabled=await fetch(address+'/api/insights',{method:'POST',headers:{cookie,'X-Sucom-Analysis':'read-only'}});
